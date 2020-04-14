@@ -1,4 +1,4 @@
-﻿using SmartRestaurant.Services.ProductServices.ProductDTO;
+﻿using SmartRestaurant.Services.ProductServices.ProductServiceDTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,5 +14,6 @@ namespace SmartRestaurant.Services.ProductServices
         Task<ProductDto> GetById(int productId);
         Task<IEnumerable<ProductDto>> GetAllProducts();
         Task<IEnumerable<ProductDto>> GetByType(string type);
+        Task<IEnumerable<IngredientDto>> GetAllProductIngredients(int id);
     }
 }

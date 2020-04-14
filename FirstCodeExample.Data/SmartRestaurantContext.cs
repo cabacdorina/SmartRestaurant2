@@ -14,7 +14,8 @@ namespace SmartRestaurant.Data
         public DbSet<IngredientPerUnit> IngredientPerUnits { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductCommand> ProductCommands { get; set; }
-
+        public DbSet<RecipeIngredientPerPiece> RecipeIngredientPerPieces { get; set; }
+        public DbSet<RecipeIngredientPerUnit> RecipeIngredientPerUnits { get; set; }
         public SmartRestaurantContext(DbContextOptions<SmartRestaurantContext> options) : base(options)
         {
 
@@ -43,6 +44,31 @@ namespace SmartRestaurant.Data
                 .WithMany(s => s.ProductCommand)
                 .HasForeignKey(sc => sc.CommandId);
 
+            modelBuilder.Entity<RecipeIngredientPerPiece>().HasKey(x => new { x.IngredientPerPieceId, x.RecipeId });
+
+            modelBuilder.Entity<RecipeIngredientPerPiece>()
+                .HasOne<Recipe>(r => r.Recipe)
+                .WithMany(i => i.RecipeIngredientPerPiece)
+                .HasForeignKey(f => f.RecipeId);
+
+            modelBuilder.Entity<RecipeIngredientPerPiece>()
+                .HasOne<IngredientPerPiece>(ri => ri.IngredientPerPiece)
+                .WithMany(r => r.RecipeIngredientPerPiece)
+                .HasForeignKey(f => f.IngredientPerPieceId);
+            
+
+
+            modelBuilder.Entity<RecipeIngredientPerUnit>().HasKey(x => new { x.IngredientPerUnitId, x.RecipeId });
+
+            modelBuilder.Entity<RecipeIngredientPerUnit>()
+                .HasOne<Recipe>(r => r.Recipe)
+                .WithMany(i => i.RecipeIngredientPerUnit)
+                .HasForeignKey(f => f.RecipeId);
+
+            modelBuilder.Entity<RecipeIngredientPerUnit>()
+                .HasOne<IngredientPerUnit>(ri => ri.IngredientPerUnit)
+                .WithMany(r => r.RecipeIngredientPerUnit)
+                .HasForeignKey(f => f.IngredientPerUnitId);
         }
     }
 }

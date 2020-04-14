@@ -1,7 +1,8 @@
-﻿using Omu.ValueInjecter;
+﻿using Microsoft.EntityFrameworkCore;
+using Omu.ValueInjecter;
 using SmartRestaurant.Data.Infrastructure;
 using SmartRestaurant.Data.Models;
-using SmartRestaurant.Services.ProductServices.ProductDTO;
+using SmartRestaurant.Services.ProductServices.ProductServiceDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,16 @@ namespace SmartRestaurant.Services.ProductServices
         private readonly IRepository<Product> _productRepo;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ProductService(IRepository<Product> prod, IUnitOfWork unitOfWork)
+        private readonly IRepository<RecipeIngredientPerPiece> _recipeIngredPerPieceRepo;
+        private readonly IRepository<RecipeIngredientPerUnit> _recipeIngredPerUnitRepo;
+        public ProductService(IRepository<Product> prod, IUnitOfWork unitOfWork,
+            IRepository<RecipeIngredientPerPiece> recipeIngredPerPieceRepo,
+            IRepository<RecipeIngredientPerUnit> recipeIngredPerUnitRepo)
         {
             _productRepo = prod;
             _unitOfWork = unitOfWork;
+            _recipeIngredPerPieceRepo = recipeIngredPerPieceRepo;
+            _recipeIngredPerUnitRepo = recipeIngredPerUnitRepo;
         }
         public async Task<int> Create(ProductDto product)
         {
@@ -69,14 +76,47 @@ namespace SmartRestaurant.Services.ProductServices
 
         public async Task<IEnumerable<ProductDto>> GetAllProducts()
         {
-            var prods = await _productRepo.GetAll();
-            return prods.Select(p => new ProductDto().InjectFrom(p) as ProductDto);
+            var prodList = await _productRepo.GetAll();
+            return prodList.Select(p => new ProductDto().InjectFrom(p) as ProductDto);
         }
 
         public Task<IEnumerable<ProductDto>> GetByType(string type)
         {
-            var prods = _productRepo.Query(p=> p.Type.Equals(type)).ToList();
+            var prods = _productRepo.Query(p => p.Type.Equals(type)).ToList();
             return Task.FromResult(prods.Select(p => new ProductDto().InjectFrom(p) as ProductDto));
+        }
+
+        public async Task<IEnumerable<IngredientDto>> GetAllProductIngredients(int productId)
+        {
+            var product = await _productRepo.GetById(productId);
+            if (product.RecipeId < 1)
+            {
+                return null;
+            }
+            var ingrdientsPerUnitList = await _recipeIngredPerUnitRepo.Query()
+                .Include(r => r.Recipe)
+                .Include(ipu => ipu.IngredientPerUnit)
+                .Where(x => x.RecipeId == product.RecipeId)
+                .Select(x => new IngredientDto
+                {
+                    Name = x.IngredientPerUnit.Name,
+                    Price = x.IngredientPerUnit.Price,
+                    UnitType = x.IngredientPerUnit.UnitType
+                }).ToListAsync();
+
+            var ingredientsPerPieceList = await _recipeIngredPerPieceRepo.Query()
+            .Include(r => r.Recipe)
+            .Include(ipp => ipp.IngredientPerPiece)
+            .Where(x => x.RecipeId == product.RecipeId)
+            .Select(x => new IngredientDto
+             {
+                 Name = x.IngredientPerPiece.Name,
+                 Price = x.IngredientPerPiece.Price,
+                 NumberOfPieces = x.IngredientPerPiece.NumberOfPieces,
+                 NumberOfPiecesReserved = x.IngredientPerPiece.NumberOfPiecesReserved
+             }).ToListAsync();
+
+            return ingrdientsPerUnitList.Concat(ingredientsPerPieceList).ToList();
         }
     }
 }

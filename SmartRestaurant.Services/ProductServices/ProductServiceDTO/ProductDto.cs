@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SmartRestaurant.Services.ProductServices.ProductDTO
+namespace SmartRestaurant.Services.ProductServices.ProductServiceDTO
 {
     public class ProductDto
     {
@@ -12,6 +12,6 @@ namespace SmartRestaurant.Services.ProductServices.ProductDTO
         public string Type { get; set; }
         public string ImageUrl { get; set; }
         public DateTime BoughtDate { get; set; }
-        public int RecipeId { get; set; }
+        public int RecipeId { get; set; }//avem nevoie?
     }
 }

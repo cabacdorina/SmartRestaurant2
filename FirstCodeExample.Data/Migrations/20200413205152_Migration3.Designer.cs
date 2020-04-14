@@ -10,7 +10,7 @@ using SmartRestaurant.Data;
 namespace SmartRestaurant.Data.Migrations
 {
     [DbContext(typeof(SmartRestaurantContext))]
-    [Migration("20200409162728_Migration3")]
+    [Migration("20200413205152_Migration3")]
     partial class Migration3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,12 @@ namespace SmartRestaurant.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CommandDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Commands");
@@ -41,6 +47,7 @@ namespace SmartRestaurant.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NumberOfPieces")
@@ -52,12 +59,7 @@ namespace SmartRestaurant.Data.Migrations
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.Property<int>("RecipeId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("RecipeId");
 
                     b.ToTable("IngredientPerPieces");
                 });
@@ -70,20 +72,17 @@ namespace SmartRestaurant.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<float>("Price")
                         .HasColumnType("real");
-
-                    b.Property<int>("RecipeId")
-                        .HasColumnType("int");
 
                     b.Property<int>("UnitType")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RecipeId");
 
                     b.ToTable("IngredientPerUnits");
                 });
@@ -118,8 +117,7 @@ namespace SmartRestaurant.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RecipeId")
-                        .IsUnique();
+                    b.HasIndex("RecipeId");
 
                     b.ToTable("Products");
                 });
@@ -146,34 +144,49 @@ namespace SmartRestaurant.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Recipes");
                 });
 
-            modelBuilder.Entity("SmartRestaurant.Data.Models.IngredientPerPiece", b =>
+            modelBuilder.Entity("SmartRestaurant.Data.Models.RecipeIngredientPerPiece", b =>
                 {
-                    b.HasOne("SmartRestaurant.Data.Models.Recipe", "Recipe")
-                        .WithMany("IngredientPerPieces")
-                        .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("IngredientPerPieceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("IngredientPerPieceId", "RecipeId");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("RecipeIngredientPerPieces");
                 });
 
-            modelBuilder.Entity("SmartRestaurant.Data.Models.IngredientPerUnit", b =>
+            modelBuilder.Entity("SmartRestaurant.Data.Models.RecipeIngredientPerUnit", b =>
                 {
-                    b.HasOne("SmartRestaurant.Data.Models.Recipe", "Recipe")
-                        .WithMany("IngredientPerUnits")
-                        .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("IngredientPerUnitId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("IngredientPerUnitId", "RecipeId");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("RecipeIngredientPerUnits");
                 });
 
             modelBuilder.Entity("SmartRestaurant.Data.Models.Product", b =>
                 {
                     b.HasOne("SmartRestaurant.Data.Models.Recipe", "Recipe")
-                        .WithOne("Product")
-                        .HasForeignKey("SmartRestaurant.Data.Models.Product", "RecipeId")
+                        .WithMany()
+                        .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -189,6 +202,36 @@ namespace SmartRestaurant.Data.Migrations
                     b.HasOne("SmartRestaurant.Data.Models.Product", "Product")
                         .WithMany("ProductCommand")
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Data.Models.RecipeIngredientPerPiece", b =>
+                {
+                    b.HasOne("SmartRestaurant.Data.Models.IngredientPerPiece", "IngredientPerPiece")
+                        .WithMany("RecipeIngredientPerPiece")
+                        .HasForeignKey("IngredientPerPieceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SmartRestaurant.Data.Models.Recipe", "Recipe")
+                        .WithMany("RecipeIngredientPerPiece")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SmartRestaurant.Data.Models.RecipeIngredientPerUnit", b =>
+                {
+                    b.HasOne("SmartRestaurant.Data.Models.IngredientPerUnit", "IngredientPerUnit")
+                        .WithMany("RecipeIngredientPerUnit")
+                        .HasForeignKey("IngredientPerUnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SmartRestaurant.Data.Models.Recipe", "Recipe")
+                        .WithMany("RecipeIngredientPerUnit")
+                        .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

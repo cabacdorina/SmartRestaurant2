@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.Services.BusinessModels;
 using SmartRestaurant.Services.ProductServices;
-using SmartRestaurant.Services.ProductServices.ProductDTO;
+using SmartRestaurant.Services.ProductServices.ProductServiceDTO;
 
 namespace SmartRestaurant.API.Controllers
 {
@@ -88,5 +88,16 @@ namespace SmartRestaurant.API.Controllers
             return Ok("Sales added");
         }
 
+        [HttpGet("GetAllProductIngredients/{id}")]
+        public async Task<IActionResult> getAllProductIngredients(int id)
+        {
+            var product = await _productService.GetById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(await _productService.GetAllProductIngredients(id));
+        }
     }
 }

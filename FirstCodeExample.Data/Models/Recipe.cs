@@ -8,8 +8,7 @@ namespace SmartRestaurant.Data.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<IngredientPerUnit> IngredientPerUnits { get; set; }
-        public virtual ICollection<IngredientPerPiece> IngredientPerPieces { get; set; }
-        public Product Product {get; set;}
+        public virtual ICollection<RecipeIngredientPerUnit> RecipeIngredientPerUnit { get; set; }
+        public virtual ICollection<RecipeIngredientPerPiece> RecipeIngredientPerPiece { get; set; }
     }
 }
