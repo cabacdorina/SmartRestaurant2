@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { RegisterLoginService } from '../_services/register-login.service';
 
 @Component({
   selector: 'app-home',
@@ -7,18 +7,18 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  registerMode = false;
-  constructor(private http: HttpClient) { }
+  registerState: boolean = false;
+
+  constructor(
+    private registerService: RegisterLoginService) { }
 
   ngOnInit() {
+    this.registerService.toggleRegister.subscribe((val: boolean) =>{
+      this.registerState = val;
+    })
   }
 
   registerToggle() {
-    this.registerMode = true;
-  }
-
-
-  cancelRegisterMode(registerMode: boolean) {
-    this.registerMode = registerMode;
+    this.registerService.actionToggle(true);
   }
 }

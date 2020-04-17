@@ -3,7 +3,7 @@ import { Product } from '../_models/product';
 import { DessertService } from '../_services/dessert.service';
 import { Router } from '@angular/router';
 import { ProductService } from '../_services/product.service';
-import { AlertifyService } from '../_services/alertify.service';
+import { AlertifyService } from '../_services/utils/alertify.service';
 import { NgForm } from '@angular/forms';
 
 @Component({

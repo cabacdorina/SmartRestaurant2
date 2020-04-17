@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../_services/product.service';
 import { Product } from '../../_models/product';
-import { AlertifyService } from '../../_services/alertify.service';
+import { AlertifyService } from '../../_services/utils/alertify.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DessertService } from 'src/app/_services/dessert.service';
 

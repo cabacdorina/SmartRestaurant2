@@ -8,11 +8,11 @@ import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
-import { AuthService } from './_services/auth.service';
+import { AuthService } from './_services/utils/auth.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
-import { ErrorInterceptorProvider } from './_services/error.interceptor';
-import { AlertifyService } from './_services/alertify.service';
+import { ErrorInterceptorProvider } from './_services/utils/error.interceptor';
+import { AlertifyService } from './_services/utils/alertify.service';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
 import { DessertComponent } from './products/dessert/dessert.component';
@@ -28,6 +28,7 @@ import { MainFoodResolver } from './_resolvers/mainFood.resolver';
 import { SoupResolver } from './_resolvers/soup.resolver';
 import { ProductAddComponent } from './products/product-add/product-add.component';
 import { ProductRemoveComponent } from './products/product-remove/product-remove.component';
+import { RegisterLoginService } from './_services/register-login.service';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -71,7 +72,8 @@ export function tokenGetter() {
       DessertResolver,
       MainFoodResolver,
       SoupResolver,
-      DessertService
+      DessertService,
+      RegisterLoginService
    ],
    bootstrap: [
       AppComponent
