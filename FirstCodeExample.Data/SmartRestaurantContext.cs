@@ -8,6 +8,7 @@ namespace SmartRestaurant.Data
 {
     public class SmartRestaurantContext : DbContext
     {
+        public DbSet<User> Users { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Command> Commands { get; set; }
         public DbSet<IngredientPerPiece> IngredientPerPieces { get; set; }

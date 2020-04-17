@@ -1,0 +1,7 @@
+<div class="container mt-5">
+  <div class="row">
+    <div *ngFor="let prod of prods" class="col-lg-2 col-md-3 col-sm-6">
+      <app-product-card [prod]="prod"  (itemSelected)="onItemSelected(prod)"></app-product-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+.myClass {
+    margin: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    max-width: 60px;
+}
+
+.saveButton {
+    max-width: 180px;
+    text-align: center;
+}
+.updateButton {
+    max-width: 180px;
+    text-align: center;
+    float: right;
+}

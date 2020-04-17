@@ -27,6 +27,7 @@ namespace SmartRestaurant.API
         {
             services = SmartRestaurant.Services.Infrastructure.DependencyMapper.GetDependencies(Configuration, services);
             services.AddControllers();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,11 +43,13 @@ namespace SmartRestaurant.API
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+ 
         }
     }
 }

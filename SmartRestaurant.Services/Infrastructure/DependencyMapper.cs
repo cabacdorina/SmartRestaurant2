@@ -5,6 +5,7 @@ using SmartRestaurant.Services.IngredientServices;
 using SmartRestaurant.Services.IngredientServices.IngredientInterfaces;
 using SmartRestaurant.Services.ProductServices;
 using SmartRestaurant.Services.RecipeServices;
+using SmartRestaurant.Services.UserServices;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,6 +22,8 @@ namespace SmartRestaurant.Services.Infrastructure
             services.AddScoped<IIngredientPerUnitService, IngredientPerUnitService>();
             services.AddScoped<IRecipeService, RecipeService>();
             services.AddScoped<ICommandService, CommandServices.CommandService>();
+            services.AddScoped<IUserService, UserService>();
+
             return services;
         }
     }

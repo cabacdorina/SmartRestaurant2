@@ -1,0 +1,50 @@
+<div class="container mt-4">
+ 
+    <div class="col-sm-8">
+      <div *ngIf="editForm.dirty" class="alert alert-info">
+        
+          <strong>Information:</strong> You have made changes.
+          Any unsaved changes will be lost!
+        
+      </div>
+    </div> 
+  
+
+    <div class="col-sm-4">
+        <h1>Add Product</h1>
+    </div> 
+    
+    <div class="col-sm-8">
+        <div class="tab-panel">
+            <form #editForm="ngForm" id="editFrm" (ngSubmit)="saveProduct()">
+                
+                <div class="myForm">
+                    <label for="nm">Prouct's name:</label>
+                    <input class="form-control" type="text" name="name"
+                      [(ngModel)]="prod.name"  ng-required="name">
+
+                      <label for="price">Prouct's price</label>
+                      <input class="form-control" type="text" name="price"
+                        [(ngModel)]="prod.price"  ng-required="price">
+
+                      <label for="url">The URL of prouct's image:</label>
+                      <input class="form-control" type="text" name="url"
+                        [(ngModel)]="prod.imageThumbnailUrl">
+
+                      <label for="type">Prouct's type</label>
+                      <input class="form-control" type="text" name="type"
+                        [(ngModel)]="prod.type"  ng-required="type">
+                      
+                      <label for="recipe">Prouct's recipe</label>
+                      <input class="form-control" type="text" name="recipe"
+                        [(ngModel)]="prod.recipe">
+                </div>
+               
+              </form>
+
+              <div>
+                  <button [disabled]="!editForm.dirty" form="editFrm" class="saveButton btn-success btn-block mt-3">Save</button> 
+              </div>
+        </div>
+    </div>
+  </div>

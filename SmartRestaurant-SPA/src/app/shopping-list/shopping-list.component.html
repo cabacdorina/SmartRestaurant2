@@ -1,0 +1,52 @@
+<div class="container mt-5">
+    <div >
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Nr. of pieces</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+
+            <tbody *ngFor="let prod of prods; let i=index">
+              <tr>
+                <th scope="row">{{i+1}}</th>
+                <td>{{prod.name}}</td>
+                <td>{{prod.price}}</td>
+                <td> 
+                  <div class="myClass col-sm-2 form-group">
+                    
+                    <input
+                      type="number"
+                      id="id"
+                      class="form-control"
+                      min="1"
+                      value={{prod.amount}}
+                      (input)="onUpdateAmount($event,i)"
+                      >
+                  </div>
+                </td>
+                
+                <td>
+                  <button class="btn btn-primary" (click)="removeItem(prod)">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                </td>
+              </tr>
+              
+            </tbody>
+      
+          </table>  
+    </div>
+
+    <button *ngIf=areChanges class="saveButton btn-success btn-block" (click)="TransmitDataToAPI()">Check out</button>       
+    
+    <div align="right">
+        <b>Total: {{sum}}</b> 
+    </div>
+   
+    
+</div>
