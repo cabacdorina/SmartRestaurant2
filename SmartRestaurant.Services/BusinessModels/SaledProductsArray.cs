@@ -37,7 +37,7 @@ namespace SmartRestaurant.Services.BusinessModels
                     foreach (var prod in prods)
                     {
                         sw.WriteLine(prod.Name + "," + prod.Price + "," +
-                        prod.BoughtDate + "," + prod.Type + "," + prod.Amount);
+                        prod.BoughtDate + "," + prod.FoodType + "," + prod.Amount);
                     }
                 }
             }
@@ -48,7 +48,7 @@ namespace SmartRestaurant.Services.BusinessModels
                     foreach (var prod in prods)
                     {
                         sw.WriteLine(prod.Name + "," + prod.Price + "," +
-                        prod.BoughtDate + "," + prod.Type + "," + prod.Amount);
+                        prod.BoughtDate + "," + prod.FoodType + "," + prod.Amount);
                     }
                 }
 

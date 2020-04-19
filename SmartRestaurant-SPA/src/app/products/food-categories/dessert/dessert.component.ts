@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../_services/product.service';
-import { Product } from '../../_models/product';
-import { AlertifyService } from '../../_services/utils/alertify.service';
+import { ProductService } from '../../../_services/product.service';
+import { Product } from '../../../_models/product';
+import { AlertifyService } from '../../../_services/utils/alertify.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DessertService } from 'src/app/_services/dessert.service';
 
@@ -20,7 +20,7 @@ export class DessertComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.prods = data['theProds'];
+      this.prods = data['theDesserts'];
     });
   }
 

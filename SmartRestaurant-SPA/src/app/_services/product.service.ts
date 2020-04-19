@@ -11,18 +11,27 @@ export class ProductService {
 
   baseUrl = environment.apiUrl ;
   curDate: Date;
+  readonly dessert = 0;
+  readonly mainFood = 1;
+  readonly soup = 2;
+  readonly productUrl=this.baseUrl + 'product/food-type/';
+
   constructor(private http: HttpClient) { }
 
-  getDessert(type: string): Observable<Product[]> {
-    return this.http.get<Product[]>(this.baseUrl + 'products/food-type/dessert' );
+  getDessert(): Observable<Product[]> {
+    return this.getProducts(this.productUrl+this.dessert);
   }
 
   getMainFood(type: string): Observable<Product[]> {
-    return this.http.get<Product[]>(this.baseUrl + 'products/food-type/mainFood' );
+    return this.getProducts(this.productUrl+this.mainFood);
   }
 
   getSoup(type: string): Observable<Product[]> {
-    return this.http.get<Product[]>(this.baseUrl + 'products/food-type/soup' );
+    return this.getProducts(this.productUrl+this.soup);
+  }
+
+  getProducts(foodUrl: string){
+    return this.http.get<Product[]>(foodUrl);
   }
 
   AddSales(prods: Product[]) {

@@ -10,5 +10,6 @@ namespace SmartRestaurant.Data.Models
         public string Username { get; set; }
         public string Password{ get; set; }
         public int Type { get; set; }
+        public string PhoneNumber { get; set; }//put regular expression
     }
 }

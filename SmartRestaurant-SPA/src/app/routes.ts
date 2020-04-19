@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './_guards/auth.guard';
-import { DessertComponent } from './products/dessert/dessert.component';
+import { DessertComponent } from './products/food-categories/dessert/dessert.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingAgentComponent } from './shopping-agent/shopping-agent.component';
 import { DessertResolver } from './_resolvers/dessert.resolver';
-import { MainFoodComponent } from './products/main-food/main-food.component';
-import { SoupsComponent } from './products/soups/soups.component';
+import { MainFoodComponent } from './products/food-categories/main-food/main-food.component';
+import { SoupsComponent } from './products/food-categories/soups/soups.component';
 import { MainFoodResolver } from './_resolvers/mainFood.resolver';
 import { SoupResolver } from './_resolvers/soup.resolver';
 import { ProductAddComponent } from './products/product-add/product-add.component';
@@ -20,7 +20,7 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
             { path: 'desserts', component: DessertComponent,
-                 resolve: {theProds: DessertResolver}},
+                 resolve: {theDesserts: DessertResolver}},
             { path: 'shoppingList', component: ShoppingListComponent },
             { path: 'shoppingAgent', component:  ShoppingAgentComponent },
             { path: 'mainFood', component: MainFoodComponent,

@@ -80,9 +80,9 @@ namespace SmartRestaurant.Services.ProductServices
             return prodList.Select(p => new ProductDto().InjectFrom(p) as ProductDto);
         }
 
-        public Task<IEnumerable<ProductDto>> GetByType(string type)
+        public Task<IEnumerable<ProductDto>> GetByType(int type)
         {
-            var prods = _productRepo.Query(p => p.Type.Equals(type)).ToList();
+            var prods = _productRepo.Query(p => p.FoodType==type).ToList();
             return Task.FromResult(prods.Select(p => new ProductDto().InjectFrom(p) as ProductDto));
         }
 

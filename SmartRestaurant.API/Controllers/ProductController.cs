@@ -72,7 +72,7 @@ namespace SmartRestaurant.API.Controllers
 
 
         [HttpGet("food-type/{type}")]
-        public async Task<IActionResult> GetProds([FromRoute]string type)
+        public async Task<IActionResult> GetProds([FromRoute]int type)
         {
             var prods = await _productService.GetByType(type);
             return Ok(prods);

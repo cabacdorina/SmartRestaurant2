@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RegisterLoginService } from '../_services/register-login.service';
+import { RegisterService } from '../_services/register.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit {
   registerState: boolean = false;
 
   constructor(
-    private registerService: RegisterLoginService) { }
+    private registerService: RegisterService) { }
 
   ngOnInit() {
     this.registerService.toggleRegister.subscribe((val: boolean) =>{

@@ -15,7 +15,7 @@ export class DessertResolver implements Resolve<Product> {
         private alertify: AlertifyService) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<Product> {
-        return this.prodService.getDessert(this.type).pipe(
+        return this.prodService.getDessert().pipe(
             catchError(error => {
                 this.alertify.error('Problem retrieving your data');
                 this.router.navigate(['/home']);

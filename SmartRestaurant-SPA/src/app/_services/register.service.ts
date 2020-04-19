@@ -5,7 +5,7 @@ import { AlertifyService } from "./utils/alertify.service";
 @Injectable({
   providedIn: "root",
 })
-export class RegisterLoginService {
+export class RegisterService {
   registerState: boolean;
   @Output()
   public toggleRegister = new EventEmitter();

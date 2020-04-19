@@ -13,7 +13,7 @@ namespace SmartRestaurant.Services.ProductServices
         Task<bool> Update(ProductDto product, int productId);
         Task<ProductDto> GetById(int productId);
         Task<IEnumerable<ProductDto>> GetAllProducts();
-        Task<IEnumerable<ProductDto>> GetByType(string type);
+        Task<IEnumerable<ProductDto>> GetByType(int type);
         Task<IEnumerable<IngredientDto>> GetAllProductIngredients(int id);
     }
 }
