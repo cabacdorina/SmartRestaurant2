@@ -7,6 +7,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">Price</th>
                 <th scope="col">Nr. of pieces</th>
+                <th scope="col">TVA</th>
                 <th scope="col">Delete</th>
               </tr>
             </thead>
@@ -29,7 +30,7 @@
                       >
                   </div>
                 </td>
-                
+                <td>getTva({{prod.price}}, {{prod.amount}})</td>
                 <td>
                   <button class="btn btn-primary" (click)="removeItem(prod)">
                       <i class="fa fa-trash"></i>
@@ -44,9 +45,12 @@
 
     <button *ngIf=areChanges class="saveButton btn-success btn-block" (click)="TransmitDataToAPI()">Check out</button>       
     
-    <div align="right">
-        <b>Total: {{sum}}</b> 
+   
+    <div class="row">
+      <b>Total: {{sum}}</b> &nbsp;&nbsp;&nbsp;&nbsp;
+      <b>Total TVA: {{totalTva}}</b>
     </div>
+   
    
     
 </div>

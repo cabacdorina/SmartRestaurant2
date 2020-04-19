@@ -18,12 +18,15 @@ export class ShoppingListComponent implements OnInit {
   i: number;
   areChanges: boolean;
   sum: number;
+  tvaPerProduct: number=0;
+  totalTva: number=0;
+  readonly tvaPercentage = 0.19;
 
   constructor(private dessertService: DessertService , private router: Router,
     private prodService: ProductService, private alertify: AlertifyService) { }
 
   ngOnInit() {
-    this.prods = this.dessertService.getDesserts();
+    this.prods = this.dessertService.getDesserts();//de adaugat si restul soup..mf
     this.curDate = new Date();
 
     if (this.prods.length > 0) {
@@ -31,6 +34,7 @@ export class ShoppingListComponent implements OnInit {
     }
 
     this.calculateSumToPay();
+    this.calculateToatalTvaToPay();
   }
 
   calculateSumToPay() {
@@ -42,6 +46,10 @@ export class ShoppingListComponent implements OnInit {
     }
 
     this.sum = this.numberRoundedToTwoDecimals(this.sum);
+  }
+
+  calculateToatalTvaToPay() {
+    this.totalTva= this.tvaPercentage * this.sum;
   }
 
   numberRoundedToTwoDecimals(numberToRound: number) {
@@ -83,9 +91,11 @@ export class ShoppingListComponent implements OnInit {
       const inputAmount = (event.target as HTMLInputElement).value;
       this.prods[i].amount = parseInt(inputAmount, 10);
       this.calculateSumToPay();
-      console.log(this.calculateSumToPay());
-      /*console.log(this.prods[i].amount);
-      console.log(i);*/
+      this.calculateToatalTvaToPay();
+    }
+
+    getTva(productPrice: number, amount: number){
+      return productPrice * amount * this.tvaPercentage;
     }
 
 }
