@@ -18,10 +18,10 @@ import { AuthGuard } from './_guards/auth.guard';
 import { DessertComponent } from './products/food-categories/dessert/dessert.component';
 import { ShoppingAgentComponent } from './shopping-agent/shopping-agent.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { ProductService } from './_services/product.service';
+import { HttpProductService } from './_services/HttpProduct.service';
 import { ProductCardComponent } from './products/product-card/product-card.component';
 import { DessertResolver } from './_resolvers/dessert.resolver';
-import { DessertService } from './_services/dessert.service';
+import { ProductService } from './_services/product.service';
 import { MainFoodComponent } from './products/food-categories/main-food/main-food.component';
 import { SoupsComponent } from './products/food-categories/soups/soups.component';
 import { MainFoodResolver } from './_resolvers/mainFood.resolver';
@@ -68,11 +68,11 @@ export function tokenGetter() {
       ErrorInterceptorProvider,
       AlertifyService,
       AuthGuard,
-      ProductService,
+      HttpProductService,
       DessertResolver,
       MainFoodResolver,
       SoupResolver,
-      DessertService,
+      ProductService,
       RegisterService
    ],
    bootstrap: [

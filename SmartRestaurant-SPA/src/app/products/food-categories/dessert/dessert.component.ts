@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../../_services/product.service';
+import { HttpProductService } from '../../../_services/HttpProduct.service';
 import { Product } from '../../../_models/product';
 import { AlertifyService } from '../../../_services/utils/alertify.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DessertService } from 'src/app/_services/dessert.service';
+import { ProductService } from 'src/app/_services/product.service';
 
 @Component({
   selector: 'app-dessert',
@@ -12,9 +12,9 @@ import { DessertService } from 'src/app/_services/dessert.service';
 })
 export class DessertComponent implements OnInit {
 
-  constructor(private productService: ProductService,
+  constructor(private HttpProductService: HttpProductService,
     private alertify: AlertifyService, private route: ActivatedRoute,
-    private dessertService: DessertService, private router: Router) { }
+    private productService: ProductService, private router: Router) { }
   prods: Product[];
   prodArray = [];
 
@@ -26,9 +26,7 @@ export class DessertComponent implements OnInit {
 
   onItemSelected(prod: Product) {
     this.prodArray.push(prod);
-    console.log(prod.name);
-    console.log(this.prodArray);
-    this.dessertService.addProducts(prod);
+    this.productService.addProducts(prod);
     this.alertify.success('Added successfully');
 
   }

@@ -1,44 +1,28 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Product } from '../_models/product';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+  prods: Product[] = [];
 
-  baseUrl = environment.apiUrl ;
-  curDate: Date;
-  readonly dessert = 0;
-  readonly mainFood = 1;
-  readonly soup = 2;
-  readonly productUrl=this.baseUrl + 'product/food-type/';
+  constructor() { }
 
-  constructor(private http: HttpClient) { }
-
-  getDessert(): Observable<Product[]> {
-    return this.getProducts(this.productUrl+this.dessert);
+  getProds () {
+    return this.prods;
   }
 
-  getMainFood(type: string): Observable<Product[]> {
-    return this.getProducts(this.productUrl+this.mainFood);
+  addProducts(prod: Product) {
+    console.log('service: ' + prod.name);
+    this.prods.push(prod);
   }
 
-  getSoup(type: string): Observable<Product[]> {
-    return this.getProducts(this.productUrl+this.soup);
+  removeProducts(prod: Product) {
+    this.prods = this.prods.filter( it => it !== prod);
   }
 
-  getProducts(foodUrl: string){
-    return this.http.get<Product[]>(foodUrl);
-  }
-
-  AddSales(prods: Product[]) {
-    return this.http.post(this.baseUrl + 'products/AddSales', prods);
-  }
-
-  AddProduct(prod: Product) {
-    return this.http.post(this.baseUrl + 'AddProduct', prod);
+  resetProdArray() {
+    this.prods = [];
   }
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Product } from '../_models/product';
-import { DessertService } from '../_services/dessert.service';
-import { Router } from '@angular/router';
 import { ProductService } from '../_services/product.service';
+import { Router } from '@angular/router';
+import { HttpProductService } from '../_services/HttpProduct.service';
 import { AlertifyService } from '../_services/utils/alertify.service';
 import { NgForm } from '@angular/forms';
 
@@ -22,11 +22,11 @@ export class ShoppingListComponent implements OnInit {
   totalTva: number=0;
   readonly tvaPercentage = 0.19;
 
-  constructor(private dessertService: DessertService , private router: Router,
-    private prodService: ProductService, private alertify: AlertifyService) { }
+  constructor(private productService: ProductService , private router: Router,
+    private prodService: HttpProductService, private alertify: AlertifyService) { }
 
   ngOnInit() {
-    this.prods = this.dessertService.getDesserts();//de adaugat si restul soup..mf
+    this.prods = this.productService.getProds();
     this.curDate = new Date();
 
     if (this.prods.length > 0) {
@@ -64,7 +64,7 @@ export class ShoppingListComponent implements OnInit {
         this.alertify.error(error);
       });
 
-      this.dessertService.resetProdArray();
+      this.productService.resetProdArray();
 
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
@@ -80,7 +80,7 @@ export class ShoppingListComponent implements OnInit {
         return false;
       };
 
-      this.dessertService.removeProducts(item);
+      this.productService.removeProducts(item);
       if (this.prods.length === 0) {
         this.areChanges = false;
       }

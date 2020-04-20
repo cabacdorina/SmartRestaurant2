@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Product } from 'src/app/_models/product';
-import { ProductService } from 'src/app/_services/product.service';
+import { HttpProductService } from 'src/app/_services/HttpProduct.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -11,7 +11,7 @@ import { NgForm } from '@angular/forms';
 export class ProductAddComponent implements OnInit {
 
   prod: Product;
-  constructor( private prodService: ProductService) { }
+  constructor( private prodService: HttpProductService) { }
 
   @ViewChild('editForm') edtFrm: NgForm; /*view child is a decorator */
   @HostListener('window: beforeunload', ['$event']) /*another decorator*/
