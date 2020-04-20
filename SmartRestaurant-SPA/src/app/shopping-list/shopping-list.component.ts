@@ -35,6 +35,7 @@ export class ShoppingListComponent implements OnInit {
 
     this.calculateSumToPay();
     this.calculateToatalTvaToPay();
+    this.setTvaForEachProduct();
   }
 
   calculateSumToPay() {
@@ -92,10 +93,17 @@ export class ShoppingListComponent implements OnInit {
       this.prods[i].amount = parseInt(inputAmount, 10);
       this.calculateSumToPay();
       this.calculateToatalTvaToPay();
+      this.setTvaForEachProduct();
     }
 
     getTva(productPrice: number, amount: number){
       return productPrice * amount * this.tvaPercentage;
+    }
+
+    setTvaForEachProduct() {
+      this.prods.forEach (prod => {
+        prod.tva = this.getTva(prod.price, prod.amount);
+      })
     }
 
 }

@@ -3,7 +3,7 @@
     <h1>SmartRestaurant</h1>
     <p class="lead">Order everything you love and enjoy your meal!</p>
     <div class="text-center">
-      <button class="btn btn-primary btn-lg mr-2" (click)="registerToggle()">Register</button>
+      <button class="btn btn-primary btn-lg mr-2" (click)="registerToggle()" *ngIf="!isLoggedIn()">Register</button>
       <button class="btn btn-info btn-lg">About us</button>
     </div>
   </div>

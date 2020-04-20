@@ -6,4 +6,5 @@ export interface Product {
     amount: number;
     type: string;
     recipe: string;
+    tva?: number;
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterService } from '../_services/register.service';
+import { AuthService } from '../_services/utils/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ export class HomeComponent implements OnInit {
   registerState: boolean = false;
 
   constructor(
-    private registerService: RegisterService) { }
+    private registerService: RegisterService, private authService: AuthService) { }
 
   ngOnInit() {
     this.registerService.toggleRegister.subscribe((val: boolean) =>{
@@ -20,5 +21,9 @@ export class HomeComponent implements OnInit {
 
   registerToggle() {
     this.registerService.actionToggle(true);
+  }
+
+  isLoggedIn(){
+    return this.authService.loggedIn();
   }
 }

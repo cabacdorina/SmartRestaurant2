@@ -29,6 +29,7 @@ import { SoupResolver } from './_resolvers/soup.resolver';
 import { ProductAddComponent } from './products/product-add/product-add.component';
 import { ProductRemoveComponent } from './products/product-remove/product-remove.component';
 import { RegisterService } from './_services/register.service';
+import { ProductManagementComponent } from './product-management/product-management.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -47,7 +48,8 @@ export function tokenGetter() {
       MainFoodComponent,
       SoupsComponent,
       ProductAddComponent,
-      ProductRemoveComponent
+      ProductRemoveComponent,
+      ProductManagementComponent
    ],
    imports: [
       BrowserModule,

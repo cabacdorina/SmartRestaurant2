@@ -18,8 +18,7 @@
                 <td>{{prod.name}}</td>
                 <td>{{prod.price}}</td>
                 <td> 
-                  <div class="myClass col-sm-2 form-group">
-                    
+                  <div class="myClass col-sm-2 form-group">                    
                     <input
                       type="number"
                       id="id"
@@ -30,7 +29,7 @@
                       >
                   </div>
                 </td>
-                <td>getTva({{prod.price}}, {{prod.amount}})</td>
+                <td>{{prod.tva}}</td>
                 <td>
                   <button class="btn btn-primary" (click)="removeItem(prod)">
                       <i class="fa fa-trash"></i>
