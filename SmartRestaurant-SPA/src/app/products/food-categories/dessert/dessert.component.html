@@ -1,19 +1,4 @@
 <div class="container mt-5">
-    <ul class="list-inline member-icons">
-        <li class="list-inline-item">
-          <button class="btn btn-primary"  (click)="removeItem()">
-            <i class="fa fa-trash"></i>
-          </button>
-        </li>
-  
-        <li class="list-inline-item">
-          <button class="btn btn-primary" (click)="addItem()">
-            <i class="fa fa-plus"></i>
-            
-          </button>
-        </li>      
-      </ul>
-
   <div class="row">
     <div *ngFor="let prod of prods" class="col-lg-2 col-md-3 col-sm-6">
       <app-product-card [prod]="prod"  (itemSelected)="onItemSelected(prod)"></app-product-card>

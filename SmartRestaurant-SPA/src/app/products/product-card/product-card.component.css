@@ -34,3 +34,11 @@
 .animate {
     transition: 0.3s ease-in-out;
 }
+
+.btn {
+    margin-left: 0px;
+}
+
+.list-inline{
+    text-align: center;
+}

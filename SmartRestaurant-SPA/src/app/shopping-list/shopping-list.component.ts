@@ -86,6 +86,7 @@ export class ShoppingListComponent implements OnInit {
         this.areChanges = false;
       }
 
+      this.calculateToatalTvaToPay();
     }
 
     onUpdateAmount(event: Event, i: number) {
