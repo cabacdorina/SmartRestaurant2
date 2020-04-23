@@ -1,3 +1,7 @@
+.btn {
+    margin-left: 5px;
+}
+
 .list-group {
     margin-left: 15px;
     width: 450px;
@@ -6,13 +10,4 @@
 .list-group-item {
     width: 400px;
     margin-bottom: 5px;
-}
-
-.btn {
-    float: right;
-    margin-left: 5px;
-}
-
-img {
-    margin-top: 5px;
 }

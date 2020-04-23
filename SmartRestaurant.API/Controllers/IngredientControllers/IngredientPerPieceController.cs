@@ -37,7 +37,7 @@ namespace SmartRestaurant.API.Controllers
             return Ok(ingred);
         }
 
-        [HttpPost("AddIngredient")]
+        [HttpPost("AddIngred")]
         public async Task<IActionResult> AddIngred([FromBody] IngredientPerPieceDto ingredDto)
         {
             return Ok(await _ingredService.Create(ingredDto));
@@ -55,7 +55,7 @@ namespace SmartRestaurant.API.Controllers
             return NotFound();
         }
 
-        [HttpDelete("DeleteIngredient/{id}")]
+        [HttpDelete("DeleteIngred/{id}")]
         public async Task<IActionResult> DeleteIngred(int id)
         {
             var IsDeleted = await _ingredService.DeleteById(id);

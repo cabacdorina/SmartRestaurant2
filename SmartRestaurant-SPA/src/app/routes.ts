@@ -31,7 +31,7 @@ export const appRoutes: Routes = [
             { path: 'product/add', component: ProductAddComponent},
             {path: 'product/remove', component: ProductRemoveComponent},
             {path: 'product/management', component: ProductManagementComponent}
-
+            
         ]
     },
     { path: '**', redirectTo: '', pathMatch: 'full'}

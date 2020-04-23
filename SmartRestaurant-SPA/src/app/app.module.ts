@@ -30,6 +30,10 @@ import { ProductAddComponent } from './products/product-add/product-add.componen
 import { ProductRemoveComponent } from './products/product-remove/product-remove.component';
 import { RegisterService } from './_services/register.service';
 import { ProductManagementComponent } from './product-management/product-management.component';
+import { AddIngredientComponent } from './products/operations/add-ingredient/add-ingredient.component';
+import { ProductManagementService } from './_services/product-management.service';
+import { ListIngredientsComponent } from './products/operations/list-ingredients/list-ingredients.component';
+import { IngredientService } from './_services/ingredient.service';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -49,7 +53,9 @@ export function tokenGetter() {
       SoupsComponent,
       ProductAddComponent,
       ProductRemoveComponent,
-      ProductManagementComponent
+      ProductManagementComponent,
+      AddIngredientComponent,
+      ListIngredientsComponent
    ],
    imports: [
       BrowserModule,
@@ -75,7 +81,9 @@ export function tokenGetter() {
       MainFoodResolver,
       SoupResolver,
       ProductService,
-      RegisterService
+      RegisterService,
+      ProductManagementService,
+      IngredientService
    ],
    bootstrap: [
       AppComponent

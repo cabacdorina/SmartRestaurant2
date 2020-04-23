@@ -1,7 +1,14 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
   <div class="container">
+    
+    <div class="navbar-header">
     <a class="navbar-brand" [routerLink]="['/home']">SmartRestaurant</a>
+    <button class="navbar-toggler" type="button"  data-toggle="collapse" data-target="#myToggle" >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    </div>
 
+    <div class="collapse navbar-collapse" id="#myToggle">
     <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" >
@@ -27,8 +34,9 @@
         </a>
         
       </li>
+     
       <li class="nav-item"  routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/shoppingList']" >ShoppingList</a>
+        <a class="nav-link" [routerLink]="['/shoppingList']">ShoppingList</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link " [routerLink]="['/shoppingAgent']">ShoppingAgent</a>
@@ -36,9 +44,10 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link " [routerLink]="['/product/management']">Product Management</a>
       </li>
-      
+   
     </ul>  
-
+   </div>
+ 
     <div *ngIf="loggedIn()" class="dropdown" dropdown>
       <a class="dropdown-toggle text-light" dropdownToggle>
         Welcome {{authService.decodedToken?.unique_name | titlecase}}

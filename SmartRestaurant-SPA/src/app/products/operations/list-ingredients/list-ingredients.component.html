@@ -1,0 +1,40 @@
+<div>
+  <div class="col-sm-7" style="margin-left: 50px;">
+    <h5><b>Ingredients per piece</b></h5>
+    <ul class="list-group" >
+       <li class="list-group-item" *ngFor="let ingred of ingredientsPerPiece; let i = index">      
+        <div class="row" >
+         
+          {{ ingred.name }}
+        
+          
+          <button class="btn btn-primary" style="float: right;">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button class="btn btn-primary" style="float: right;" (click)="onDeletePerPiece(i)">
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
+        </li>
+        
+     
+      
+      <h5 style="padding-top: 10px;"><b>Ingredients per unit</b></h5>
+      <li
+      *ngFor="let ingred of ingredientsPerUnit; let i = index"
+      class="list-group-item"
+      >
+      <div class="row">
+        <p style="margin-left: 10px;">{{ ingred.name }}</p>
+          <button class="btn btn-primary">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button class="btn btn-primary" (click)="onDeletePerUnit(i)">
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
+        </li>
+     
+    </ul>
+  
+  </div>

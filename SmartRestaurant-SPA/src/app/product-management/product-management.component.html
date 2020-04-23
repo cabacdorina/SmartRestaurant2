@@ -1,67 +1,73 @@
-<div class="row">
-  <div class="col-xs-12">
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-5">
       <ul class="list-group">
         <div class="row">
-          <li class="list-group-item">Ingredients 
-            <button class="btn btn-primary">
-              <i class="fa fa-trash"></i>
+          <li class="list-group-item">
+            Ingredients
+            <button class="btn btn-primary" (click)="onViewIngredientList()">
+              <i class="fa fa-eye"></i>
             </button>
-            <button class="btn btn-primary">
-              <i class="fa fa-edit"></i>
+
+            <button class="btn btn-primary" (click)="onAddIngredientSelected()">
+              <i class="fa fa-plus"></i>
             </button>
+          </li>
+        </div>
+
+        <div class="row">
+          <li class="list-group-item">
+            Recipes
+            <button class="btn btn-primary">
+              <i class="fa fa-eye"></i>
+            </button>
+
             <button class="btn btn-primary">
               <i class="fa fa-plus"></i>
-            </button> 
+            </button>
           </li>
-      </div>
+        </div>
 
-      <div class="row">
-        <li class="list-group-item">Recipes
-          <button class="btn btn-primary">
-            <i class="fa fa-trash"></i>
-          </button>
-          <button class="btn btn-primary">
-            <i class="fa fa-edit"></i>
-          </button>
-          <button class="btn btn-primary">
-            <i class="fa fa-plus"></i>
-          </button> 
-        </li>
+        <div class="row">
+          <li class="list-group-item">
+            Products
+            <button class="btn btn-primary">
+              <i class="fa fa-eye"></i>
+            </button>
+
+            <button class="btn btn-primary">
+              <i class="fa fa-plus"></i>
+            </button>
+          </li>
+        </div>
+
+        <div class="row">
+          <li class="list-group-item">
+            Commands
+            <button class="btn btn-primary">
+              <i class="fa fa-eye"></i>
+            </button>
+
+            <button class="btn btn-primary">
+              <i class="fa fa-plus"></i>
+            </button>
+          </li>
+        </div>
+      </ul>
+
+      <span class="pull-left">
+        <img
+          src="/assets/img/ingredients.jpg"
+          class="img-responsive"
+          style="width: 400px;"
+        />
+      </span>
     </div>
-    
-    <div class="row">
-      <li class="list-group-item">Products 
-        <button class="btn btn-primary">
-          <i class="fa fa-trash"></i>
-        </button>
-        <button class="btn btn-primary">
-          <i class="fa fa-edit"></i>
-        </button>
-        <button class="btn btn-primary">
-          <i class="fa fa-plus"></i>
-        </button> 
-      </li>
+
+    <div class="col-md-7">
+      <app-add-ingredient *ngIf="addIngredientFlag"></app-add-ingredient>
+      <app-list-ingredients *ngIf="viewIngredientList"></app-list-ingredients>
     </div>
-
-    <div class="row">
-      <li class="list-group-item">Commands
-        <button class="btn btn-primary">
-          <i class="fa fa-trash"></i>
-        </button>
-        <button class="btn btn-primary">
-          <i class="fa fa-edit"></i>
-        </button>
-        <button class="btn btn-primary">
-          <i class="fa fa-plus"></i>
-        </button> 
-      </li>
-    </div>
-    </ul>
-
-    <span class="pull-left">
-      <img src="/assets/img/ingredients.jpg" class="img-responsive" style="width: 400px;">
-    </span>
-
+   
   </div>
-
 </div>

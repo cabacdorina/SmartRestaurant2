@@ -1,0 +1,91 @@
+<div>
+
+  <div class="col-sm-4" style="margin-left: 50px;">
+    <h5><b>Add Ingredient</b></h5>
+  </div>
+
+  <div class="col-sm-10">
+    <div class="tab-panel" style="margin-left: 50px;">
+      <form #addForm="ngForm" id="addForm" (ngSubmit)="saveIngredient()">
+        <div class="myForm">
+          <label for="nm">Ingredient's name:</label>
+          <input
+            class="form-control"
+            type="text"
+            name="name"
+            [(ngModel)]="ingred.name"
+            ng-required="name"
+          />
+
+          <label for="price">Ingredient's price</label>
+          <input
+            class="form-control"
+            type="number"
+            name="price"
+            [(ngModel)]="ingred.price"
+            ng-required="price"
+          />
+
+          <div class="form-group">
+            <label for="type">Ingredient's unit type</label>
+            <select
+              [(ngModel)]="type"
+              class="form-control"
+              name="selectType"
+              id="selectType"
+            >
+              <option>Choose type</option>
+              <option>Gram</option>
+              <option>Liter</option>
+              <option>Pieces</option>
+            </select>
+          </div>
+
+          <div *ngIf="type === 'Liter' || type === 'Gram'">
+            <label for="Quantity">Ingredient's quantity</label>
+            <input
+              class="form-control"
+              type="number"
+              name="quantity"
+              [(ngModel)]="ingred.quantity"
+              ng-required="quantity"
+            />
+          </div>
+
+          <div *ngIf="type === 'Pieces'">
+            <label for="Pieces">Ingredient's pieces</label>
+            <input
+              class="form-control"
+              type="number"
+              name="pieces"
+              [(ngModel)]="ingred.numberOfPieces"
+              ng-required="pieces"
+            />
+          </div>
+        </div>
+      </form>
+
+      <div
+        class="row"
+        style="float: right; margin-right: 2px; margin-top: 10px;"
+      >
+        <button
+          class="clearButton btn-light"
+          style="width: 120px; height: 35px; margin-right: 5px;"
+          (click)="onClear()"
+        >
+          Clear
+        </button>
+
+        <button
+          class="saveButton btn-success"
+          type="submit"
+          style="width: 120px; height: 35px;"
+          form="addForm"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
