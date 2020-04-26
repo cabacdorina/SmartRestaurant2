@@ -47,7 +47,7 @@ namespace SmartRestaurant.API.Controllers
         [HttpPut("UpdateIngred/{id}")]
         public async Task<IActionResult> UpdateIngred([FromBody]IngredientPerUnitDto ingredDto, int id)
         {
-            var IsUpdated = await _ingredService.Update(ingredDto,id);
+            var IsUpdated = await _ingredService.Update(ingredDto, id);
             if (IsUpdated)
             {
                 return Ok(ingredDto);
@@ -58,11 +58,11 @@ namespace SmartRestaurant.API.Controllers
         [HttpDelete("DeleteIngred/{id}")]
         public async Task<IActionResult> DeleteIngred(int id)
         {
-            
-            var IsDeleted=await _ingredService.DeleteById(id);
+
+            var IsDeleted = await _ingredService.DeleteById(id);
             if (IsDeleted)
             {
-                return Ok($"Ingred with id: {id} was deleted.");
+                return Ok(new { Message = $"Ingred with id: {id} was deleted." });
             }
             return NotFound();
         }

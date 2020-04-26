@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Ingredient } from "src/app/_models/ingredient";
 import { IngredientService } from "src/app/_services/ingredient.service";
+import { AlertifyService } from "src/app/_services/utils/alertify.service";
+import { ProductManagementService } from "src/app/_services/product-management.service";
 
 @Component({
   selector: "app-add-ingredient",
@@ -11,7 +13,8 @@ export class AddIngredientComponent implements OnInit {
   ingred: Ingredient;
   type: string;
 
-  constructor(private ingredinetService: IngredientService) {
+  constructor(private ingredinetService: IngredientService, 
+    private alertify: AlertifyService, private managService: ProductManagementService) {
     this.ingred = {
       name: "",
       price: 0,
@@ -28,8 +31,12 @@ export class AddIngredientComponent implements OnInit {
   saveIngredient() {
     this.ingredinetService.addIngredient(this.ingred, this.type).subscribe(res=>{
       console.log(res);
+      this.alertify.success('Ingredient added!');
+      this.managService.onAddIngredinet(false);
     })
   }
 
-  onClear() {}
+  onClose() {
+    this.managService.onAddIngredinet(false);
+  }
 }

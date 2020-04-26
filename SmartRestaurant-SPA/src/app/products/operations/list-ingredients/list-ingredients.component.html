@@ -5,11 +5,11 @@
           <div class="row" >
             <li class="list-group-item">
               {{ ingred.name }}
-              <button class="btn btn-primary" >
-                <i class="fa fa-edit"></i>
-              </button>
               <button class="btn btn-primary" (click)="onDeletePerPiece(i)">
                 <i class="fa fa-trash"></i>
+              </button>
+              <button class="btn btn-primary" (click)="onEditPerPiece(ingred,i)">
+                <i class="fa fa-edit"></i>
               </button>
             </li>
           </div>
@@ -20,11 +20,11 @@
         <div class="row">
           <li class="list-group-item">
             {{ ingred.name }}
-            <button class="btn btn-primary">
-              <i class="fa fa-edit"></i>
-            </button>
             <button class="btn btn-primary" (click)="onDeletePerUnit(i)">
               <i class="fa fa-trash"></i>
+            </button>
+            <button class="btn btn-primary" (click)="onEditPerUnit(ingred,i)">
+              <i class="fa fa-edit"></i>
             </button>
           </li>
         </div>

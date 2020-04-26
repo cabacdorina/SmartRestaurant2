@@ -34,6 +34,7 @@ import { AddIngredientComponent } from './products/operations/add-ingredient/add
 import { ProductManagementService } from './_services/product-management.service';
 import { ListIngredientsComponent } from './products/operations/list-ingredients/list-ingredients.component';
 import { IngredientService } from './_services/ingredient.service';
+import { EditIngredientComponent } from './products/operations/edit-ingredient/edit-ingredient.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -55,7 +56,8 @@ export function tokenGetter() {
       ProductRemoveComponent,
       ProductManagementComponent,
       AddIngredientComponent,
-      ListIngredientsComponent
+      ListIngredientsComponent,
+      EditIngredientComponent
    ],
    imports: [
       BrowserModule,

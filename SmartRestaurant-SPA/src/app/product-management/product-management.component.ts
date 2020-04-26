@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { ProductManagementService } from "../_services/product-management.service";
 
 @Component({
   selector: "app-product-management",
@@ -7,24 +8,26 @@ import { Component, OnInit } from "@angular/core";
 })
 export class ProductManagementComponent implements OnInit {
   addIngredientFlag: boolean = false;
+  editIngredientFlag: boolean = true;
   viewIngredientList: boolean = false;
 
-  constructor() {}
+  constructor(private managService: ProductManagementService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.managService.addIngredient.subscribe((value: boolean) => {
+      this.addIngredientFlag = value;
+    });
+
+    this.managService.viewIngredient.subscribe((value: boolean) => {
+      this.viewIngredientList = value;
+    });
+  }
 
   onAddIngredientSelected() {
-    this.resetAllFlags();
-    this.addIngredientFlag = true;
+    this.managService.onAddIngredinet(true);   
   }
 
-  onViewIngredientList() {
-    this.resetAllFlags();
-    this.viewIngredientList = true;
-  }
-
-  private resetAllFlags() {
-    this.addIngredientFlag = false;
-    this.viewIngredientList = false;
+  onViewIngredientList() {   
+    this.managService.onViewIngredient(true);
   }
 }

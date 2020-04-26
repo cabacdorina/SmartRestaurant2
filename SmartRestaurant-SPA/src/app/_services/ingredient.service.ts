@@ -3,6 +3,7 @@ import { Ingredient } from "../_models/ingredient";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { Observable } from "rxjs";
+import { AlertifyService } from "./utils/alertify.service";
 
 @Injectable({
   providedIn: "root",
@@ -41,11 +42,11 @@ export class IngredientService {
   }
 
   removeIngredientPerPiece(ingredient: Ingredient) {
-    this.http.delete(this.ingredientPerPieceUrl + "/DeleteIngred" + ingredient.id);
+    return this.http.delete(this.ingredientPerPieceUrl + "/DeleteIngred/" + ingredient.id);
   }
 
   removeIngredientPerUnit(ingredient: Ingredient) {
-    this.http.delete(this.ingredientPerUnitUrl + "/DeleteIngred" + ingredient.id);
+    return this.http.delete(this.ingredientPerUnitUrl + "/DeleteIngred/" + ingredient.id);
   }
 
   resetProdArray() {}

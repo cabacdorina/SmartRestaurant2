@@ -1,12 +1,13 @@
 <div>
 
   <div class="col-sm-4" style="margin-left: 50px;">
-    <h5><b>Add Ingredient</b></h5>
+    <h5><b>Edit Ingredient</b></h5>
   </div>
 
   <div class="col-sm-10">
     <div class="tab-panel" style="margin-left: 50px;">
-      <form #addForm="ngForm" id="addForm" (ngSubmit)="saveIngredient()">
+      <form #addForm="ngForm" id="addForm"     >
+        <!-- (ngSubmit)="saveIngredient()" -->
         <div class="myForm">
           <label for="nm">Ingredient's name:</label>
           <input
@@ -72,9 +73,10 @@
         <button
           class="clearButton btn-light"
           style="width: 120px; height: 35px; margin-right: 5px;"
-          (click)="onClose()"
+         
         >
-          Close
+         <!-- (click)="onClear()" -->
+          Clear
         </button>
 
         <button

@@ -10,7 +10,7 @@ namespace SmartRestaurant.API.Controllers
 {
     [Route("api/ingredientPerPiece")]
     [ApiController]
-    public class IngredientPerPieceController: ControllerBase
+    public class IngredientPerPieceController : ControllerBase
     {
         private readonly IIngredientPerPieceService _ingredService;
         public IngredientPerPieceController(IIngredientPerPieceService ingredService)
@@ -19,9 +19,9 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpGet("GetAllIngred")]
-        public async Task<IActionResult>GetAllIngredients()
+        public async Task<IActionResult> GetAllIngredients()
         {
-            var ingredList= await _ingredService.GetAllIngredients();
+            var ingredList = await _ingredService.GetAllIngredients();
             return Ok(ingredList);
         }
 
@@ -46,7 +46,7 @@ namespace SmartRestaurant.API.Controllers
         [HttpPut("UpdateIngredient/{id}")]
         public async Task<IActionResult> UpdateIngred([FromBody] IngredientPerPieceDto ingredDto, int id)
         {
-            var IsUpdated=await _ingredService.Update(ingredDto, id);
+            var IsUpdated = await _ingredService.Update(ingredDto, id);
             if (IsUpdated)
             {
                 return Ok(ingredDto);
@@ -61,7 +61,7 @@ namespace SmartRestaurant.API.Controllers
             var IsDeleted = await _ingredService.DeleteById(id);
             if (IsDeleted)
             {
-                return Ok($"Product with id: {id} was deleted");
+                return Ok(new { Message = $"Product with id: {id} was deleted" });
             }
 
             return NotFound();
