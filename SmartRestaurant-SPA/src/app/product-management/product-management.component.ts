@@ -1,5 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { ProductManagementService } from "../_services/product-management.service";
+import { Router } from "@angular/router";
+import { IngredientService } from "../_services/ingredient.service";
+import { Ingredient } from "../_models/ingredient";
 
 @Component({
   selector: "app-product-management",
@@ -7,11 +10,17 @@ import { ProductManagementService } from "../_services/product-management.servic
   styleUrls: ["./product-management.component.css"],
 })
 export class ProductManagementComponent implements OnInit {
-  addIngredientFlag: boolean = false;
-  editIngredientFlag: boolean = true;
-  viewIngredientList: boolean = false;
+  public addIngredientFlag: boolean = false;
+  public editIngredientFlag: boolean = false;
+  public viewIngredientList: boolean = false;
+  public ingredient: Ingredient;
+  public index: number;
+  public typeIngred: string;
 
-  constructor(private managService: ProductManagementService) {}
+  constructor(
+    private managService: ProductManagementService,
+    private ingredientService: IngredientService,
+    private router: Router) {}
 
   ngOnInit() {
     this.managService.addIngredient.subscribe((value: boolean) => {
@@ -21,6 +30,25 @@ export class ProductManagementComponent implements OnInit {
     this.managService.viewIngredient.subscribe((value: boolean) => {
       this.viewIngredientList = value;
     });
+
+    this.managService.editIngredient.subscribe((value: boolean) => {
+      this.editIngredientFlag = value;
+    });
+
+    this.ingredientService.editIngred.subscribe((data:any) => {
+        this.ingredient = data.ingred as Ingredient;
+        this.index = data.index as number;
+        const type = this.ingredient.unitType;
+        if(type === undefined) {
+          this.typeIngred = "Pieces";
+        } else if(type === 0) {
+          this.typeIngred = "Gram";
+        } else if(type === 1) {
+          this.typeIngred = "Liter";
+        }
+        console.log(this.ingredient+" si "+this.index);
+      }     
+    );//alt+shift+f-> align in page
   }
 
   onAddIngredientSelected() {
@@ -30,4 +58,5 @@ export class ProductManagementComponent implements OnInit {
   onViewIngredientList() {   
     this.managService.onViewIngredient(true);
   }
+
 }

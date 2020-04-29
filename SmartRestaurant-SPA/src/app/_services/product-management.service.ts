@@ -1,7 +1,7 @@
-import { Injectable, Output ,EventEmitter} from '@angular/core';
+import { Injectable, Output, EventEmitter } from "@angular/core";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ProductManagementService {
   @Output() public addIngredient = new EventEmitter();
@@ -10,9 +10,9 @@ export class ProductManagementService {
 
   addIngredientFlag: boolean = false;
   editIngredientFlag: boolean = false;
-  viewIngredientList: boolean = false;  
-  
-  constructor() { }
+  viewIngredientList: boolean = false;
+
+  constructor() {}
 
   onAddIngredinet(value: boolean) {
     this.resetAllFlags();
@@ -20,16 +20,22 @@ export class ProductManagementService {
     this.addIngredient.emit(this.addIngredientFlag);
   }
 
-  onViewIngredient(value:boolean){
+  onViewIngredient(value: boolean) {
     this.resetAllFlags();
-    this.viewIngredientList=value;
+    this.viewIngredientList = value;
     this.viewIngredient.emit(this.viewIngredientList);
+  }
+
+  onEditIngred(value: boolean) {
+    this.resetAllFlags();
+    this.editIngredientFlag = value;
+    this.editIngredient.emit(this.editIngredientFlag);
   }
 
   private resetAllFlags() {
     this.addIngredientFlag = false;
     this.editIngredientFlag = false;
-    this.viewIngredientList = false;  
+    this.viewIngredientList = false;
 
     this.addIngredient.emit(false);
     this.viewIngredient.emit(false);

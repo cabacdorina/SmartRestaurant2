@@ -1,13 +1,11 @@
 <div>
-
   <div class="col-sm-4" style="margin-left: 50px;">
     <h5><b>Edit Ingredient</b></h5>
   </div>
 
-  <div class="col-sm-10">
+  <div class="col-sm-10" *ngIf="ingred !== undefined">
     <div class="tab-panel" style="margin-left: 50px;">
-      <form #addForm="ngForm" id="addForm"     >
-        <!-- (ngSubmit)="saveIngredient()" -->
+      <form #addForm="ngForm" id="addForm" (ngSubmit)="saveEditedIngredient()">
         <div class="myForm">
           <label for="nm">Ingredient's name:</label>
           <input
@@ -26,21 +24,6 @@
             [(ngModel)]="ingred.price"
             ng-required="price"
           />
-
-          <div class="form-group">
-            <label for="type">Ingredient's unit type</label>
-            <select
-              [(ngModel)]="type"
-              class="form-control"
-              name="selectType"
-              id="selectType"
-            >
-              <option>Choose type</option>
-              <option>Gram</option>
-              <option>Liter</option>
-              <option>Pieces</option>
-            </select>
-          </div>
 
           <div *ngIf="type === 'Liter' || type === 'Gram'">
             <label for="Quantity">Ingredient's quantity</label>
@@ -73,10 +56,9 @@
         <button
           class="clearButton btn-light"
           style="width: 120px; height: 35px; margin-right: 5px;"
-         
+          (click)="onClose()"
         >
-         <!-- (click)="onClear()" -->
-          Clear
+          Close
         </button>
 
         <button

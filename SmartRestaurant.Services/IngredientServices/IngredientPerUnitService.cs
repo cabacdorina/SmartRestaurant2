@@ -26,6 +26,7 @@ namespace SmartRestaurant.Services.IngredientServices
             await _ingredRepo.Add(ingred);
             await _unitOfWork.Commit();
 
+            ingredient.Id = ingred.Id;
             return ingred;
         }
 

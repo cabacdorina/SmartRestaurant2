@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { Ingredient } from "src/app/_models/ingredient";
 import { IngredientService } from "src/app/_services/ingredient.service";
 import { AlertifyService } from "src/app/_services/utils/alertify.service";
-import { map } from "rxjs/operators";
+import { ActivatedRoute } from "@angular/router";
+import { ProductManagementService } from "src/app/_services/product-management.service";
 
 @Component({
   selector: "app-list-ingredients",
@@ -15,23 +16,35 @@ export class ListIngredientsComponent implements OnInit {
 
   constructor(
     private ingredientService: IngredientService,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private route: ActivatedRoute,
+    private managService: ProductManagementService
   ) {}
 
   ngOnInit() {
-    this.ingredientService
-      .getIngredientsPerPiece()
-      .subscribe((ingredients: Ingredient[]) => {
-        this.ingredientsPerPiece = ingredients;
-        console.log(this.ingredientsPerPiece);
-      });
+    this.route.data.subscribe((data) => {
+      this.ingredientsPerPiece = data["thePerPiece"];
+      this.ingredientService.ingredientsPerPiece = this.ingredientsPerPiece;
+    });
 
-    this.ingredientService
-      .getIngredientsPerUnit()
-      .subscribe((ingredients: Ingredient[]) => {
-        this.ingredientsPerUnit = ingredients;
-        console.log(this.ingredientsPerUnit);
-      });
+    this.route.data.subscribe((data) => {
+      this.ingredientsPerUnit = data["thePerUnit"];
+      this.ingredientService.ingredientsPerUnit = this.ingredientsPerUnit;
+    });
+
+    // this.ingredientService
+    //   .getIngredientsPerPiece()
+    //   .subscribe((ingredients: Ingredient[]) => {
+    //     this.ingredientsPerPiece = ingredients;
+    //     console.log(this.ingredientsPerPiece);
+    //   });
+
+    // this.ingredientService
+    //   .getIngredientsPerUnit()
+    //   .subscribe((ingredients: Ingredient[]) => {
+    //     this.ingredientsPerUnit = ingredients;
+    //     console.log(this.ingredientsPerUnit);
+    //   });
   }
 
   onDeletePerPiece(i: number) {
@@ -56,8 +69,13 @@ export class ListIngredientsComponent implements OnInit {
       });
   }
 
-  onEditPerPiece(ingred: Ingredient, i: number) {}
-  
-  onEditPerUnit(ingred: Ingredient, i: number) {}
+  onEditPerPiece(ingred: Ingredient, i: number) {
+    this.ingredientService.editIngredElement(ingred, i);
+    this.managService.onEditIngred(true);
+  }
 
+  onEditPerUnit(ingred: Ingredient, i: number) {
+    this.ingredientService.editIngredElement(ingred, i);
+    this.managService.onEditIngred(true);
+  }
 }

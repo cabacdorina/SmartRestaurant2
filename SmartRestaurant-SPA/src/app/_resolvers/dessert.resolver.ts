@@ -5,7 +5,6 @@ import { HttpProductService } from '../_services/HttpProduct.service';
 import { AlertifyService } from '../_services/utils/alertify.service';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { stringify } from '@angular/compiler/src/util';
 
 @Injectable()
 export class DessertResolver implements Resolve<Product> {

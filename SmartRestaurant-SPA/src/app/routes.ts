@@ -12,6 +12,8 @@ import { SoupResolver } from './_resolvers/soup.resolver';
 import { ProductAddComponent } from './products/product-add/product-add.component';
 import { ProductRemoveComponent } from './products/product-remove/product-remove.component';
 import { ProductManagementComponent } from './product-management/product-management.component';
+import { IngredPerPieceResolver } from './_resolvers/ingreds/ingredients-per-pierce.resolver';
+import { IngredPerUnitResolver } from './_resolvers/ingreds/ingredients-per-unit.resolver';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -30,7 +32,13 @@ export const appRoutes: Routes = [
                      resolve: {theSoup: SoupResolver}},
             { path: 'product/add', component: ProductAddComponent},
             {path: 'product/remove', component: ProductRemoveComponent},
-            {path: 'product/management', component: ProductManagementComponent}
+            {path: 'product/management', component: ProductManagementComponent,
+                     resolve:
+                     {
+                         thePerPiece: IngredPerPieceResolver,
+                         thePerUnit: IngredPerUnitResolver
+                     }
+            }
             
         ]
     },

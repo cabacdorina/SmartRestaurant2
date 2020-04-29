@@ -43,7 +43,7 @@ namespace SmartRestaurant.API.Controllers
             return Ok(await _ingredService.Create(ingredDto));
         }
 
-        [HttpPut("UpdateIngredient/{id}")]
+        [HttpPut("UpdateIngred/{id}")]
         public async Task<IActionResult> UpdateIngred([FromBody] IngredientPerPieceDto ingredDto, int id)
         {
             var IsUpdated = await _ingredService.Update(ingredDto, id);

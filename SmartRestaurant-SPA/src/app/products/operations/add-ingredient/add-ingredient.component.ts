@@ -13,8 +13,11 @@ export class AddIngredientComponent implements OnInit {
   ingred: Ingredient;
   type: string;
 
-  constructor(private ingredinetService: IngredientService, 
-    private alertify: AlertifyService, private managService: ProductManagementService) {
+  constructor(
+    private alertify: AlertifyService,
+    private managService: ProductManagementService,
+    private ingredService: IngredientService
+  ) {
     this.ingred = {
       name: "",
       price: 0,
@@ -29,11 +32,24 @@ export class AddIngredientComponent implements OnInit {
   ngOnInit() {}
 
   saveIngredient() {
-    this.ingredinetService.addIngredient(this.ingred, this.type).subscribe(res=>{
-      console.log(res);
-      this.alertify.success('Ingredient added!');
-      this.managService.onAddIngredinet(false);
-    })
+    this.ingredService
+      .addIngredient(this.ingred, this.type)
+      .subscribe((res: any) => {
+        this.ingred.id = res.id;
+        this.alertify.success("Ingredient added!");
+        this.managService.onAddIngredinet(false);
+        this.populateIngredLists();
+      });
+  }
+
+  populateIngredLists() {
+    if (this.type === "Gram" || this.type === "Liter") {
+      this.ingredService.ingredientsPerUnit.push(this.ingred);
+    }
+
+    if (this.type === "Pieces") {
+      this.ingredService.ingredientsPerPiece.push(this.ingred);
+    }
   }
 
   onClose() {

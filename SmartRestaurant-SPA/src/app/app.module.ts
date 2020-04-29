@@ -35,6 +35,8 @@ import { ProductManagementService } from './_services/product-management.service
 import { ListIngredientsComponent } from './products/operations/list-ingredients/list-ingredients.component';
 import { IngredientService } from './_services/ingredient.service';
 import { EditIngredientComponent } from './products/operations/edit-ingredient/edit-ingredient.component';
+import { IngredPerPieceResolver } from './_resolvers/ingreds/ingredients-per-pierce.resolver';
+import { IngredPerUnitResolver } from './_resolvers/ingreds/ingredients-per-unit.resolver';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -82,6 +84,8 @@ export function tokenGetter() {
       DessertResolver,
       MainFoodResolver,
       SoupResolver,
+      IngredPerPieceResolver,
+      IngredPerUnitResolver,
       ProductService,
       RegisterService,
       ProductManagementService,
