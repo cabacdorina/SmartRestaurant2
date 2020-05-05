@@ -5,9 +5,13 @@ VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.Data", "FirstCodeExample.Data\SmartRestaurant.Data.csproj", "{4C69A348-A84B-4045-BF9C-027A32C0E840}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.Services", "SmartRestaurant.Services\SmartRestaurant.Services.csproj", "{75E7DA6A-D858-431B-9216-7603ACCB708B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.Services", "SmartRestaurant.Services\SmartRestaurant.Services.csproj", "{75E7DA6A-D858-431B-9216-7603ACCB708B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.API", "SmartRestaurant.API\SmartRestaurant.API.csproj", "{96701900-4E78-4991-A340-1E6F57A626F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.API", "SmartRestaurant.API\SmartRestaurant.API.csproj", "{96701900-4E78-4991-A340-1E6F57A626F5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurantML.Model", "SmartRestaurantML.Model\SmartRestaurantML.Model.csproj", "{D973EA8C-569A-42BC-A5A2-E4D79BB26470}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurantML.ModelBuilder", "SmartRestaurantML.ConsoleApp\SmartRestaurantML.ModelBuilder.csproj", "{DAF2F294-1E19-486E-8E0F-8B633D7F06F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{96701900-4E78-4991-A340-1E6F57A626F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96701900-4E78-4991-A340-1E6F57A626F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96701900-4E78-4991-A340-1E6F57A626F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D973EA8C-569A-42BC-A5A2-E4D79BB26470}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D973EA8C-569A-42BC-A5A2-E4D79BB26470}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D973EA8C-569A-42BC-A5A2-E4D79BB26470}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D973EA8C-569A-42BC-A5A2-E4D79BB26470}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAF2F294-1E19-486E-8E0F-8B633D7F06F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAF2F294-1E19-486E-8E0F-8B633D7F06F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAF2F294-1E19-486E-8E0F-8B633D7F06F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAF2F294-1E19-486E-8E0F-8B633D7F06F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

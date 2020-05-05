@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FirstCodeExample.Data\SmartRestaurant.Data.csproj" />
+    <ProjectReference Include="..\SmartRestaurantML.ConsoleApp\SmartRestaurantML.ModelBuilder.csproj" />
+    <ProjectReference Include="..\SmartRestaurantML.Model\SmartRestaurantML.Model.csproj" />
   </ItemGroup>
 
 </Project>

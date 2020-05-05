@@ -1,0 +1,14 @@
+.buttons{
+    float: right;
+}
+
+.btn{
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+img {
+   
+    border: 2px solid gray;
+    box-shadow: 2px 2px;
+    }

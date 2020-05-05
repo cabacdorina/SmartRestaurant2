@@ -35,7 +35,7 @@ export class HttpProductService {
   }
 
   AddSales(prods: Product[]) {
-    return this.http.post(this.baseUrl + 'products/AddSales', prods);
+    return this.http.post(this.baseUrl + 'product/AddSales', prods);
   }
 
   AddProduct(prod: Product) {

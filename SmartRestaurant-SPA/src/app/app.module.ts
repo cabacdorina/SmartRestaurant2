@@ -37,6 +37,7 @@ import { IngredientService } from './_services/ingredient.service';
 import { EditIngredientComponent } from './products/operations/edit-ingredient/edit-ingredient.component';
 import { IngredPerPieceResolver } from './_resolvers/ingreds/ingredients-per-pierce.resolver';
 import { IngredPerUnitResolver } from './_resolvers/ingreds/ingredients-per-unit.resolver';
+import { ProductPredictionComponent } from './product-prediction/product-prediction.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -59,7 +60,8 @@ export function tokenGetter() {
       ProductManagementComponent,
       AddIngredientComponent,
       ListIngredientsComponent,
-      EditIngredientComponent
+      EditIngredientComponent,
+      ProductPredictionComponent
    ],
    imports: [
       BrowserModule,

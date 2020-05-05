@@ -3,9 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 using SmartRestaurant.Services.CommandServices;
 using SmartRestaurant.Services.IngredientServices;
 using SmartRestaurant.Services.IngredientServices.IngredientInterfaces;
+using SmartRestaurant.Services.PredictServices;
 using SmartRestaurant.Services.ProductServices;
 using SmartRestaurant.Services.RecipeServices;
 using SmartRestaurant.Services.UserServices;
+using SmartRestaurantML.ModelBuilder;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,8 +25,9 @@ namespace SmartRestaurant.Services.Infrastructure
             services.AddScoped<IRecipeService, RecipeService>();
             services.AddScoped<ICommandService, CommandServices.CommandService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddSingleton<IPredictService, PredictService>();
 
             return services;
         }
-    }
+    } 
 }
