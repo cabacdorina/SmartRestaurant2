@@ -41,7 +41,12 @@ export const appRoutes: Routes = [
                      }
             },
             {
-                path:'prediction', component: ProductPredictionComponent
+                path:'product/prediction', component: ProductPredictionComponent,
+                    resolve: {
+                        theDesserts: DessertResolver,
+                        theMainFood: MainFoodResolver,
+                        theSoup: SoupResolver
+                    }
             }
             
         ]

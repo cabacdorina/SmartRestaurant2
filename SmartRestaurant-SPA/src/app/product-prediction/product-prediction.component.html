@@ -12,7 +12,7 @@
       </span>
 
       <div class="buttons">
-      <button class="btn btn-primary" (click)="LoadPredictedData()">
+      <button class="btn btn-primary" (click)="LoadAllPredictions()">
         Predict All
       </button>
 
@@ -23,6 +23,7 @@
     </div>
 
     <div class="col-md-7">
+      <app-predict-all *ngIf="predictAllFlag"></app-predict-all>
      <p>hi</p>
     </div>   
   </div>

@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { ProductManagementService } from "../_services/product-management.service";
-import { Router } from "@angular/router";
 import { IngredientService } from "../_services/ingredient.service";
 import { Ingredient } from "../_models/ingredient";
 
@@ -19,8 +18,7 @@ export class ProductManagementComponent implements OnInit {
 
   constructor(
     private managService: ProductManagementService,
-    private ingredientService: IngredientService,
-    private router: Router) {}
+    private ingredientService: IngredientService) {}
 
   ngOnInit() {
     this.managService.addIngredient.subscribe((value: boolean) => {
