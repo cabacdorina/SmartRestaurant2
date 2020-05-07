@@ -19,7 +19,7 @@ namespace SmartRestaurant.API.Controllers
             _predictService = predictService;
         }
 
-        [HttpGet("GetPrediction")]
+        [HttpPost("GetPrediction")]
         public async Task<IActionResult> GetPrediction([FromBody] ProductDto productDto)
         {
             var amount = await _predictService.PredictAmount(productDto);
@@ -30,7 +30,7 @@ namespace SmartRestaurant.API.Controllers
             }) ;
         }
 
-        [HttpGet("GetPredictionList")]
+        [HttpPost("GetPredictionList")]
         public async Task<IActionResult> GetPredictionList([FromBody] List<ProductDto> productList)
         {
             var amountList = await _predictService.PredictAmountForProductList(productList);

@@ -25,17 +25,20 @@ export class PredictAllComponent implements OnInit {
   @Input() public soupFl: boolean;
 
   constructor(
-    private route: ActivatedRoute
+    // private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.route.data.subscribe((data) => {
-      this.dessertList = data["theDesserts"];
-      this.mainFoodList = data["theMainFood"];
-      this.soupList = data["theSoup"];
-      console.log("list: " + this.dessertList);
-    });
+    // this.route.data.subscribe((data) => {
+    //   this.dessertList = data["theDesserts"];
+    //   this.mainFoodList = data["theMainFood"];
+    //   this.soupList = data["theSoup"];
+    //   console.log("list: " + this.dessertList);
+    // });
+    
+  }
 
-   
+  concatenateProdLists() {
+      
   }
 }

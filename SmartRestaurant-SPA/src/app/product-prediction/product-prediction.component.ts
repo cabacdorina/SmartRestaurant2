@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../_models/product';
 import { ActivatedRoute } from '@angular/router';
+import { PredictServiceService } from '../_services/predict-service.service';
 
 @Component({
   selector: 'app-product-prediction',
@@ -8,14 +9,14 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./product-prediction.component.css']
 })
 export class ProductPredictionComponent implements OnInit {
-  public predictAllFlag = true;
+  public predictAllFlag = false;
   public predictOneFlag = false;
 
-  public dessertFlag: boolean =true;
+  public dessertFlag: boolean =false;
   public mainFoodFlag: boolean =false;
   public soupFlag: boolean = false;
 
-  constructor() { }
+  constructor(private predService: PredictServiceService) { }
 
   ngOnInit() {
   }
@@ -40,8 +41,10 @@ export class ProductPredictionComponent implements OnInit {
     this.resetAllFlags();
     this.soupFlag=true;
   }
-  LoadAllPredictions(){
-    
-  }
 
+  PredictAll() {
+    this.predService.getPrediction().subscribe(res=>{
+      console.log(res);
+    });
+  }
 }

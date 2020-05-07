@@ -42,6 +42,7 @@ import { PredictAllComponent } from './product-prediction/predict-all/predict-al
 import { PredictDessertsComponent } from './product-prediction/predict-all/predict-desserts/predict-desserts.component';
 import { PredictMainFoodComponent } from './product-prediction/predict-all/predict-main-food/predict-main-food.component';
 import { PredictSoupComponent } from './product-prediction/predict-all/predict-soup/predict-soup.component';
+import { PredictServiceService } from './_services/predict-service.service';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -99,7 +100,8 @@ export function tokenGetter() {
       ProductService,
       RegisterService,
       ProductManagementService,
-      IngredientService
+      IngredientService,
+      PredictServiceService
    ],
    bootstrap: [
       AppComponent
