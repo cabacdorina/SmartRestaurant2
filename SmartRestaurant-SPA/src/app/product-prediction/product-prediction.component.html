@@ -1,15 +1,37 @@
-<div class="container mt-5">
+<div class="container mt-3">
   <h5 align="center">Be prepared for tomorrow! Predict data and be ready to serve all clients!</h5>
   <br>
   <div class="row">
-    <div class="col-md-5">
-      <span class="pull-right">
-        <img
-          src="/assets/img/prediction.jpg"
-          class="img-responsive"
-          style="width: 370px;"
-        />
-      </span>
+    <div class="col-md-3">
+      <ul class="list-group">
+        <div class="row">
+          <li class="list-group-item">
+            Desserts
+            <button class="btn btn-primary" (click)="showDessertTable()">
+              <i class="fa fa-eye"></i>
+            </button>
+          </li>
+        </div>
+
+        <div class="row">
+          <li class="list-group-item">
+            Main Food
+            <button class="btn btn-primary" (click)="showMainFoodTable()">
+              <i class="fa fa-eye"></i>
+            </button>
+          </li>
+        </div>
+
+        <div class="row">
+          <li class="list-group-item">
+            Soups
+            <button class="btn btn-primary" (click)="showSoupTable()">
+              <i class="fa fa-eye"></i>
+            </button>
+          </li>
+        </div>
+        
+      </ul>
 
       <div class="buttons">
       <button class="btn btn-primary" (click)="LoadAllPredictions()">
@@ -22,9 +44,8 @@
     </div>
     </div>
 
-    <div class="col-md-7">
-      <app-predict-all *ngIf="predictAllFlag"></app-predict-all>
-     <p>hi</p>
+    <div class="col-md-9">
+      <app-predict-all *ngIf="predictAllFlag" [dessertFl]="dessertFlag" [mainFoodFl]="mainFoodFlag" [soupFl]="soupFlag"></app-predict-all>
     </div>   
   </div>
 </div>

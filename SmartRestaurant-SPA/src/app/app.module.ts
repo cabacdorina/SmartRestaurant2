@@ -39,6 +39,9 @@ import { IngredPerPieceResolver } from './_resolvers/ingreds/ingredients-per-pie
 import { IngredPerUnitResolver } from './_resolvers/ingreds/ingredients-per-unit.resolver';
 import { ProductPredictionComponent } from './product-prediction/product-prediction.component';
 import { PredictAllComponent } from './product-prediction/predict-all/predict-all.component';
+import { PredictDessertsComponent } from './product-prediction/predict-all/predict-desserts/predict-desserts.component';
+import { PredictMainFoodComponent } from './product-prediction/predict-all/predict-main-food/predict-main-food.component';
+import { PredictSoupComponent } from './product-prediction/predict-all/predict-soup/predict-soup.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -63,7 +66,10 @@ export function tokenGetter() {
       ListIngredientsComponent,
       EditIngredientComponent,
       ProductPredictionComponent,
-      PredictAllComponent
+      PredictAllComponent,
+      PredictDessertsComponent,
+      PredictMainFoodComponent,
+      PredictSoupComponent
    ],
    imports: [
       BrowserModule,

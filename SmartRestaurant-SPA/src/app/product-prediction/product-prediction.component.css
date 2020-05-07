@@ -1,14 +1,19 @@
 .buttons{
-    float: right;
+    float: left;
+    margin-top: 10px;
 }
 
-.btn{
-    margin-top: 10px;
+.list-group {
+    margin-left: 15px;
+    width: 250px;
+}
+
+.list-group-item {
+    width: 400px;
+    margin-bottom: 5px;
+}
+
+.btn {
+    float: right;
     margin-left: 5px;
 }
-
-img {
-   
-    border: 2px solid gray;
-    box-shadow: 2px 2px;
-    }
