@@ -14,10 +14,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let food of soupLis; let i = index">
+        <tr *ngFor="let soup of soupLis; let i = index">
           <td>{{i+1}}</td>
-          <td>{{ food.name }}</td>
-          <td>{{ food.price }}</td>
+          <td>{{ soup.name }}</td>
+          <td>{{ soup.predictedAmount }}</td>
         </tr>
       </tbody>
     </table>

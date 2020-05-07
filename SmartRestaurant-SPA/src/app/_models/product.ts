@@ -7,4 +7,5 @@ export interface Product {
     type: string;
     recipe: string;
     tva?: number;
+    predictedAmount?: number;
 }

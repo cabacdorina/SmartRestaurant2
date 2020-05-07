@@ -16,29 +16,12 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./predict-all.component.css"],
 })
 export class PredictAllComponent implements OnInit {
-  public dessertList: Product[];
-  public mainFoodList: Product[];
-  public soupList: Product[];
 
   @Input() public dessertFl: boolean;
   @Input() public mainFoodFl: boolean;
   @Input() public soupFl: boolean;
 
-  constructor(
-    // private route: ActivatedRoute
-  ) {}
+  constructor() {}
 
-  ngOnInit() {
-    // this.route.data.subscribe((data) => {
-    //   this.dessertList = data["theDesserts"];
-    //   this.mainFoodList = data["theMainFood"];
-    //   this.soupList = data["theSoup"];
-    //   console.log("list: " + this.dessertList);
-    // });
-    
-  }
-
-  concatenateProdLists() {
-      
-  }
+  ngOnInit() {}
 }

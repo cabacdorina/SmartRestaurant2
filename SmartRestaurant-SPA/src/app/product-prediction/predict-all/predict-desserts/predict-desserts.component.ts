@@ -4,6 +4,7 @@ import { Product } from 'src/app/_models/product';
 import * as $ from "jquery";
 import "datatables.net";
 import "datatables.net-bs4";
+import { PredictService } from 'src/app/_services/predict.service';
 
 @Component({
   selector: 'app-predict-desserts',
@@ -14,9 +15,15 @@ export class PredictDessertsComponent implements OnInit {
   @Input() public dessertLis:  Product[];
   public dessertDataTable: any;
 
-  constructor(private changeRef: ChangeDetectorRef) { }
+  constructor(
+    private changeRef: ChangeDetectorRef,
+    private predictService: PredictService
+    ) { 
+
+  }
 
   ngOnInit() {
+    this.dessertLis = this.predictService.dessertList;
     this.changeRef.detectChanges();
 
      const dessertTable: any = $("#dessert-table").on("order.dt", function () {});

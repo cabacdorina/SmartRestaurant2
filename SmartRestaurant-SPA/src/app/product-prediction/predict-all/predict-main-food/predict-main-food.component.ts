@@ -3,6 +3,7 @@ import { Product } from 'src/app/_models/product';
 import * as $ from "jquery";
 import "datatables.net";
 import "datatables.net-bs4";
+import { PredictService } from 'src/app/_services/predict.service';
 
 @Component({
   selector: 'app-predict-main-food',
@@ -13,10 +14,12 @@ export class PredictMainFoodComponent implements OnInit {
   @Input() public mainFoodLis: Product[];
   public mainFoodDataTable: any;
   
-  constructor(private changeRef: ChangeDetectorRef) { }
+  constructor(private changeRef: ChangeDetectorRef,
+    private predictService: PredictService
+    ) { }
 
   ngOnInit() {
-   
+    this.mainFoodLis=this.predictService.mainFoodList;
     this.changeRef.detectChanges();
     const mainFoodTable: any = $("#main-food-table").on("order.dt", function () {});
     this.mainFoodDataTable = mainFoodTable.DataTable({
