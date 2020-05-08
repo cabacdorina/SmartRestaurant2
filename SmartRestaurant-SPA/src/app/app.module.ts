@@ -30,11 +30,8 @@ import { ProductAddComponent } from './products/product-add/product-add.componen
 import { ProductRemoveComponent } from './products/product-remove/product-remove.component';
 import { RegisterService } from './_services/register.service';
 import { ProductManagementComponent } from './product-management/product-management.component';
-import { AddIngredientComponent } from './products/operations/add-ingredient/add-ingredient.component';
 import { ProductManagementService } from './_services/product-management.service';
-import { ListIngredientsComponent } from './products/operations/list-ingredients/list-ingredients.component';
 import { IngredientService } from './_services/ingredient.service';
-import { EditIngredientComponent } from './products/operations/edit-ingredient/edit-ingredient.component';
 import { IngredPerPieceResolver } from './_resolvers/ingreds/ingredients-per-pierce.resolver';
 import { IngredPerUnitResolver } from './_resolvers/ingreds/ingredients-per-unit.resolver';
 import { ProductPredictionComponent } from './product-prediction/product-prediction.component';
@@ -43,6 +40,9 @@ import { PredictDessertsComponent } from './product-prediction/predict-all/predi
 import { PredictMainFoodComponent } from './product-prediction/predict-all/predict-main-food/predict-main-food.component';
 import { PredictSoupComponent } from './product-prediction/predict-all/predict-soup/predict-soup.component';
 import { PredictService } from './_services/predict.service';
+import { AddIngredientComponent } from './product-management/operations/add-ingredient/add-ingredient.component';
+import { ListIngredientsComponent } from './product-management/operations/list-ingredients/list-ingredients.component';
+import { EditIngredientComponent } from './product-management/operations/edit-ingredient/edit-ingredient.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
