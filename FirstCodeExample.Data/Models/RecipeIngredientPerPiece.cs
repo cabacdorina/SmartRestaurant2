@@ -10,5 +10,6 @@ namespace SmartRestaurant.Data.Models
         public IngredientPerPiece IngredientPerPiece { get; set; }
         public int RecipeId { get; set; }
         public int IngredientPerPieceId { get; set; }
+        public int NumberOfPieces { get; set; }
     }
 }

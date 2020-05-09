@@ -13,19 +13,56 @@ namespace SmartRestaurant.Services.RecipeServices
     public class RecipeService : IRecipeService
     {
         public readonly IRepository<Recipe> _recipeRepo;
+        public readonly IRepository<RecipeIngredientPerPiece> _recipeIngredientPerPieceRepo;
+        public readonly IRepository<RecipeIngredientPerUnit> _recipeIngredientPerUnitRepo;
         public readonly IUnitOfWork _unitOfWork;
 
-        public RecipeService(IRepository<Recipe> recipeRepo, IUnitOfWork unitOfWork)
+        public RecipeService(IRepository<Recipe> recipeRepo, IUnitOfWork unitOfWork, 
+            IRepository<RecipeIngredientPerPiece> recipeIngredientPerPieceRepo, IRepository<RecipeIngredientPerUnit> recipeIngredientPerUnitRepo)
         {
             _recipeRepo = recipeRepo;
             _unitOfWork = unitOfWork;
+            _recipeIngredientPerPieceRepo = recipeIngredientPerPieceRepo;
+            _recipeIngredientPerUnitRepo = recipeIngredientPerUnitRepo;
         }
-        public async Task<Recipe> Create(RecipeDto recipeDto)
+        public async Task<int> Create(RecipeDto recipeDto)
         {
-            var recipe = new Recipe().InjectFrom(recipeDto) as Recipe;
+            var recipe = new Recipe
+            {
+                Name = recipeDto.Name
+            };
             await _recipeRepo.Add(recipe);
             await _unitOfWork.Commit();
-            return recipe;
+
+            var recipeIngredientsPerPiece = recipeDto.Ingredients.Where(x => x.NumberOfPieces != null)
+               .Select(x => new RecipeIngredientPerPiece
+               {
+                   NumberOfPieces = (int)x.NumberOfPieces,
+                   IngredientPerPieceId = x.Ingred.Id,
+                   RecipeId = recipe.Id
+               }).ToList();
+
+            foreach (var item in recipeIngredientsPerPiece)
+            {
+                await _recipeIngredientPerPieceRepo.Add(item);
+            }
+
+            var recipeIngredientsPerUnit = recipeDto.Ingredients
+                .Where(x => x.Quantity != null)
+               .Select(x => new RecipeIngredientPerUnit
+               {
+                   Quantity = (int)x.Quantity,
+                   IngredientPerUnitId = x.Ingred.Id,
+                   RecipeId = recipe.Id
+               }).ToList();
+
+            foreach (var item in recipeIngredientsPerUnit)
+            {
+                await _recipeIngredientPerUnitRepo.Add(item);
+            }          
+
+            await _unitOfWork.Commit();
+            return recipe.Id;
         }
 
         public async Task<bool> DeleteById(int recipeId)
@@ -42,7 +79,7 @@ namespace SmartRestaurant.Services.RecipeServices
 
         public async Task<IEnumerable<RecipeDto>> GetAllRecipes()
         {
-            var recipeList=await _recipeRepo.GetAll();
+            var recipeList = await _recipeRepo.GetAll();
             var newRecipeList = recipeList.Select(r => new RecipeDto().InjectFrom(r) as RecipeDto);
             return newRecipeList;
         }
@@ -59,7 +96,7 @@ namespace SmartRestaurant.Services.RecipeServices
 
         public async Task<bool> Update(RecipeDto recipeDto, int recipeId)
         {
-            var recipe=await _recipeRepo.GetById(recipeId);
+            var recipe = await _recipeRepo.GetById(recipeId);
             if (recipe == null)
             {
                 return false;

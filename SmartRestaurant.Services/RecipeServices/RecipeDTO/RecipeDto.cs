@@ -8,7 +8,6 @@ namespace SmartRestaurant.Services.RecipeServices.RecipeDTO
     public class RecipeDto
     {
         public string Name { get; set; }
-        public int IngredPerUnitId { get; set; }
-        public int IngredPerPieceId { get; set; }
+        public List<IngredientRecipeDto> Ingredients { get; set; }
     }
 }

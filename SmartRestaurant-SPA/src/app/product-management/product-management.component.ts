@@ -12,6 +12,9 @@ export class ProductManagementComponent implements OnInit {
   public addIngredientFlag: boolean = false;
   public editIngredientFlag: boolean = false;
   public viewIngredientList: boolean = false;
+
+  public addReceipeFlag: boolean = true;
+
   public ingredient: Ingredient;
   public index: number;
   public typeIngred: string;
@@ -57,4 +60,7 @@ export class ProductManagementComponent implements OnInit {
     this.managService.onViewIngredient(true);
   }
 
+  onAddRecipe() {
+    //this.managService.onAddRecipe(true);
+  }
 }

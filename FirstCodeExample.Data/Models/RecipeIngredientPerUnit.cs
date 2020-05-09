@@ -10,5 +10,6 @@ namespace SmartRestaurant.Data.Models
         public IngredientPerUnit IngredientPerUnit { get; set; }
         public int RecipeId { get; set; }
         public int IngredientPerUnitId { get; set; }
+        public int Quantity { get; set; }
     }
 }

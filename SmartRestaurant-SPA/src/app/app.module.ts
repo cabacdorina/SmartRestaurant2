@@ -40,9 +40,12 @@ import { PredictDessertsComponent } from './product-prediction/predict-all/predi
 import { PredictMainFoodComponent } from './product-prediction/predict-all/predict-main-food/predict-main-food.component';
 import { PredictSoupComponent } from './product-prediction/predict-all/predict-soup/predict-soup.component';
 import { PredictService } from './_services/predict.service';
-import { AddIngredientComponent } from './product-management/operations/add-ingredient/add-ingredient.component';
-import { ListIngredientsComponent } from './product-management/operations/list-ingredients/list-ingredients.component';
-import { EditIngredientComponent } from './product-management/operations/edit-ingredient/edit-ingredient.component';
+import { AddIngredientComponent } from './product-management/ingred-operations/add-ingredient/add-ingredient.component';
+import { ListIngredientsComponent } from './product-management/ingred-operations/list-ingredients/list-ingredients.component';
+import { EditIngredientComponent } from './product-management/ingred-operations/edit-ingredient/edit-ingredient.component';
+import { AddRecipeComponent } from './product-management/recipe-operations/add-recipe/add-recipe.component';
+import { IngredTableComponent } from './product-management/recipe-operations/ingredTable/ingredTable.component';
+import { RecipeService } from './_services/recipe.service';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -70,7 +73,9 @@ export function tokenGetter() {
       PredictAllComponent,
       PredictDessertsComponent,
       PredictMainFoodComponent,
-      PredictSoupComponent
+      PredictSoupComponent,
+      AddRecipeComponent,
+      IngredTableComponent
    ],
    imports: [
       BrowserModule,
@@ -101,7 +106,8 @@ export function tokenGetter() {
       RegisterService,
       ProductManagementService,
       IngredientService,
-      PredictService
+      PredictService,
+      RecipeService
    ],
    bootstrap: [
       AppComponent

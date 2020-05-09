@@ -8,3 +8,14 @@
 
 select * from  IngredientPerPieces;
 select * from  IngredientPerUnits;
+select * from RecipeIngredientPerPieces;
+
+-- ingredientele unei retete (cantitate)
+select u.Name, u.UnitType, u.Quantity from Recipes r join RecipeIngredientPerUnits ru on r.Id=ru.RecipeId
+		join IngredientPerUnits u on  ru.IngredientPerUnitId = u.Id 
+		where r.Id =12;
+
+-- ingredientele unei retete (BUCATI)
+select p.Name, p.NumberOfPieces from Recipes r join RecipeIngredientPerPieces rp on r.Id=rp.RecipeId
+		join IngredientPerPieces p on  rp.IngredientPerPieceId = p.Id 
+		where r.Id =12;

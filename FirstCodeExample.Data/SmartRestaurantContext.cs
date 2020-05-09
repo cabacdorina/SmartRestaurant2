@@ -17,6 +17,8 @@ namespace SmartRestaurant.Data
         public DbSet<ProductCommand> ProductCommands { get; set; }
         public DbSet<RecipeIngredientPerPiece> RecipeIngredientPerPieces { get; set; }
         public DbSet<RecipeIngredientPerUnit> RecipeIngredientPerUnits { get; set; }
+
+
         public SmartRestaurantContext(DbContextOptions<SmartRestaurantContext> options) : base(options)
         {
 

@@ -40,7 +40,7 @@ namespace SmartRestaurant.API.Controllers
         [HttpPost("AddRecipe")]
         public async Task<IActionResult> AddRecipe([FromBody] RecipeDto recipeDto)
         {
-            return Ok(await _recService.Create(recipeDto));
+            return Ok(new { Recipe = await _recService.Create(recipeDto)});
         }
 
         [HttpPut("UpdateRecipe/{id}")]

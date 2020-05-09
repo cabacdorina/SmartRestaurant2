@@ -1,0 +1,135 @@
+<div>
+  <div class="col-sm-4" style="margin-left: 50px;">
+    <h5><b>Add Recipe</b></h5>
+  </div>
+
+  <div class="col-sm-10">
+    <div class="tab-panel" style="margin-left: 50px;">
+      <form #addForm="ngForm" id="addForm" (ngSubmit)="saveRecipe()">
+        <div class="myForm">
+          <label for="nm">Recipe's name:</label>
+          <input
+            class="form-control"
+            type="text"
+            name="name"
+            required [(ngModel)]="recipe.name"
+            ng-required="name"
+          />
+          <label for="newIngred">Add ingredient: </label>
+          <button type="button"class="btn btn-primary" (click)="addNewIngred()">
+            <i class="fa fa-plus"></i>
+          </button>
+          <app-ingred-table
+            [ingredQuantityList]="ingredQuantityList"
+          ></app-ingred-table>
+        </div>
+      </form>
+      <div
+        class="row"
+        style="float: right; margin-right: 2px; margin-top: 10px;"
+      >
+        <button
+          class="clearButton btn-light"
+          style="width: 120px; height: 35px; margin-right: 5px;"
+          (click)="onClose()"
+        >
+          Close
+        </button>
+
+        <button
+          class="saveButton btn-success"
+          type="submit"
+          style="width: 120px; height: 35px;"
+          form="addForm"
+          [disabled]="!addForm.valid || this.ingredQuantityList.length===0"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add ingredient</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>      
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Select ingredient</label>
+            <select (change)="onItemChange($event.target.value)" class="form-control" #selectedIngred>
+              <option>Choose Item</option>
+              <option *ngFor="let ingred of ingredList">{{ingred.name}}</option>             
+            </select>
+          </div>
+
+          <div class="form-group">
+            <div *ngIf="selectedIngredient.unitType === undefined">
+              <label for="Pieces"> Pieces no.</label>
+              <input
+                class="form-control"
+                type="number"
+                name="pieces"
+                [(ngModel)]="selectedIngredient.numberOfPieces"
+                ng-required="pieces"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div *ngIf="selectedIngredient.unitType === 0">
+              <label for="Grams"> Quantity in Grams</label>
+              <input
+                class="form-control"
+                type="number"
+                name="grams"
+                [(ngModel)]="selectedIngredient.quantity"
+                ng-required="grams"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div *ngIf="selectedIngredient.unitType === 1">
+              <label for="Liters"> Quantity in Liters</label>
+              <input
+                class="form-control"
+                type="number"
+                name="liters"
+                [(ngModel)]="selectedIngredient.quantity"
+                ng-required="liters"
+              />
+            </div>
+          </div>
+          
+        </form> 
+      </div>
+      <!-- ---- In Modal!!!! ----- -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" (click)="onSaveItem()" [disabled]="saveModalFlag">Save Item</button>
+      </div>
+    </div>
+  </div>
+</div>
