@@ -3,6 +3,7 @@ import { IngredQuantity, Recipe } from "src/app/_models/recipe";
 import { Ingredient } from "src/app/_models/ingredient";
 import { IngredientService } from "src/app/_services/ingredient.service";
 import { RecipeService } from "src/app/_services/recipe.service";
+import { AlertifyService } from "src/app/_services/utils/alertify.service";
 
 @Component({
   selector: "app-add-recipe",
@@ -26,7 +27,8 @@ export class AddRecipeComponent implements OnInit {
   constructor(
     private ingredientService: IngredientService,
     private detectChange: ChangeDetectorRef,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private alertifyService: AlertifyService
   ) {}
 
   ngOnInit() {
@@ -85,11 +87,15 @@ export class AddRecipeComponent implements OnInit {
       ingredients: this.ingredQuantityList,
       name: this.recipe.name,
     } as Recipe).subscribe((res)=> {
-      console.log(res);
+      //console.log(res);
+      this.alertifyService.success("Recipe added!");
+      this.recipeService.addRecipeEmitter.emit(false);
     })
   }
 
-  onClose() {}
+  onClose() {
+    this.recipeService.onAddRecipe(false);
+  }
 
   addNewIngred() {
     if (!this.concatFlag) {

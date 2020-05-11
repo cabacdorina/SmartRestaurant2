@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ProductManagementService } from "../_services/product-management.service";
 import { IngredientService } from "../_services/ingredient.service";
 import { Ingredient } from "../_models/ingredient";
+import { RecipeService } from "../_services/recipe.service";
 
 @Component({
   selector: "app-product-management",
@@ -13,7 +14,9 @@ export class ProductManagementComponent implements OnInit {
   public editIngredientFlag: boolean = false;
   public viewIngredientList: boolean = false;
 
-  public addReceipeFlag: boolean = true;
+  public addRecipeFlag: boolean = false;
+  public editRecipeFlag: boolean = false;
+  public viewRecipeList: boolean = false;
 
   public ingredient: Ingredient;
   public index: number;
@@ -21,7 +24,8 @@ export class ProductManagementComponent implements OnInit {
 
   constructor(
     private managService: ProductManagementService,
-    private ingredientService: IngredientService) {}
+    private ingredientService: IngredientService,
+    private recipeService: RecipeService) {}
 
   ngOnInit() {
     this.managService.addIngredient.subscribe((value: boolean) => {
@@ -50,6 +54,10 @@ export class ProductManagementComponent implements OnInit {
         console.log(this.ingredient+" si "+this.index);
       }     
     );//alt+shift+f-> align in page
+
+    this.recipeService.addRecipeEmitter.subscribe((value: boolean)=>{
+      this.addRecipeFlag = value;
+    });
   }
 
   onAddIngredientSelected() {
@@ -61,6 +69,10 @@ export class ProductManagementComponent implements OnInit {
   }
 
   onAddRecipe() {
-    //this.managService.onAddRecipe(true);
+    this.recipeService.addRecipeEmitter.emit(true);
+  }
+
+  onViewRecipeList(){
+    
   }
 }

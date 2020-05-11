@@ -18,7 +18,7 @@
         <div class="row">
           <li class="list-group-item">
             Recipes
-            <button class="btn btn-primary">
+            <button class="btn btn-primary" (click)="onViewRecipeList()">
               <i class="fa fa-eye"></i>
             </button>
 
@@ -68,7 +68,7 @@
       <app-add-ingredient *ngIf="addIngredientFlag"></app-add-ingredient>
       <app-list-ingredients *ngIf="viewIngredientList"></app-list-ingredients>
       <app-edit-ingredient [ingred]="ingredient" [type]="typeIngred" [ingredIndex]="index" *ngIf="editIngredientFlag"></app-edit-ingredient>
-      <app-add-recipe *ngIf="addReceipeFlag"></app-add-recipe>
+      <app-add-recipe *ngIf="addRecipeFlag"></app-add-recipe>
     </div>   
   </div>
 </div>
