@@ -64,5 +64,16 @@ namespace SmartRestaurant.API.Controllers
             }
             return NotFound();
         }
+
+        [HttpGet("GetRecipeByName/{name}")]
+        public async Task<IActionResult> GetRecipeByName(string name)
+        {
+            var recipe = await _recService.GetByName(name);
+            if (recipe == null)
+            {
+                return NotFound();
+            }
+            return Ok(recipe);
+        }
     }
 }
