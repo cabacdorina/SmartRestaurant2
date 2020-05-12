@@ -67,9 +67,10 @@
     <div class="col-md-7">
       <app-add-ingredient *ngIf="addIngredientFlag"></app-add-ingredient>
       <app-list-ingredients *ngIf="viewIngredientList"></app-list-ingredients>
-      <app-edit-ingredient [ingred]="ingredient" [type]="typeIngred" [ingredIndex]="index" *ngIf="editIngredientFlag"></app-edit-ingredient>
+      <app-edit-ingredient [ingred]="ingredient" [type]="typeIngred" [ingredIndex]="ingredIndex" *ngIf="editIngredientFlag"></app-edit-ingredient>
       <app-add-recipe *ngIf="addRecipeFlag"></app-add-recipe>
-      <app-recipe-list *ngIf="viewRecipeList"></app-recipe-list>
+      <app-recipe-list *ngIf="viewRecipeListFlag"></app-recipe-list>
+      <app-view-recipe [recipe]="recipe" [recipeIndex]="recipeIndex" *ngIf="viewRecipeFlag"></app-view-recipe>
     </div>   
   </div>
 </div>

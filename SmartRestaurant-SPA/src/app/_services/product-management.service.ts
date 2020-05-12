@@ -10,16 +10,19 @@ export class ProductManagementService {
 
   @Output() public addRecipeEmitter= new EventEmitter();
   @Output() public editRecipeEmitter = new EventEmitter();
+  @Output() public viewRecipeListEmitter = new EventEmitter();
+
   @Output() public viewRecipeEmitter = new EventEmitter();
 
-  addIngredientFlag: boolean = false;
-  editIngredientFlag: boolean = false;
-  viewIngredientList: boolean = false;
+  public addIngredientFlag: boolean = false;
+  public editIngredientFlag: boolean = false;
+  public viewIngredientList: boolean = false;
 
   public addRecipeFlag: boolean = false;
+  public viewRecipeListFlag: boolean = false;
+  
+  public viewRecipeFlag : boolean = false;
   public editRecipeFlag: boolean = false;
-  public viewRecipeList: boolean = false;
-
 
   constructor() {}
 
@@ -47,11 +50,17 @@ export class ProductManagementService {
     this.addRecipeEmitter.emit(this.addRecipeFlag);
   }
 
+  onViewListRecipe(value: boolean){
+    this.resetAllFlags();
+    this.viewRecipeListFlag=value;
+    this.viewRecipeListEmitter.emit(this.viewRecipeListFlag);
+  }
+
   onViewRecipe(value: boolean){
     this.resetAllFlags();
-    this.viewRecipeList=value;
-    this.viewRecipeEmitter.emit(this.viewRecipeList);
-  }
+    this.viewRecipeFlag=value;
+    this.viewRecipeEmitter.emit(this.viewRecipeFlag);
+  }  
   
   private resetAllFlags() {
     this.addIngredientFlag = false;
@@ -60,14 +69,18 @@ export class ProductManagementService {
 
     this.addRecipeFlag=false;
     this.editRecipeFlag=false;
-    this.viewRecipeList=false;
+    this.viewRecipeListFlag=false;
+
+    this.viewRecipeFlag = false;
 
     this.addRecipeEmitter.emit(false);
     this.editRecipeEmitter.emit(false);
-    this.viewRecipeEmitter.emit(false);
+    this.viewRecipeListEmitter.emit(false);
     
     this.addIngredient.emit(false);
     this.viewIngredient.emit(false);
     this.editIngredient.emit(false);
+
+    this.viewRecipeEmitter.emit(false);
   }
 }

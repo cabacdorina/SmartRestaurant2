@@ -1,4 +1,5 @@
-﻿using Omu.ValueInjecter;
+﻿using Microsoft.EntityFrameworkCore;
+using Omu.ValueInjecter;
 using SmartRestaurant.Data.Infrastructure;
 using SmartRestaurant.Data.Models;
 using SmartRestaurant.Services.RecipeServices.RecipeDTO;
@@ -17,7 +18,7 @@ namespace SmartRestaurant.Services.RecipeServices
         public readonly IRepository<RecipeIngredientPerUnit> _recipeIngredientPerUnitRepo;
         public readonly IUnitOfWork _unitOfWork;
 
-        public RecipeService(IRepository<Recipe> recipeRepo, IUnitOfWork unitOfWork, 
+        public RecipeService(IRepository<Recipe> recipeRepo, IUnitOfWork unitOfWork,
             IRepository<RecipeIngredientPerPiece> recipeIngredientPerPieceRepo, IRepository<RecipeIngredientPerUnit> recipeIngredientPerUnitRepo)
         {
             _recipeRepo = recipeRepo;
@@ -59,7 +60,7 @@ namespace SmartRestaurant.Services.RecipeServices
             foreach (var item in recipeIngredientsPerUnit)
             {
                 await _recipeIngredientPerUnitRepo.Add(item);
-            }          
+            }
 
             await _unitOfWork.Commit();
             return recipe.Id;
@@ -92,6 +93,46 @@ namespace SmartRestaurant.Services.RecipeServices
                 return null;
             }
             return new RecipeDto().InjectFrom(recipe) as RecipeDto;
+        }
+
+        public Task<RecipeViewDto> GetByName(string name)
+        {
+            var recipe = _recipeRepo.Query()
+                            .Include(x => x.RecipeIngredientPerUnit)
+                            .ThenInclude(x => x.IngredientPerUnit)
+                            .Include(x => x.RecipeIngredientPerPiece)
+                            .ThenInclude(x => x.IngredientPerPiece)
+                            .Where(x => x.Name.Equals(name))
+                            .FirstOrDefault();
+
+
+            var recipeIngredPerUnit = recipe.RecipeIngredientPerUnit
+                                        .Select(x => new RecipeIngredientViewDto
+                                        {
+                                            Name = x.IngredientPerUnit.Name,
+                                            Quantity = x.IngredientPerUnit.Quantity,
+                                            Type = x.IngredientPerUnit.UnitType
+                                        });
+
+            var recipeIngredPerPiece = recipe.RecipeIngredientPerPiece
+                                        .Select(x => new RecipeIngredientViewDto
+                                        { 
+                                            Name=x.IngredientPerPiece.Name,
+                                            Pieces= x.IngredientPerPiece.NumberOfPieces
+                                          });
+            //var recipeIngredPerPiece = recipe.RecipeIngredientPerPiece
+            //                            .Select(x => x.IngredientPerPiece);
+
+            var recipeData = new RecipeViewDto
+            {
+                Name = recipe.Name,
+                IngredList = new List<RecipeIngredientViewDto>()
+                        .Concat(recipeIngredPerUnit)
+                        .Concat(recipeIngredPerPiece)
+                        .ToList()
+            };
+
+            return Task.FromResult(recipeData);
         }
 
         public async Task<bool> Update(RecipeDto recipeDto, int recipeId)

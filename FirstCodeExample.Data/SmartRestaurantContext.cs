@@ -32,7 +32,10 @@ namespace SmartRestaurant.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             //modelBuilder.Entity<Product>().HasAlternateKey()
+
+            modelBuilder.Entity<Recipe>().HasIndex(r => r.Name).IsUnique();
 
             modelBuilder.Entity<ProductCommand>().HasKey(sc => new { sc.CommandId, sc.ProductId });
 

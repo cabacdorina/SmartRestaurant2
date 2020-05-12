@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Recipe } from 'src/app/_models/recipe';
+import { ProductManagementService } from 'src/app/_services/product-management.service';
+import { RecipeService } from 'src/app/_services/recipe.service';
 
 @Component({
   selector: 'app-recipeTable',
@@ -10,13 +12,17 @@ export class RecipeTableComponent implements OnInit {
   public selectedRecipe: Recipe;
   @Input() public recipeList: Recipe[];
   
-  constructor() { }
+  constructor(
+    private managService: ProductManagementService,
+    private recipeService: RecipeService) { }
 
   ngOnInit() {
   }
 
   onRecipeSelected(i: number){
+    this.managService.onViewRecipe(true);
     this.selectedRecipe=this.recipeList[i];
+    this.recipeService.onRecipeSelected(this.selectedRecipe,i);
   }
 
 }

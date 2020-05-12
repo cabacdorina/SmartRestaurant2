@@ -8,6 +8,8 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class RecipeService {
+  @Output() public recipeEmitter = new EventEmitter();
+
   baseUrl = environment.apiUrl;
   readonly recipeUrl = this.baseUrl + "recipe"; 
   public recipeList: Recipe[];
@@ -22,5 +24,8 @@ export class RecipeService {
     let recipeUrl = this.baseUrl+"recipe/GetAllRecipes";
     return this.http.get<Recipe[]>(recipeUrl)
   }
- 
+  
+  onRecipeSelected(recipe: Recipe, i: number){
+    this.recipeEmitter.emit({recipe:recipe,index: i});
+  }
 }

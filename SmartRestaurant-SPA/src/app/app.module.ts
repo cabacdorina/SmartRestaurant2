@@ -49,6 +49,7 @@ import { RecipeService } from './_services/recipe.service';
 import { RecipeListComponent } from './product-management/recipe-operations/recipe-list/recipe-list.component';
 import { RecipeResolver } from './_resolvers/recipe.resolver';
 import { RecipeTableComponent } from './product-management/recipe-operations/recipeTable/recipeTable.component';
+import { ViewRecipeComponent } from './product-management/recipe-operations/recipe-list/view-recipe/view-recipe.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -80,7 +81,8 @@ export function tokenGetter() {
       AddRecipeComponent,
       IngredTableComponent,
       RecipeListComponent,
-      RecipeTableComponent 
+      RecipeTableComponent,
+      ViewRecipeComponent 
    ],
    imports: [
       BrowserModule,
