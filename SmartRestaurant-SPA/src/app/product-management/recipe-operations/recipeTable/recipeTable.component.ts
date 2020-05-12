@@ -7,11 +7,16 @@ import { Recipe } from 'src/app/_models/recipe';
   styleUrls: ['./recipeTable.component.css']
 })
 export class RecipeTableComponent implements OnInit {
+  public selectedRecipe: Recipe;
   @Input() public recipeList: Recipe[];
   
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onRecipeSelected(i: number){
+    this.selectedRecipe=this.recipeList[i];
   }
 
 }

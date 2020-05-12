@@ -16,7 +16,7 @@ export class ProductManagementComponent implements OnInit {
 
   public addRecipeFlag: boolean = false;
   public editRecipeFlag: boolean = false;
-  public viewRecipeList: boolean = true;
+  public viewRecipeList: boolean = false;
 
   public ingredient: Ingredient;
   public index: number;
@@ -40,6 +40,14 @@ export class ProductManagementComponent implements OnInit {
       this.editIngredientFlag = value;
     });
 
+    this.managService.viewRecipeEmitter.subscribe((value: boolean)=>{
+      this.viewRecipeList = value;
+    });
+
+    this.managService.addRecipeEmitter.subscribe((value: boolean)=>{
+      this.addRecipeFlag = value;
+    });
+    
     this.ingredientService.editIngred.subscribe((data:any) => {
         this.ingredient = data.ingred as Ingredient;
         this.index = data.index as number;
@@ -55,9 +63,6 @@ export class ProductManagementComponent implements OnInit {
       }     
     );//alt+shift+f-> align in page
 
-    this.recipeService.addRecipeEmitter.subscribe((value: boolean)=>{
-      this.addRecipeFlag = value;
-    });
   }
 
   onAddIngredientSelected() {
@@ -69,10 +74,10 @@ export class ProductManagementComponent implements OnInit {
   }
 
   onAddRecipe() {
-    this.recipeService.addRecipeEmitter.emit(true);
+    this.managService.onAddRecipe(true);
   }
 
   onViewRecipeList(){
-    
+    this.managService.onViewRecipe(true);
   }
 }

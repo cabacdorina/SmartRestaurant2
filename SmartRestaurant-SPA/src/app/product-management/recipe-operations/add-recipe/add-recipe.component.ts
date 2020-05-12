@@ -4,6 +4,7 @@ import { Ingredient } from "src/app/_models/ingredient";
 import { IngredientService } from "src/app/_services/ingredient.service";
 import { RecipeService } from "src/app/_services/recipe.service";
 import { AlertifyService } from "src/app/_services/utils/alertify.service";
+import { ProductManagementService } from "src/app/_services/product-management.service";
 
 @Component({
   selector: "app-add-recipe",
@@ -28,6 +29,7 @@ export class AddRecipeComponent implements OnInit {
     private ingredientService: IngredientService,
     private detectChange: ChangeDetectorRef,
     private recipeService: RecipeService,
+    private productManagementServ: ProductManagementService,
     private alertifyService: AlertifyService
   ) {}
 
@@ -89,12 +91,12 @@ export class AddRecipeComponent implements OnInit {
     } as Recipe).subscribe((res)=> {
       //console.log(res);
       this.alertifyService.success("Recipe added!");
-      this.recipeService.addRecipeEmitter.emit(false);
+      this.productManagementServ.addRecipeEmitter.emit(false);
     })
   }
 
   onClose() {
-    this.recipeService.onAddRecipe(false);
+    this.productManagementServ.onAddRecipe(false);
   }
 
   addNewIngred() {

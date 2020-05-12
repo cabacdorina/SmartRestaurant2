@@ -9,16 +9,7 @@ import { Observable } from "rxjs";
 })
 export class RecipeService {
   baseUrl = environment.apiUrl;
-  readonly recipeUrl = this.baseUrl + "recipe";
-
-  @Output() public addRecipeEmitter= new EventEmitter();
-  @Output() public editRecipeEmitter = new EventEmitter();
-  @Output() public viewRecipeEmitter = new EventEmitter();
-
-  public addRecipeFlag: boolean = false;
-  public editRecipeFlag: boolean = false;
-  public viewRecipeList: boolean = false;
-
+  readonly recipeUrl = this.baseUrl + "recipe"; 
   public recipeList: Recipe[];
 
   constructor(private http: HttpClient) {}
@@ -31,20 +22,5 @@ export class RecipeService {
     let recipeUrl = this.baseUrl+"recipe/GetAllRecipes";
     return this.http.get<Recipe[]>(recipeUrl)
   }
-
-  private resetAllFlags() {
-    this.addRecipeFlag=false;
-    this.editRecipeFlag=false;
-    this.viewRecipeList=false;
-
-    this.addRecipeEmitter.emit(false);
-    this.editRecipeEmitter.emit(false);
-    this.viewRecipeEmitter.emit(false);
-  }
-
-  onAddRecipe(value: boolean){
-    this.resetAllFlags();
-    this.addRecipeFlag=value;
-    this.addRecipeEmitter.emit(this.addRecipeFlag);
-  }
+ 
 }
