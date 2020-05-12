@@ -15,14 +15,21 @@ export class RecipeService {
   @Output() public editRecipeEmitter = new EventEmitter();
   @Output() public viewRecipeEmitter = new EventEmitter();
 
-  addRecipeFlag: boolean = false;
-  editRecipeFlag: boolean = false;
-  viewRecipeList: boolean = false;
+  public addRecipeFlag: boolean = false;
+  public editRecipeFlag: boolean = false;
+  public viewRecipeList: boolean = false;
+
+  public recipeList: Recipe[];
 
   constructor(private http: HttpClient) {}
 
   addRecipe(recipe: Recipe): Observable<Object> {
     return this.http.post(this.recipeUrl + "/AddRecipe", recipe);
+  }
+
+  getRecipeList(): Observable<Recipe[]>{
+    let recipeUrl = this.baseUrl+"recipe/GetAllRecipes";
+    return this.http.get<Recipe[]>(recipeUrl)
   }
 
   private resetAllFlags() {

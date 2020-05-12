@@ -16,7 +16,7 @@ export class ProductManagementComponent implements OnInit {
 
   public addRecipeFlag: boolean = false;
   public editRecipeFlag: boolean = false;
-  public viewRecipeList: boolean = false;
+  public viewRecipeList: boolean = true;
 
   public ingredient: Ingredient;
   public index: number;

@@ -15,6 +15,7 @@ import { ProductManagementComponent } from './product-management/product-managem
 import { IngredPerPieceResolver } from './_resolvers/ingreds/ingredients-per-pierce.resolver';
 import { IngredPerUnitResolver } from './_resolvers/ingreds/ingredients-per-unit.resolver';
 import { ProductPredictionComponent } from './product-prediction/product-prediction.component';
+import { RecipeResolver } from './_resolvers/recipe.resolver';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -37,7 +38,8 @@ export const appRoutes: Routes = [
                      resolve:
                      {
                          thePerPiece: IngredPerPieceResolver,
-                         thePerUnit: IngredPerUnitResolver
+                         thePerUnit: IngredPerUnitResolver,
+                         theRecipes:RecipeResolver
                      }
             },
             {

@@ -46,6 +46,9 @@ import { EditIngredientComponent } from './product-management/ingred-operations/
 import { AddRecipeComponent } from './product-management/recipe-operations/add-recipe/add-recipe.component';
 import { IngredTableComponent } from './product-management/recipe-operations/ingredTable/ingredTable.component';
 import { RecipeService } from './_services/recipe.service';
+import { RecipeListComponent } from './product-management/recipe-operations/recipe-list/recipe-list.component';
+import { RecipeResolver } from './_resolvers/recipe.resolver';
+import { RecipeTableComponent } from './product-management/recipe-operations/recipeTable/recipeTable.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -75,7 +78,9 @@ export function tokenGetter() {
       PredictMainFoodComponent,
       PredictSoupComponent,
       AddRecipeComponent,
-      IngredTableComponent
+      IngredTableComponent,
+      RecipeListComponent,
+      RecipeTableComponent 
    ],
    imports: [
       BrowserModule,
@@ -107,7 +112,8 @@ export function tokenGetter() {
       ProductManagementService,
       IngredientService,
       PredictService,
-      RecipeService
+      RecipeService,
+      RecipeResolver
    ],
    bootstrap: [
       AppComponent
