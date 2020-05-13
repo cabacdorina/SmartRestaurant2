@@ -89,9 +89,15 @@ export class AddRecipeComponent implements OnInit {
       ingredients: this.ingredQuantityList,
       name: this.recipe.name,
     } as Recipe).subscribe((res)=> {
-      //console.log(res);
       this.alertifyService.success("Recipe added!");
-      this.productManagementServ.addRecipeEmitter.emit(false);
+      // this.productManagementServ.addRecipeEmitter.emit(false);
+      
+      this.recipeService.recipeList.push({
+        ingredients: this.ingredQuantityList,
+        name: this.recipe.name,
+      } as Recipe);
+      this.productManagementServ.onAddRecipe(false);
+
     })
   }
 

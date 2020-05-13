@@ -12,3 +12,8 @@
     width: 400px;
     margin-bottom: 5px;
 }
+
+.ingredients-container {
+    overflow: auto;
+    height: 200px;
+}

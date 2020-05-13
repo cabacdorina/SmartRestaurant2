@@ -23,7 +23,8 @@ export class RecipeListComponent implements OnInit {
     this.route.data.subscribe((data)=>{
       this.recipeList=data["theRecipes"];
       this.recipeService.recipeList = this.recipeList;
-    });    
+    });
+    
   }
 
 }

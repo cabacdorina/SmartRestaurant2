@@ -1,34 +1,39 @@
-  <div class="col-sm-7" style="margin-left: 50px;">
-    <h5 style="margin-left: 15px;"><b>Ingredients per piece</b></h5>
-    <ul class="list-group" >
-       <div *ngFor="let ingred of ingredientsPerPiece; let i = index">      
-          <div class="row" >
-            <li class="list-group-item">
-              {{ ingred.name }}
-              <button class="btn btn-primary" (click)="onDeletePerPiece(i)">
-                <i class="fa fa-trash"></i>
-              </button>
-              <button class="btn btn-primary" (click)="onEditPerPiece(ingred,i)">
-                <i class="fa fa-edit"></i>
-              </button>
-            </li>
-          </div>
-        </div>
-      
-      <h5 style="padding-top: 10px;"><b>Ingredients per unit</b></h5>
-      <div *ngFor="let ingred of ingredientsPerUnit; let i = index">
+<div class="col-sm-12" style="margin-left: 50px;">
+  <h5 style="margin-left: 15px;"><b>Ingredients per piece</b></h5>
+  <div class="ingredients-container">
+    <ul class="list-group">
+      <div *ngFor="let ingred of ingredientsPerPiece; let i = index">
         <div class="row">
           <li class="list-group-item">
             {{ ingred.name }}
-            <button class="btn btn-primary" (click)="onDeletePerUnit(i)">
+            <button class="btn btn-primary btn-sm" (click)="onDeletePerPiece(i)">
               <i class="fa fa-trash"></i>
             </button>
-            <button class="btn btn-primary" (click)="onEditPerUnit(ingred,i)">
+            <button class="btn btn-primary btn-sm" (click)="onEditPerPiece(ingred, i)">
               <i class="fa fa-edit"></i>
             </button>
           </li>
         </div>
       </div>
-     
     </ul>
+  </div>
+
+  <h5 style="padding-top: 10px;"><b>Ingredients per unit</b></h5>
+  <div class="ingredients-container">
+    <ul class="list-group">
+      <div *ngFor="let ingred of ingredientsPerUnit; let i = index">
+        <div class="row">
+          <li class="list-group-item">
+            {{ ingred.name }}
+            <button class="btn btn-primary btn-sm" (click)="onDeletePerUnit(i)">
+              <i class="fa fa-trash"></i>
+            </button>
+            <button class="btn btn-primary btn-sm" (click)="onEditPerUnit(ingred, i)">
+              <i class="fa fa-edit"></i>
+            </button>
+          </li>
+        </div>
+      </div>
+    </ul>
+  </div>
 </div>

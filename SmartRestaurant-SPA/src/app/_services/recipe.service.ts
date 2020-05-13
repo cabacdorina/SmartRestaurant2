@@ -13,9 +13,10 @@ export class RecipeService {
 
   baseUrl = environment.apiUrl;
   readonly recipeUrl = this.baseUrl + "recipe"; 
-  public recipeList: Recipe[];
+  public recipeList: Recipe[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   addRecipe(recipe: Recipe): Observable<Object> {
     return this.http.post(this.recipeUrl + "/AddRecipe", recipe);
