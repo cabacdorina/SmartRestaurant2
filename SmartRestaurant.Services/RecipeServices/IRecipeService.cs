@@ -10,10 +10,12 @@ namespace SmartRestaurant.Services.RecipeServices
     public interface IRecipeService
     {
         Task<int> Create(RecipeDto recipe);
-        Task<bool> DeleteById(int recipeId);
         Task<bool> Update(RecipeDto recipe, int recipeId);
         Task<RecipeDto> GetById(int recipeId);
         Task<RecipeViewDto> GetByName(string name);
         Task<IEnumerable<RecipeDto>> GetAllRecipes();
+
+        Task<bool> DeleteById(int recipeId);
+        Task<bool> DeleteRecipeByName(string name);
     }
 }

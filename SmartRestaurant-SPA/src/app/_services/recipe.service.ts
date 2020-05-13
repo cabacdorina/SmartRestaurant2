@@ -31,7 +31,14 @@ export class RecipeService {
     return this.http.get<RecipeByNameDetails>(recipeUrl);
   }
   
+  onRemoveSelected(name:string):Observable<any>{
+    let recipeUrl=this.baseUrl+"recipe/DeleteRecipeByName/"+name;
+    return this.http.delete<any>(recipeUrl);
+  }
+
   onRecipeSelected(recipe: Recipe, i: number){
     this.recipeEmitter.emit({recipe:recipe,index: i});
   }
+
+  
 }

@@ -66,18 +66,6 @@ namespace SmartRestaurant.Services.RecipeServices
             return recipe.Id;
         }
 
-        public async Task<bool> DeleteById(int recipeId)
-        {
-            var recipe = await _recipeRepo.GetById(recipeId);
-            if (recipe == null)
-            {
-                return false;
-            }
-            _recipeRepo.Delete(recipe);
-            await _unitOfWork.Commit();
-            return true;
-        }
-
         public async Task<IEnumerable<RecipeDto>> GetAllRecipes()
         {
             var recipeList = await _recipeRepo.GetAll();
@@ -106,7 +94,7 @@ namespace SmartRestaurant.Services.RecipeServices
                             .FirstOrDefault();
 
 
-            var recipeIngredPerUnit = recipe.RecipeIngredientPerUnit
+            var recipeIngredPerUnit = recipe.RecipeIngredientPerUnit//select for filte some columns or fields
                                         .Select(x => new RecipeIngredientViewDto
                                         {
                                             Name = x.IngredientPerUnit.Name,
@@ -144,6 +132,30 @@ namespace SmartRestaurant.Services.RecipeServices
             }
 
             recipe.InjectFrom(recipeDto);
+            await _unitOfWork.Commit();
+            return true;
+        }
+
+        public async Task<bool> DeleteById(int recipeId)
+        {
+            var recipe = await _recipeRepo.GetById(recipeId);
+            if (recipe == null)
+            {
+                return false;
+            }
+            _recipeRepo.Delete(recipe);
+            await _unitOfWork.Commit();
+            return true;
+        }
+
+        public async Task<bool> DeleteRecipeByName(string name)
+        {
+            var recipe = _recipeRepo.Query().Where(x => x.Name.Equals(name)).FirstOrDefault();
+            if (recipe == null)
+            {
+                return false;
+            }
+            _recipeRepo.Delete(recipe);
             await _unitOfWork.Commit();
             return true;
         }

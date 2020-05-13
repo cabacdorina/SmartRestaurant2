@@ -75,5 +75,18 @@ namespace SmartRestaurant.API.Controllers
             }
             return Ok(recipe);
         }
+
+
+        [HttpDelete("DeleteRecipeByName/{name}")]
+        public async Task<IActionResult> DeleteRecipeByName(string name)
+        {
+            var IsDeleted = await _recService.DeleteRecipeByName(name);
+            if (IsDeleted)
+            {
+                return Ok(new { Message = $"Recipe with name {name} was deleted." });
+            }
+            return NotFound();
+        }
+
     }
 }
