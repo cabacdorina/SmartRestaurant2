@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { Recipe } from "../_models/recipe";
 import { Observable } from "rxjs";
+import { RecipeByNameDetails } from "../_models/RecipeByNameDetails";
 
 @Injectable({
   providedIn: "root",
@@ -23,6 +24,11 @@ export class RecipeService {
   getRecipeList(): Observable<Recipe[]>{
     let recipeUrl = this.baseUrl+"recipe/GetAllRecipes";
     return this.http.get<Recipe[]>(recipeUrl)
+  }
+
+  getRecipeByName(name:string):Observable<RecipeByNameDetails>{
+    let recipeUrl= this.baseUrl+"recipe/GetRecipeByName/"+name; 
+    return this.http.get<RecipeByNameDetails>(recipeUrl);
   }
   
   onRecipeSelected(recipe: Recipe, i: number){
