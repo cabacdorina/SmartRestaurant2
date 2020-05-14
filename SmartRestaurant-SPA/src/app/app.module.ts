@@ -51,6 +51,7 @@ import { RecipeResolver } from './_resolvers/recipe.resolver';
 import { RecipeTableComponent } from './product-management/recipe-operations/recipeTable/recipeTable.component';
 import { ViewRecipeComponent } from './product-management/recipe-operations/recipe-list/view-recipe/view-recipe.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { EditRecipeComponent } from './product-management/recipe-operations/edit-recipe/edit-recipe.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -83,7 +84,8 @@ export function tokenGetter() {
       IngredTableComponent,
       RecipeListComponent,
       RecipeTableComponent,
-      ViewRecipeComponent 
+      ViewRecipeComponent,
+      EditRecipeComponent
    ],
    imports: [
       BrowserModule,

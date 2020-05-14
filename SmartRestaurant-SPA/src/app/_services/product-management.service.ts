@@ -1,4 +1,5 @@
 import { Injectable, Output, EventEmitter } from "@angular/core";
+import { t } from "@angular/core/src/render3";
 
 @Injectable({
   providedIn: "root",
@@ -61,6 +62,12 @@ export class ProductManagementService {
     this.viewRecipeFlag=value;
     this.viewRecipeEmitter.emit(this.viewRecipeFlag);
   }  
+
+  onEditRecipe(value:boolean){
+    this.resetAllFlags();
+    this.editRecipeFlag=value;
+    this.editRecipeEmitter.emit(this.editRecipeFlag);
+  }
   
   private resetAllFlags() {
     this.addIngredientFlag = false;

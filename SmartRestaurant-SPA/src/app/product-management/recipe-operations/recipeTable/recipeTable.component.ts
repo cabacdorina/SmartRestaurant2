@@ -34,4 +34,8 @@ export class RecipeTableComponent implements OnInit {
       console.log(res.message);
     });
   }
+
+  onEditSelected(){
+    this.managService.onEditRecipe(true);
+  }
 }
