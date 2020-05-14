@@ -50,6 +50,7 @@ import { RecipeListComponent } from './product-management/recipe-operations/reci
 import { RecipeResolver } from './_resolvers/recipe.resolver';
 import { RecipeTableComponent } from './product-management/recipe-operations/recipeTable/recipeTable.component';
 import { ViewRecipeComponent } from './product-management/recipe-operations/recipe-list/view-recipe/view-recipe.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -96,7 +97,8 @@ export function tokenGetter() {
             whitelistedDomains: ['localhost:44365'],
             blacklistedRoutes: ['localhost:44365/api/auth']
          }
-      })
+      }),
+      NgxSpinnerModule
    ],
    providers: [
       AuthService,

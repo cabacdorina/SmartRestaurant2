@@ -3,6 +3,7 @@ import { Product } from "../_models/product";
 import { ActivatedRoute } from "@angular/router";
 import { PredictService } from "../_services/predict.service";
 import { AlertifyService } from "../_services/utils/alertify.service";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-product-prediction",
@@ -24,7 +25,8 @@ export class ProductPredictionComponent implements OnInit {
   constructor(
     private predService: PredictService,
     private route: ActivatedRoute,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private spinnerService:NgxSpinnerService
   ) {}
 
   ngOnInit() {
@@ -69,6 +71,7 @@ export class ProductPredictionComponent implements OnInit {
   }
 
   PredictAll() {
+    this.spinnerService.show();
     const productList = this.predService.concatenateLists(
       this.dessertList,
       this.mainFoodList,
@@ -91,7 +94,11 @@ export class ProductPredictionComponent implements OnInit {
       
       this.predictAllFlag = true;
       this.predService.setProductLists(this.dessertList,this.mainFoodList, this.soupList);
+      
+      setTimeout(()=>{
+        this.spinnerService.hide();
+      }, 2000);
     });
- 
+
   }
 }
