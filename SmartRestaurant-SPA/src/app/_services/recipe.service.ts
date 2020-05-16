@@ -4,23 +4,29 @@ import { environment } from "src/environments/environment";
 import { Recipe } from "../_models/recipe";
 import { Observable } from "rxjs";
 import { RecipeByNameDetails } from "../_models/RecipeByNameDetails";
+import { t } from "@angular/core/src/render3";
 
 @Injectable({
   providedIn: "root",
 })
 export class RecipeService {
   @Output() public recipeEmitter = new EventEmitter();
+  @Output() public editRecipeEmitter = new EventEmitter();
 
   baseUrl = environment.apiUrl;
-  readonly recipeUrl = this.baseUrl + "recipe"; 
+  readonly recipeUrl = this.baseUrl + "recipe/"; 
   public recipeList: Recipe[] = [];
 
   constructor(private http: HttpClient) {
   }
 
   addRecipe(recipe: Recipe): Observable<Object> {
-    return this.http.post(this.recipeUrl + "/AddRecipe", recipe);
+    return this.http.post(this.recipeUrl + "AddRecipe", recipe);
   }
+
+  // editRecipe(recipe:Recipe):Observable<Object>{
+  //   return this.http.put(this.recipeUrl+"UpdateRecipe/{id}");
+  // }
 
   getRecipeList(): Observable<Recipe[]>{
     let recipeUrl = this.baseUrl+"recipe/GetAllRecipes";
@@ -41,5 +47,7 @@ export class RecipeService {
     this.recipeEmitter.emit({recipe:recipe,index: i});
   }
 
-  
+  onEditRecipe(recipe: Recipe){
+    this.editRecipeEmitter.emit(recipe);
+  }
 }

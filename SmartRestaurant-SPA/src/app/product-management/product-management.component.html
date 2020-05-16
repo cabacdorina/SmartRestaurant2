@@ -71,7 +71,7 @@
       <app-add-recipe *ngIf="addRecipeFlag"></app-add-recipe>
       <app-recipe-list *ngIf="viewRecipeListFlag"></app-recipe-list>
       <app-view-recipe [recipe]="recipe" [recipeIndex]="recipeIndex" *ngIf="viewRecipeFlag"></app-view-recipe>
-      <app-edit-recipe *ngIf="editRecipeFlag"></app-edit-recipe>
+      <app-edit-recipe [recipe]="recipe" *ngIf="editRecipeFlag"></app-edit-recipe>
     </div>   
   </div>
 </div>

@@ -13,7 +13,8 @@ namespace SmartRestaurant.Services.RecipeServices
         Task<bool> Update(RecipeDto recipe, int recipeId);
         Task<RecipeDto> GetById(int recipeId);
         Task<RecipeViewDto> GetByName(string name);
-        Task<IEnumerable<RecipeDto>> GetAllRecipes();
+        //Task<IEnumerable<RecipeDto>> GetAllRecipes();
+        Task<List<RecipeDto>> GetAllRecipes();
 
         Task<bool> DeleteById(int recipeId);
         Task<bool> DeleteRecipeByName(string name);

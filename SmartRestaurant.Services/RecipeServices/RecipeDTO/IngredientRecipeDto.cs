@@ -19,7 +19,7 @@ namespace SmartRestaurant.Services.RecipeServices.RecipeDTO
         public int? NumberOfPieces { get; set; }
         public int? NumberOfPiecesReserved { get; set; }
         public int? UnitType { get; set; }
-        public int? Quantity { get; set; }
-        public int? QuantityReserved { get; set; }
+        public float? Quantity { get; set; }
+        public float? QuantityReserved { get; set; }
     }
 }

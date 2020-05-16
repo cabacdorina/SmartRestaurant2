@@ -2,8 +2,10 @@
 using Omu.ValueInjecter;
 using SmartRestaurant.Data.Infrastructure;
 using SmartRestaurant.Data.Models;
+using SmartRestaurant.Services.ProductServices.ProductServiceDTO;
 using SmartRestaurant.Services.RecipeServices.RecipeDTO;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -66,10 +68,55 @@ namespace SmartRestaurant.Services.RecipeServices
             return recipe.Id;
         }
 
-        public async Task<IEnumerable<RecipeDto>> GetAllRecipes()
+        public async Task<List<RecipeDto>> GetAllRecipes()
         {
-            var recipeList = await _recipeRepo.GetAll();
-            var newRecipeList = recipeList.Select(r => new RecipeDto().InjectFrom(r) as RecipeDto);
+            List<RecipeDto> newRecipeList = new List<RecipeDto>();
+
+            var recipeList = await _recipeRepo.Query()
+                .Include(x => x.RecipeIngredientPerUnit)
+                .ThenInclude(x => x.IngredientPerUnit)
+                .Include(x => x.RecipeIngredientPerPiece)
+                .ThenInclude(x => x.IngredientPerPiece).ToListAsync();
+
+            foreach (var recipe in recipeList)
+            {
+                var recipeDto = new RecipeDto
+                {
+                    Name = recipe.Name
+                };
+
+                var ingredientsPerUnit = recipe.RecipeIngredientPerUnit
+                                         .Select(x => new IngredientRecipeDto()
+                                         {
+                                             Ingred = new IngredientRecipe
+                                             {
+                                                  Name = x.IngredientPerUnit.Name,
+                                                  UnitType=x.IngredientPerUnit.UnitType,
+                                                  Quantity=x.IngredientPerUnit.Quantity,
+                                                  Price=x.IngredientPerUnit.Price
+                                             },
+                                             Quantity = x.Quantity
+                                         });
+
+                var ingredinetsPerPieces = recipe.RecipeIngredientPerPiece
+                             .Select(x => new IngredientRecipeDto()
+                             {
+                                 Ingred = new IngredientRecipe
+                                 {
+                                     Name = x.IngredientPerPiece.Name,
+                                     NumberOfPieces = x.IngredientPerPiece.NumberOfPieces,
+                                     Price = x.IngredientPerPiece.Price
+                                 },
+                                 NumberOfPieces = x.NumberOfPieces
+                             });
+
+                recipeDto.Ingredients = new List<IngredientRecipeDto>()
+                                            .Concat(ingredientsPerUnit)
+                                            .Concat(ingredinetsPerPieces).ToList();
+
+                newRecipeList.Add(recipeDto);                            
+            }
+
             return newRecipeList;
         }
 
@@ -104,10 +151,10 @@ namespace SmartRestaurant.Services.RecipeServices
 
             var recipeIngredPerPiece = recipe.RecipeIngredientPerPiece
                                         .Select(x => new RecipeIngredientViewDto
-                                        { 
-                                            Name=x.IngredientPerPiece.Name,
-                                            Pieces= x.IngredientPerPiece.NumberOfPieces
-                                          });
+                                        {
+                                            Name = x.IngredientPerPiece.Name,
+                                            Pieces = x.IngredientPerPiece.NumberOfPieces
+                                        });
             //var recipeIngredPerPiece = recipe.RecipeIngredientPerPiece
             //                            .Select(x => x.IngredientPerPiece);
 
@@ -122,6 +169,7 @@ namespace SmartRestaurant.Services.RecipeServices
 
             return Task.FromResult(recipeData);
         }
+
 
         public async Task<bool> Update(RecipeDto recipeDto, int recipeId)
         {

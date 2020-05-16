@@ -61,6 +61,10 @@ export class ProductManagementComponent implements OnInit {
     this.managService.editRecipeEmitter.subscribe((value:boolean)=>{
       this.editRecipeFlag=value;
     });
+
+    this.recipeService.editRecipeEmitter.subscribe((value: Recipe)=>{
+      this.recipe=value;
+    });
     
     this.ingredientService.editIngred.subscribe((data:any) => {
         this.ingredient = data.ingred as Ingredient;
