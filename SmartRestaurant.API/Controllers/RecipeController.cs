@@ -43,10 +43,10 @@ namespace SmartRestaurant.API.Controllers
             return Ok(new { Recipe = await _recService.Create(recipeDto)});
         }
 
-        [HttpPut("UpdateRecipe/{id}")]
-        public async Task<IActionResult> UpdateRecipe([FromBody]RecipeDto recipeDto, int id)
+        [HttpPut("UpdateRecipeByName/{name}")]
+        public async Task<IActionResult> UpdateRecipeByName([FromBody]RecipeDto recipeDto, string name)
         {
-           var IsUpdated=await _recService.Update(recipeDto, id);
+           var IsUpdated=await _recService.UpdateByName(recipeDto,name);
            if (IsUpdated)
            {
                return Ok(recipeDto);
@@ -54,6 +54,16 @@ namespace SmartRestaurant.API.Controllers
            return NotFound();
         }
 
+        [HttpPut("UpdateRecipe/{id}")]
+        public async Task<IActionResult> UpdateRecipe([FromBody]RecipeDto recipeDto, int id)
+        {
+            var IsUpdated = await _recService.Update(recipeDto, id);
+            if (IsUpdated)
+            {
+                return Ok(recipeDto);
+            }
+            return NotFound();
+        }
         [HttpDelete("DeleteRecipe/{id}")]
         public async Task<IActionResult> DeleteRecipe(int id)
         {

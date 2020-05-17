@@ -48,6 +48,7 @@ namespace SmartRestaurant.Services.RecipeServices
             foreach (var item in recipeIngredientsPerPiece)
             {
                 await _recipeIngredientPerPieceRepo.Add(item);
+                await _unitOfWork.Commit();
             }
 
             var recipeIngredientsPerUnit = recipeDto.Ingredients
@@ -62,9 +63,9 @@ namespace SmartRestaurant.Services.RecipeServices
             foreach (var item in recipeIngredientsPerUnit)
             {
                 await _recipeIngredientPerUnitRepo.Add(item);
+                await _unitOfWork.Commit();
             }
 
-            await _unitOfWork.Commit();
             return recipe.Id;
         }
 
@@ -90,6 +91,7 @@ namespace SmartRestaurant.Services.RecipeServices
                                          {
                                              Ingred = new IngredientRecipe
                                              {
+                                                 Id = x.IngredientPerUnit.Id,
                                                   Name = x.IngredientPerUnit.Name,
                                                   UnitType=x.IngredientPerUnit.UnitType,
                                                   Quantity=x.IngredientPerUnit.Quantity,
@@ -103,6 +105,7 @@ namespace SmartRestaurant.Services.RecipeServices
                              {
                                  Ingred = new IngredientRecipe
                                  {
+                                     Id = x.IngredientPerPiece.Id,
                                      Name = x.IngredientPerPiece.Name,
                                      NumberOfPieces = x.IngredientPerPiece.NumberOfPieces,
                                      Price = x.IngredientPerPiece.Price
@@ -204,6 +207,20 @@ namespace SmartRestaurant.Services.RecipeServices
                 return false;
             }
             _recipeRepo.Delete(recipe);
+            await _unitOfWork.Commit();
+            return true;
+        }
+
+        public async Task<bool> UpdateByName(RecipeDto recipe, string name)
+        {
+            bool isDeleted=await DeleteRecipeByName(name);
+            //by default Query e sincron
+            if (!isDeleted)
+            {
+                return false;
+            }
+            await Create(recipe);
+            
             await _unitOfWork.Commit();
             return true;
         }

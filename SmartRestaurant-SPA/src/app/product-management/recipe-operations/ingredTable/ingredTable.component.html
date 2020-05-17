@@ -16,7 +16,7 @@
         <tr *ngFor="let ingredQuantity of ingredQuantityList; let i = index">
           <td>{{i+1}}</td>
           <td>{{ ingredQuantity.ingred.name }} </td>
-          <td *ngIf="ingredQuantity.ingred.unitType===null">{{ingredQuantity.numberOfPieces}}</td>
+          <td *ngIf="ingredQuantity.ingred.unitType===null||ingredQuantity.ingred.unitType===undefined">{{ingredQuantity.numberOfPieces}}</td>
           <td *ngIf="ingredQuantity.ingred.quantity>0">{{ingredQuantity.quantity}}</td>
         </tr>
       </tbody>

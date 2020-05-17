@@ -11,9 +11,9 @@ namespace SmartRestaurant.Services.RecipeServices
     {
         Task<int> Create(RecipeDto recipe);
         Task<bool> Update(RecipeDto recipe, int recipeId);
+        Task<bool> UpdateByName(RecipeDto recipe, string name);
         Task<RecipeDto> GetById(int recipeId);
         Task<RecipeViewDto> GetByName(string name);
-        //Task<IEnumerable<RecipeDto>> GetAllRecipes();
         Task<List<RecipeDto>> GetAllRecipes();
 
         Task<bool> DeleteById(int recipeId);

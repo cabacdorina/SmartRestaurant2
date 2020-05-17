@@ -24,22 +24,22 @@ export class RecipeService {
     return this.http.post(this.recipeUrl + "AddRecipe", recipe);
   }
 
-  // editRecipe(recipe:Recipe):Observable<Object>{
-  //   return this.http.put(this.recipeUrl+"UpdateRecipe/{id}");
-  // }
+  editRecipe(recipe:Recipe, name: string):Observable<Object>{
+    return this.http.put(this.recipeUrl+"UpdateRecipeByName/"+name,recipe);
+  }
 
   getRecipeList(): Observable<Recipe[]>{
-    let recipeUrl = this.baseUrl+"recipe/GetAllRecipes";
+    let recipeUrl = this.recipeUrl+"GetAllRecipes";
     return this.http.get<Recipe[]>(recipeUrl)
   }
 
   getRecipeByName(name:string):Observable<RecipeByNameDetails>{
-    let recipeUrl= this.baseUrl+"recipe/GetRecipeByName/"+name; 
+    let recipeUrl= this.recipeUrl+"GetRecipeByName/"+name; 
     return this.http.get<RecipeByNameDetails>(recipeUrl);
   }
   
   onRemoveSelected(name:string):Observable<any>{
-    let recipeUrl=this.baseUrl+"recipe/DeleteRecipeByName/"+name;
+    let recipeUrl=this.recipeUrl+"DeleteRecipeByName/"+name;
     return this.http.delete<any>(recipeUrl);
   }
 
