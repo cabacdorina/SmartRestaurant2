@@ -1,23 +1,41 @@
-<h5 style="margin-left: 15px;" *ngIf="ingredQuantityList.length>0"><b>Ingredients</b></h5>
-  
-    <table *ngIf="ingredQuantityList.length>0"
-      id="ingred-quantity-table"
-      class="table table-striped table-bordered"
-      width="100%"
-    >
-      <thead>
-        <tr>
-          <th>No.</th>
-          <th>Name</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let ingredQuantity of ingredQuantityList; let i = index">
-          <td>{{i+1}}</td>
-          <td>{{ ingredQuantity.ingred.name }} </td>
-          <td *ngIf="ingredQuantity.ingred.unitType===null||ingredQuantity.ingred.unitType===undefined">{{ingredQuantity.numberOfPieces}}</td>
-          <td *ngIf="ingredQuantity.ingred.quantity>0">{{ingredQuantity.quantity}}</td>
-        </tr>
-      </tbody>
-    </table>
+<h5 style="margin-left: 15px;" *ngIf="ingredQuantityList.length > 0">
+  <b>Ingredients</b>
+</h5>
+
+<table
+  *ngIf="ingredQuantityList.length > 0"
+  id="ingred-quantity-table"
+  class="table table-striped table-bordered"
+  width="100%"
+>
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>Name</th>
+      <th>Amount</th>
+      <td>Remove Item</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ingredQuantity of ingredQuantityList; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ ingredQuantity.ingred.name }}</td>
+      <td
+        *ngIf="
+          ingredQuantity.ingred.unitType === null ||
+          ingredQuantity.ingred.unitType === undefined
+        "
+      >
+        {{ ingredQuantity.numberOfPieces }}
+      </td>
+      <td *ngIf="ingredQuantity.ingred.quantity > 0">
+        {{ ingredQuantity.quantity }}
+      </td>
+      <td>
+        <button class="btn btn-primary btn-sm" (click)="removeIngred(i)">
+          <i class="fa fa-minus"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

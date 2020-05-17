@@ -14,4 +14,9 @@ export class IngredTableComponent implements OnInit {
   ngOnInit() {
   }
 
+  removeIngred(index: number){
+    //console.log("remove ", index);
+    this.ingredQuantityList.splice(index, 1);
+  }
+
 }
