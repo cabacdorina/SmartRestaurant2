@@ -12,6 +12,6 @@ namespace SmartRestaurant.Services.ProductServices.ProductServiceDTO
         public int FoodType { get; set; }
         public string ImageUrl { get; set; }
         public DateTime BoughtDate { get; set; }
-        public int RecipeId { get; set; }//avem nevoie?
+        public string RecipeName { get; set; }
     }
 }

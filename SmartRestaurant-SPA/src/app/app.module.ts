@@ -52,6 +52,7 @@ import { RecipeTableComponent } from './product-management/recipe-operations/rec
 import { ViewRecipeComponent } from './product-management/recipe-operations/recipe-list/view-recipe/view-recipe.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { EditRecipeComponent } from './product-management/recipe-operations/edit-recipe/edit-recipe.component';
+import { AddProdComponent } from './product-management/prod-operations/add-prod/add-prod.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -85,7 +86,8 @@ export function tokenGetter() {
       RecipeListComponent,
       RecipeTableComponent,
       ViewRecipeComponent,
-      EditRecipeComponent
+      EditRecipeComponent,
+      AddProdComponent
    ],
    imports: [
       BrowserModule,

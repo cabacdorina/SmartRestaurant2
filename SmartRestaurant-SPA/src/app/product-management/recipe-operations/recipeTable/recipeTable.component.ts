@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Recipe } from "src/app/_models/recipe";
 import { ProductManagementService } from "src/app/_services/product-management.service";
 import { RecipeService } from "src/app/_services/recipe.service";
@@ -12,6 +12,8 @@ import { AlertifyService } from "src/app/_services/utils/alertify.service";
 export class RecipeTableComponent implements OnInit {
   public selectedRecipe: Recipe;
   @Input() public recipeList: Recipe[];
+  @Input() public allowOperations : boolean = true;
+  @Output() public addedRecipeEmitter = new EventEmitter();
 
   constructor(
     private managService: ProductManagementService,
@@ -38,5 +40,9 @@ export class RecipeTableComponent implements OnInit {
   onEditSelected(recipe: Recipe){
     this.managService.onEditRecipe(true);
     this.recipeService.onEditRecipe(recipe);
+  }
+
+  onRecipeAdded(recipe:Recipe){
+    this.addedRecipeEmitter.emit(recipe);
   }
 }

@@ -102,4 +102,8 @@ export class ProductManagementComponent implements OnInit {
   onViewRecipeList(){
     this.managService.onViewListRecipe(true);
   }
+
+  onAddProduct(){
+    
+  }
 }

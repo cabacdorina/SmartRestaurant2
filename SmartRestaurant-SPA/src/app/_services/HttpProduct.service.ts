@@ -39,6 +39,6 @@ export class HttpProductService {
   }
 
   AddProduct(prod: Product) {
-    return this.http.post(this.baseUrl + 'AddProduct', prod);
+    return this.http.post(this.baseUrl + 'product/AddProduct', prod);
   }
 }

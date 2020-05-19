@@ -8,14 +8,15 @@
         <tr>
           <th>No.</th>
           <th>Name</th>
-          <th>Operations</th>
+          <th *ngIf="allowOperations">Operations</th>
+          <th *ngIf="!allowOperations">Select</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let recipe of recipeList; let i = index">
           <td>{{i+1}}</td>
           <td>{{ recipe.name }} </td>
-          <td>
+          <td *ngIf="allowOperations">
             <button class="btn btn-primary btn-sm" (click)="onRecipeSelected(i)">
               <i class="fa fa-eye"></i>
             </button>
@@ -27,6 +28,11 @@
             <button class="btn btn-primary btn-sm" (click)="onRemoveSelected(recipe.name, i)">
               <i class="fa fa-trash"></i>
             </button>
+          </td>
+          <td *ngIf="!allowOperations">
+           <button class="btn btn-primary btn-sm" (click)="onRecipeAdded(recipe)">
+            <i class="fa fa-plus"></i>
+           </button>
           </td>
         </tr>
       </tbody>

@@ -12,7 +12,7 @@ namespace SmartRestaurant.Data.Infrastructure
         public static IServiceCollection GetDependencies(IConfiguration configuration, IServiceCollection services)
         {
             //var connection = configuration.GetConnectionString("BlogDataBaseConnection");
-            services.AddDbContext<SmartRestaurantContext>(options => options.UseSqlServer("Server=DESKTOP-BB3STTJ\\SQLEXPRESS;Database=SmartRestaurant;User Id=user;Integrated Security=false;Trusted_Connection=false; password=pass"));
+            services.AddDbContext<SmartRestaurantContext>(options => options.UseSqlServer("Server=DESKTOP-BB3STTJ\\SQLEXPRESS;Database=SmartRestaurant;User Id=dorina;Integrated Security=false;Trusted_Connection=false; password=password"));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             

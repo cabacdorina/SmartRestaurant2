@@ -18,18 +18,26 @@ namespace SmartRestaurant.Services.ProductServices
 
         private readonly IRepository<RecipeIngredientPerPiece> _recipeIngredPerPieceRepo;
         private readonly IRepository<RecipeIngredientPerUnit> _recipeIngredPerUnitRepo;
+        private readonly IRepository<Recipe> _recipeRepo;
+
         public ProductService(IRepository<Product> prod, IUnitOfWork unitOfWork,
             IRepository<RecipeIngredientPerPiece> recipeIngredPerPieceRepo,
-            IRepository<RecipeIngredientPerUnit> recipeIngredPerUnitRepo)
+            IRepository<RecipeIngredientPerUnit> recipeIngredPerUnitRepo,
+            IRepository<Recipe> recipeRepo)
         {
             _productRepo = prod;
             _unitOfWork = unitOfWork;
             _recipeIngredPerPieceRepo = recipeIngredPerPieceRepo;
             _recipeIngredPerUnitRepo = recipeIngredPerUnitRepo;
+            _recipeRepo = recipeRepo;
         }
+
         public async Task<int> Create(ProductDto product)
         {
+            var recipeId = _recipeRepo.Query().Where(x => x.Name.Equals(product.RecipeName)).FirstOrDefault().Id;
             var newProduct = new Product().InjectFrom(product) as Product;
+            newProduct.RecipeId = recipeId;
+
             await _productRepo.Add(newProduct);
             await _unitOfWork.Commit();
 

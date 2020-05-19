@@ -4,8 +4,8 @@ export interface Product {
     imageThumbnailUrl: string;
     boughtDate: Date;
     amount: number;
-    type: string;
-    recipe: string;
+    foodType: number;
+    recipeName: string;
     tva?: number;
     predictedAmount?: number;
 }

@@ -1,0 +1,113 @@
+<div>
+
+  <div class="col-sm-4" style="margin-left: 50px;">
+    <h5><b>Add Product</b></h5>
+  </div>
+
+  <div class="col-sm-10">
+    <div class="tab-panel" style="margin-left: 50px;">
+      <form #addForm="ngForm" id="addForm" (ngSubmit)="saveProduct()">
+        <div class="myForm">
+          <label for="nm">Product's name:</label>
+          <input
+            class="form-control"
+            type="text"
+            name="name"
+            [(ngModel)]="prod.name"
+            ng-required="name"
+            #name="ngModel"
+            minlength="3"
+          />
+
+          <label for="price">Product's price</label>
+          <input
+            class="form-control"
+            type="number"
+            name="price"
+            required [(ngModel)]="prod.price" min=1
+            ng-required="price"
+          />
+
+          <label for="price">Product's Image URL</label>
+          <input
+            class="form-control"
+            type="text"
+            name="url"
+            required [(ngModel)]="prod.imageThumbnailUrl"
+            ng-required="url"
+          />
+
+          <label for="type">Product's Type</label>
+          <select (change)="onItemChange($event.target.value)" class="form-control" #selectedProdType>
+            <option>Choose Item</option>
+            <option *ngFor="let prod of prodTypes">{{prod}}</option>             
+          </select>
+
+          <div class="search-recipe">
+            <label for="recipe">Product's Recipe:</label>
+            {{prod.recipeName}}
+            <!-- <input style="background: white" disabled value={{recipeOfProduct.name}}> -->
+            <button class="btn btn-primary btn-sm search" (click)="onSearchRecipe()"><i class="fa fa-search"></i></button>
+          </div>
+        </div>
+      </form>
+
+      <div
+        class="row"
+        style="float: right; margin-right: 2px; margin-top: 10px;"
+      >
+        <button
+          class="clearButton btn-light"
+          style="width: 120px; height: 35px; margin-right: 5px;"
+          (click)="onClose()"
+        >
+          Close
+        </button>
+
+        <button
+          class="saveButton btn-success"
+          type="submit"
+          style="width: 120px; height: 35px;"
+          form="addForm"
+          [disabled]="!addForm.valid || prod.foodType === -1"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><b>Add Product</b></h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-recipeTable [allowOperations]="false" 
+        [recipeList]="recipeList" 
+        (addedRecipeEmitter)="onRecipeReceived($event)"
+        >
+      </app-recipeTable>
+      <!-- ---- In Modal!!!! ----- -->
+     
+    </div>
+  </div>
+</div>

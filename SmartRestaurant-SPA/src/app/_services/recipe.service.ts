@@ -49,5 +49,5 @@ export class RecipeService {
 
   onEditRecipe(recipe: Recipe){
     this.editRecipeEmitter.emit(recipe);
-  }
+  }  
 }
