@@ -21,6 +21,8 @@ export class ProductManagementComponent implements OnInit {
 
   public viewRecipeFlag: boolean = false;
 
+  public addProductFlag: boolean = false;
+
   public ingredient: Ingredient;
   public ingredIndex: number;
   public typeIngred: string;
@@ -80,6 +82,10 @@ export class ProductManagementComponent implements OnInit {
         console.log(this.ingredient+" si "+this.ingredIndex);
       }     
     );//alt+shift+f-> align in page
+
+    this.managService.addProductEmitter.subscribe((value:boolean)=>{
+      this.addProductFlag = value;
+    });
     
     this.recipeService.recipeEmitter.subscribe((data:any)=>{
       this.recipe = data.recipe as Recipe;
@@ -104,6 +110,6 @@ export class ProductManagementComponent implements OnInit {
   }
 
   onAddProduct(){
-    
+    this.managService.onAddProduct(true);
   }
 }

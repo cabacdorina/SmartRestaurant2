@@ -1,5 +1,4 @@
 <div>
-
   <div class="col-sm-4" style="margin-left: 50px;">
     <h5><b>Add Product</b></h5>
   </div>
@@ -24,30 +23,42 @@
             class="form-control"
             type="number"
             name="price"
-            required [(ngModel)]="prod.price" min=1
+            required
+            [(ngModel)]="prod.price"
+            min="1"
             ng-required="price"
           />
 
-          <label for="price">Product's Image URL</label>
+          <label for="price">Product's image URL</label>
           <input
             class="form-control"
             type="text"
             name="url"
-            required [(ngModel)]="prod.imageThumbnailUrl"
+            required
+            [(ngModel)]="prod.imageThumbnailUrl"
             ng-required="url"
           />
 
-          <label for="type">Product's Type</label>
-          <select (change)="onItemChange($event.target.value)" class="form-control" #selectedProdType>
-            <option>Choose Item</option>
-            <option *ngFor="let prod of prodTypes">{{prod}}</option>             
+          <label for="type">Product's type</label>
+          <select
+            (change)="onItemChange($event.target.value)"
+            class="form-control"
+            #selectedProdType
+          >
+            <option>Choose item</option>
+            <option *ngFor="let prod of prodTypes">{{ prod }}</option>
           </select>
 
           <div class="search-recipe">
-            <label for="recipe">Product's Recipe:</label>
-            {{prod.recipeName}}
+            <label for="recipe">Product's recipe:</label>
+            {{ prod.recipeName }}
             <!-- <input style="background: white" disabled value={{recipeOfProduct.name}}> -->
-            <button class="btn btn-primary btn-sm search" (click)="onSearchRecipe()"><i class="fa fa-search"></i></button>
+            <div
+              class="btn btn-primary btn-sm search"
+              (click)="onSearchRecipe()"
+            >
+              <i class="fa fa-search"></i>
+            </div>
           </div>
         </div>
       </form>
@@ -90,7 +101,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"><b>Add Product</b></h5>
+        <h5 class="modal-title" id="exampleModalLabel"><b>Choose product's recipe</b></h5>
         <button
           type="button"
           class="close"
@@ -101,13 +112,14 @@
         </button>
       </div>
       <div class="modal-body">
-        <app-recipeTable [allowOperations]="false" 
-        [recipeList]="recipeList" 
-        (addedRecipeEmitter)="onRecipeReceived($event)"
+        <app-recipeTable
+          [allowOperations]="false"
+          [recipeList]="recipeList"
+          (addedRecipeEmitter)="onRecipeReceived($event)"
         >
-      </app-recipeTable>
-      <!-- ---- In Modal!!!! ----- -->
-     
+        </app-recipeTable>
+        <!-- ---- In Modal!!!! ----- -->
+      </div>
     </div>
   </div>
 </div>

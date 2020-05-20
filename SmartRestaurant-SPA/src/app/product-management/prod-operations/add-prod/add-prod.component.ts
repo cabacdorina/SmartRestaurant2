@@ -4,6 +4,7 @@ import { RecipeService } from "src/app/_services/recipe.service";
 import { Recipe } from "src/app/_models/recipe";
 import { HttpProductService } from "src/app/_services/HttpProduct.service";
 import { AlertifyService } from "src/app/_services/utils/alertify.service";
+import { ProductManagementService } from "src/app/_services/product-management.service";
 
 @Component({
   selector: "app-add-prod",
@@ -19,7 +20,8 @@ export class AddProdComponent implements OnInit {
   constructor(
     private recipeService: RecipeService,
     private prodService: HttpProductService,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private prodMangService: ProductManagementService
     ) {}
 
   ngOnInit() {
@@ -45,18 +47,21 @@ export class AddProdComponent implements OnInit {
   }
 
   saveProduct() {
+    console.log("AICI");
     this.prodService.AddProduct(this.prod).subscribe(res=>{
       this.alertify.success("Product added!");
       console.log(res);
     });
   }
 
-  onClose() {}
+  onClose() {
+    this.prodMangService.onAddProduct(false);
+  }
 
   onSelectRecipe() {}
 
   onSearchRecipe(){
-    jQuery("#exampleModal").modal({ show: true } as Bootstrap.ModalOption);
+    jQuery("#exampleModal").modal({ show: true });
   }
 
   onRecipeReceived(recipe: Recipe) {
