@@ -29,7 +29,7 @@ export class PredictDessertsComponent implements OnInit {
        lengthMenu: [
          [3, 10, 20, -1],
          [3, 10, 20, "All"],
-       ],
+       ]
      });
   }
   

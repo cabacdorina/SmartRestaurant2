@@ -16,6 +16,7 @@ export class ProductManagementService {
   @Output() public viewRecipeEmitter = new EventEmitter();
 
   @Output() public addProductEmitter = new EventEmitter();
+  @Output() public viewProductListEmitter = new EventEmitter();
 
   public addIngredientFlag: boolean = false;
   public editIngredientFlag: boolean = false;
@@ -28,6 +29,7 @@ export class ProductManagementService {
   public editRecipeFlag: boolean = false;
 
   public addProductFlag:boolean = false;
+  public viewProductListFlag: boolean = false;
 
   constructor() {}
 
@@ -79,6 +81,12 @@ export class ProductManagementService {
     this.addProductFlag=value;
     this.addProductEmitter.emit(this.addProductFlag);
   }
+
+  onViewProductList(value: boolean){
+    this.resetAllFlags();
+    this.viewProductListFlag = value;
+    this.viewProductListEmitter.emit(this.viewProductListFlag);
+  }
   
   private resetAllFlags() {
     this.addIngredientFlag = false;
@@ -104,5 +112,6 @@ export class ProductManagementService {
     this.viewRecipeEmitter.emit(false);
     
     this.addProductEmitter.emit(false);
+    this.viewProductListEmitter.emit(false);
   }
 }

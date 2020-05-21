@@ -16,6 +16,7 @@ import { IngredPerPieceResolver } from './_resolvers/ingreds/ingredients-per-pie
 import { IngredPerUnitResolver } from './_resolvers/ingreds/ingredients-per-unit.resolver';
 import { ProductPredictionComponent } from './product-prediction/product-prediction.component';
 import { RecipeResolver } from './_resolvers/recipe.resolver';
+import { ProductResolver } from './_resolvers/product.resolver';
 
 export const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -39,7 +40,8 @@ export const appRoutes: Routes = [
                      {
                          thePerPiece: IngredPerPieceResolver,
                          thePerUnit: IngredPerUnitResolver,
-                         theRecipes:RecipeResolver
+                         theRecipes:RecipeResolver,
+                         theProds:ProductResolver
                      }
             },
             {

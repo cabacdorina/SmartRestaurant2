@@ -22,6 +22,7 @@ export class ProductManagementComponent implements OnInit {
   public viewRecipeFlag: boolean = false;
 
   public addProductFlag: boolean = false;
+  public viewProductListFlag: boolean = false;
 
   public ingredient: Ingredient;
   public ingredIndex: number;
@@ -86,6 +87,10 @@ export class ProductManagementComponent implements OnInit {
     this.managService.addProductEmitter.subscribe((value:boolean)=>{
       this.addProductFlag = value;
     });
+
+    this.managService.viewProductListEmitter.subscribe((value:boolean)=>{
+      this.viewProductListFlag = value;
+    });
     
     this.recipeService.recipeEmitter.subscribe((data:any)=>{
       this.recipe = data.recipe as Recipe;
@@ -111,5 +116,9 @@ export class ProductManagementComponent implements OnInit {
 
   onAddProduct(){
     this.managService.onAddProduct(true);
+  }
+
+  onViewProduct(){
+    this.managService.onViewProductList(true);
   }
 }

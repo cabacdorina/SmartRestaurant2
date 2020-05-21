@@ -15,6 +15,8 @@ export class HttpProductService {
   readonly mainFood = 1;
   readonly soup = 2;
   readonly productUrl=this.baseUrl + 'product/food-type/';
+  
+  public prodList: Product[];
 
   constructor(private http: HttpClient) { }
 
@@ -32,6 +34,10 @@ export class HttpProductService {
 
   getProducts(foodUrl: string){
     return this.http.get<Product[]>(foodUrl);
+  }
+
+  getAllProducts() {
+    return this.http.get<Product[]>(this.baseUrl + 'product/GetAllProducts');
   }
 
   AddSales(prods: Product[]) {
