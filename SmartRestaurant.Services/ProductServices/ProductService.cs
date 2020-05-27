@@ -3,6 +3,7 @@ using Omu.ValueInjecter;
 using SmartRestaurant.Data.Infrastructure;
 using SmartRestaurant.Data.Models;
 using SmartRestaurant.Services.ProductServices.ProductServiceDTO;
+using SmartRestaurant.Services.RecipeServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,17 +20,20 @@ namespace SmartRestaurant.Services.ProductServices
         private readonly IRepository<RecipeIngredientPerPiece> _recipeIngredPerPieceRepo;
         private readonly IRepository<RecipeIngredientPerUnit> _recipeIngredPerUnitRepo;
         private readonly IRepository<Recipe> _recipeRepo;
+        private readonly IRecipeService _recipeService;
 
         public ProductService(IRepository<Product> prod, IUnitOfWork unitOfWork,
             IRepository<RecipeIngredientPerPiece> recipeIngredPerPieceRepo,
             IRepository<RecipeIngredientPerUnit> recipeIngredPerUnitRepo,
-            IRepository<Recipe> recipeRepo)
+            IRepository<Recipe> recipeRepo,
+            IRecipeService recipeService)
         {
             _productRepo = prod;
             _unitOfWork = unitOfWork;
             _recipeIngredPerPieceRepo = recipeIngredPerPieceRepo;
             _recipeIngredPerUnitRepo = recipeIngredPerUnitRepo;
             _recipeRepo = recipeRepo;
+            _recipeService = recipeService;
         }
 
         public async Task<int> Create(ProductDto product)
@@ -67,6 +71,17 @@ namespace SmartRestaurant.Services.ProductServices
 
             return new ProductDto().InjectFrom(prod) as ProductDto;
 
+        }
+        
+        public async Task<ProdDetailsDto> GetByName(string name)
+        {
+            var prod = _productRepo.Query().Include(x=>x.Recipe).Where(x => x.Name.Equals(name)).FirstOrDefault();
+            var prodDetails = new ProdDetailsDto().InjectFrom(prod) as ProdDetailsDto;
+
+            var recipeView = await _recipeService.GetByName(prod.Recipe.Name);
+            prodDetails.IngredientList = recipeView.IngredList;
+
+            return prodDetails;
         }
 
         public async Task<bool> Update(ProductDto product, int productId)

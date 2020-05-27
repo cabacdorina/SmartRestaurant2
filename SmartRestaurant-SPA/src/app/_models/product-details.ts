@@ -1,4 +1,7 @@
-export interface Product {
+import { IngredQuantity } from "./recipe";
+import { RecipeIngredient } from "./RecipeByNameDetails";
+
+export interface ProductDetails{
     name: string;
     price: number;
     imageUrl: string;
@@ -8,4 +11,5 @@ export interface Product {
     recipeName: string;
     tva?: number;
     predictedAmount?: number;
+    ingredientList: RecipeIngredient[];
 }

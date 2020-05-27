@@ -15,5 +15,6 @@ namespace SmartRestaurant.Services.ProductServices
         Task<IEnumerable<ProductDto>> GetAllProducts();
         Task<IEnumerable<ProductDto>> GetByType(int type);
         Task<IEnumerable<IngredientDto>> GetAllProductIngredients(int id);
+        Task<ProdDetailsDto> GetByName(string name);
     }
 }

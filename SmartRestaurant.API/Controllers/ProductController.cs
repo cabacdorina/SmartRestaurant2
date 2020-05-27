@@ -40,6 +40,12 @@ namespace SmartRestaurant.API.Controllers
             return Ok(prod);
         }
 
+        [HttpGet("GetByName/{name}")]
+        public async Task<IActionResult> GetProductByName(string name)
+        {
+            return Ok( await _productService.GetByName(name));
+        }
+
         [HttpPost("AddProduct")]
         public async Task<IActionResult> AddProduct([FromBody] ProductDto prod)
         {

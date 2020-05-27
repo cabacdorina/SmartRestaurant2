@@ -1,0 +1,29 @@
+<div>
+  <div class="col-sm-9" style="margin-left: 50px;">
+    <h5><b>View {{prodDetails.name}}'s details</b></h5>
+    <h5><b>Ingredients:</b></h5>
+      <div class="container">
+      <ul class="list-group" *ngIf="prodDetails !== undefined">
+        <div *ngFor="let ingred of prodDetails.ingredientList; let i = index">      
+            <li *ngIf="ingred.type===null">
+              {{ ingred.name }}  {{ingred.pieces}} Pieces
+            </li>
+
+            <li *ngIf="ingred.type===0">
+              {{ ingred.name }}  {{ingred.quantity}} Grams
+            </li>
+
+            <li *ngIf="ingred.type===1">
+              {{ ingred.name }}  {{ingred.quantity}} Liters
+            </li>
+          </div>
+      </ul>
+      
+      <button class="btn btn-danger clear-btn" (click)="onClear()">
+        Clear
+      </button>
+  </div>
+  </div>
+</div>
+
+<img src={{prodDetails.imageUrl}}>

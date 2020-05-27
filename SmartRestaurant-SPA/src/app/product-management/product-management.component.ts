@@ -4,6 +4,8 @@ import { IngredientService } from "../_services/ingredient.service";
 import { Ingredient } from "../_models/ingredient";
 import { RecipeService } from "../_services/recipe.service";
 import { Recipe } from "../_models/recipe";
+import { Product } from "../_models/product";
+import { HttpProductService } from "../_services/HttpProduct.service";
 
 @Component({
   selector: "app-product-management",
@@ -24,6 +26,8 @@ export class ProductManagementComponent implements OnInit {
   public addProductFlag: boolean = false;
   public viewProductListFlag: boolean = false;
 
+  public productDetailsFlag: boolean = false;
+
   public ingredient: Ingredient;
   public ingredIndex: number;
   public typeIngred: string;
@@ -31,10 +35,13 @@ export class ProductManagementComponent implements OnInit {
   public recipe:Recipe;
   public recipeIndex: number;
 
+  public prodDetails: Product;
+
   constructor(
     private managService: ProductManagementService,
     private ingredientService: IngredientService,
-    private recipeService: RecipeService) {}
+    private recipeService: RecipeService,
+    private prodService: HttpProductService) {}
 
   ngOnInit() {
     this.managService.addIngredient.subscribe((value: boolean) => {
@@ -91,11 +98,19 @@ export class ProductManagementComponent implements OnInit {
     this.managService.viewProductListEmitter.subscribe((value:boolean)=>{
       this.viewProductListFlag = value;
     });
+
+    this.managService.poductDetailsEmitter.subscribe((value:boolean)=>{
+      this.productDetailsFlag = value;
+    });
     
     this.recipeService.recipeEmitter.subscribe((data:any)=>{
       this.recipe = data.recipe as Recipe;
       this.recipeIndex=data.index as number;
-    })
+    });
+
+    this.prodService.productEmitter.subscribe((data:any)=>{
+      this.prodDetails = data.product as Product;
+    });
   }
 
   onAddIngredientSelected() {

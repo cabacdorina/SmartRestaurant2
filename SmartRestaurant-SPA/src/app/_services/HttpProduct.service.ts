@@ -1,13 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../_models/product';
+import { ProductDetails } from '../_models/product-details';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpProductService {
+  @Output() public productEmitter = new EventEmitter();
 
   baseUrl = environment.apiUrl ;
   curDate: Date;
@@ -40,11 +42,19 @@ export class HttpProductService {
     return this.http.get<Product[]>(this.baseUrl + 'product/GetAllProducts');
   }
 
+  getProductDetails(name: string){
+    return this.http.get<ProductDetails>(this.baseUrl+'product/GetByName/'+ name);
+  }
+
   AddSales(prods: Product[]) {
     return this.http.post(this.baseUrl + 'product/AddSales', prods);
   }
 
   AddProduct(prod: Product) {
     return this.http.post(this.baseUrl + 'product/AddProduct', prod);
+  }
+
+  onViewProductDetails(prod: Product){
+    this.productEmitter.emit({product: prod});
   }
 }

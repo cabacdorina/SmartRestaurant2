@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { Product } from 'src/app/_models/product';
+import { ProductManagementService } from 'src/app/_services/product-management.service';
+import { HttpProductService } from 'src/app/_services/HttpProduct.service';
 
 @Component({
   selector: 'app-productTable',
@@ -9,9 +11,12 @@ import { Product } from 'src/app/_models/product';
 export class ProductTableComponent implements OnInit {
   @Input() public productList: Product[];
   public productDataTable:any;
+  public selectedProd: Product;
 
   constructor(
-    private changeRef: ChangeDetectorRef
+    private changeRef: ChangeDetectorRef,
+    private managService: ProductManagementService,
+    private prodService: HttpProductService
   ) { }
 
   ngOnInit() {
@@ -27,7 +32,9 @@ export class ProductTableComponent implements OnInit {
   }
 
   onViewProductSelected(i:number){
-
+    this.managService.onViewProductDetails(true);
+    this.selectedProd = this.productList[i];
+    this.prodService.onViewProductDetails(this.selectedProd);
   }
 
   onEditProductSelected(prod: Product){

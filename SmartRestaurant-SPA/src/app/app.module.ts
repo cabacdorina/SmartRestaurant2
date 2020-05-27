@@ -56,6 +56,7 @@ import { AddProdComponent } from './product-management/prod-operations/add-prod/
 import { ProductListComponent } from './product-management/prod-operations/product-list/product-list.component';
 import { ProductTableComponent } from './product-management/prod-operations/product-list/productTable/productTable.component';
 import { ProductResolver } from './_resolvers/product.resolver';
+import { ViewProdComponent } from './product-management/prod-operations/product-list/view-prod/view-prod.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -92,7 +93,8 @@ export function tokenGetter() {
       EditRecipeComponent,
       AddProdComponent,
       ProductListComponent,
-      ProductTableComponent
+      ProductTableComponent,
+      ViewProdComponent
    ],
    imports: [
       BrowserModule,

@@ -18,6 +18,8 @@ export class ProductManagementService {
   @Output() public addProductEmitter = new EventEmitter();
   @Output() public viewProductListEmitter = new EventEmitter();
 
+  @Output() public poductDetailsEmitter= new EventEmitter();
+
   public addIngredientFlag: boolean = false;
   public editIngredientFlag: boolean = false;
   public viewIngredientList: boolean = false;
@@ -30,6 +32,8 @@ export class ProductManagementService {
 
   public addProductFlag:boolean = false;
   public viewProductListFlag: boolean = false;
+
+  public productDetailsFlag: boolean = false;
 
   constructor() {}
 
@@ -87,6 +91,12 @@ export class ProductManagementService {
     this.viewProductListFlag = value;
     this.viewProductListEmitter.emit(this.viewProductListFlag);
   }
+
+  onViewProductDetails(value: boolean) {
+    this.resetAllFlags();
+    this.productDetailsFlag = value;
+    this.poductDetailsEmitter.emit(value);
+  }
   
   private resetAllFlags() {
     this.addIngredientFlag = false;
@@ -113,5 +123,8 @@ export class ProductManagementService {
     
     this.addProductEmitter.emit(false);
     this.viewProductListEmitter.emit(false);
+
+    this.productDetailsFlag = false;
+    this.addProductEmitter.emit(false);
   }
 }
