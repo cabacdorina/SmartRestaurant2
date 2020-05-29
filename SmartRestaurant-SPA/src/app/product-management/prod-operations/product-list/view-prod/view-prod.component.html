@@ -1,5 +1,5 @@
 <div>
-  <div class="col-sm-9" style="margin-left: 50px;">
+  <div class="col-sm-12">
     <h5><b>View {{prodDetails.name}}'s details</b></h5>
     <h5><b>Ingredients:</b></h5>
       <div class="container">
@@ -18,12 +18,11 @@
             </li>
           </div>
       </ul>
-      
-      <button class="btn btn-danger clear-btn" (click)="onClear()">
-        Clear
-      </button>
-  </div>
+      <br> 
+    </div>
+    
+    <button class="btn btn-danger clear-btn" (click)="onClear()">
+      Clear
+    </button>
   </div>
 </div>
-
-<img src={{prodDetails.imageUrl}}>

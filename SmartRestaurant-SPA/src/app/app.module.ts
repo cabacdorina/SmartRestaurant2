@@ -57,6 +57,7 @@ import { ProductListComponent } from './product-management/prod-operations/produ
 import { ProductTableComponent } from './product-management/prod-operations/product-list/productTable/productTable.component';
 import { ProductResolver } from './_resolvers/product.resolver';
 import { ViewProdComponent } from './product-management/prod-operations/product-list/view-prod/view-prod.component';
+import { ProdImageComponent } from './product-management/prod-operations/product-list/view-prod/prod-image/prod-image.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -94,7 +95,8 @@ export function tokenGetter() {
       AddProdComponent,
       ProductListComponent,
       ProductTableComponent,
-      ViewProdComponent
+      ViewProdComponent,
+      ProdImageComponent
    ],
    imports: [
       BrowserModule,
