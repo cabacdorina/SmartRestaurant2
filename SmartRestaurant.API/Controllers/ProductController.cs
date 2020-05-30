@@ -52,10 +52,22 @@ namespace SmartRestaurant.API.Controllers
             return Ok(await _productService.Create(prod));
         }
 
-        [HttpPut("UpdateProduct/{id}")]
-        public async Task<IActionResult> UpdateProduct(int id, [FromBody]ProductDto product)
+        //[HttpPut("UpdateProduct/{id}")]
+        //public async Task<IActionResult> UpdateProduct(int id, [FromBody]ProductDto product)
+        //{
+        //    var res=await _productService.Update(product, id);
+        //    if (res)
+        //    {
+        //        return Ok(product);
+        //    }
+
+        //    return NotFound();
+        //}
+
+        [HttpPut("UpdateProduct/{oldName}")]
+        public async Task<IActionResult> UpdateProduct([FromBody]ProductDto product,string oldName)
         {
-            var res=await _productService.Update(product, id);
+            var res = await _productService.UpdateByName(product, oldName);
             if (res)
             {
                 return Ok(product);
@@ -71,6 +83,18 @@ namespace SmartRestaurant.API.Controllers
             if (deleted)
             {
                 return Ok($"Product with id: {id} was deleted");
+            }
+
+            return NotFound();
+        }
+
+        [HttpDelete("DeteleProdByName/{name}")]
+        public async Task<IActionResult> DeleteByName(string name)
+        {
+            bool deleted = await _productService.DeleteByName(name);
+            if (deleted)
+            {
+                return Ok(new { Message = $"Product named: {name} was deleted."});
             }
 
             return NotFound();
@@ -95,7 +119,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpGet("GetAllProductIngredients/{id}")]
-        public async Task<IActionResult> getAllProductIngredients(int id)
+        public async Task<IActionResult> GetAllProductIngredients(int id)
         {
             var product = await _productService.GetById(id);
             if (product == null)

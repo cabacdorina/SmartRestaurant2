@@ -78,6 +78,7 @@
         <app-view-prod *ngIf="productDetailsFlag" [prod]="prodDetails"></app-view-prod>
         <app-prod-image *ngIf="productDetailsFlag" [imageUrl]="prodDetails.imageUrl"></app-prod-image>
       </div>
+      <app-edit-prod *ngIf="productEditFlag" [prod]="prodEdit"></app-edit-prod>
     </div>   
   </div>
 </div>

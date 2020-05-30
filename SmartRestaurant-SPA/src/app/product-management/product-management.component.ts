@@ -27,6 +27,7 @@ export class ProductManagementComponent implements OnInit {
   public viewProductListFlag: boolean = false;
 
   public productDetailsFlag: boolean = false;
+  public productEditFlag: boolean = false; 
 
   public ingredient: Ingredient;
   public ingredIndex: number;
@@ -36,6 +37,7 @@ export class ProductManagementComponent implements OnInit {
   public recipeIndex: number;
 
   public prodDetails: Product;
+  public prodEdit: Product;
 
   constructor(
     private managService: ProductManagementService,
@@ -102,15 +104,26 @@ export class ProductManagementComponent implements OnInit {
     this.managService.poductDetailsEmitter.subscribe((value:boolean)=>{
       this.productDetailsFlag = value;
     });
+
+    this.managService.editProdEmitter.subscribe((value: boolean)=>{
+      this.productEditFlag = value;
+    });
+
+    this.prodService.productEditEmitter.subscribe((data: any)=>{
+      this.prodEdit = data.product as Product;
+      console.log("prod Edit",this.prodEdit);
+    });
     
     this.recipeService.recipeEmitter.subscribe((data:any)=>{
       this.recipe = data.recipe as Recipe;
       this.recipeIndex=data.index as number;
     });
 
-    this.prodService.productEmitter.subscribe((data:any)=>{
+    this.prodService.productViewEmitter.subscribe((data:any)=>{
       this.prodDetails = data.product as Product;
     });
+
+   
   }
 
   onAddIngredientSelected() {

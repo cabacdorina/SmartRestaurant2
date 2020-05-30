@@ -33,7 +33,7 @@ export class RecipeTableComponent implements OnInit {
     this.recipeService.onRemoveSelected(name).subscribe((res: any) => {
       this.alertifyService.success("Recipe Deleted!");
       this.recipeList.splice(i, 1);
-      console.log(res.message);
+      //console.log(res.message);
     });
   }
 

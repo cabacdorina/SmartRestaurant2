@@ -72,10 +72,10 @@ namespace SmartRestaurant.Services.ProductServices
             return new ProductDto().InjectFrom(prod) as ProductDto;
 
         }
-        
+
         public async Task<ProdDetailsDto> GetByName(string name)
         {
-            var prod = _productRepo.Query().Include(x=>x.Recipe).Where(x => x.Name.Equals(name)).FirstOrDefault();
+            var prod = _productRepo.Query().Include(x => x.Recipe).Where(x => x.Name.Equals(name)).FirstOrDefault();
             var prodDetails = new ProdDetailsDto().InjectFrom(prod) as ProdDetailsDto;
 
             var recipeView = await _recipeService.GetByName(prod.Recipe.Name);
@@ -84,28 +84,54 @@ namespace SmartRestaurant.Services.ProductServices
             return prodDetails;
         }
 
-        public async Task<bool> Update(ProductDto product, int productId)
+        //public async Task<bool> Update(ProductDto product, int productId)
+        //{
+        //    var prod = await _productRepo.GetById(productId);
+        //    if (prod == null)
+        //    {
+        //        return false;
+        //    }
+
+        //    prod.InjectFrom(product);
+        //     _productRepo.Update(prod);
+        //    await _unitOfWork.Commit();
+        //    return true;
+        //} ctr+k+c
+
+        public async Task<bool> UpdateByName(ProductDto product, string oldName)
         {
-            var prod = await _productRepo.GetById(productId);
+            var prod = await _productRepo.Query().Where(x => x.Name.Equals(oldName)).FirstOrDefaultAsync();
             if (prod == null)
             {
                 return false;
             }
-
             prod.InjectFrom(product);
+            _productRepo.Update(prod);
             await _unitOfWork.Commit();
+
             return true;
         }
-
         public async Task<IEnumerable<ProductDto>> GetAllProducts()
         {
-            var prodList = await _productRepo.GetAll();
-            return prodList.Select(p => new ProductDto().InjectFrom(p) as ProductDto);
+            var prodList = await _productRepo.Query().Include(x => x.Recipe).ToListAsync();
+
+            var prod = prodList.Select(p => new ProductDto
+            {
+                Name = p.Name,
+                Price = p.Price,
+                Amount = p.Amount,
+                FoodType = p.FoodType,
+                ImageUrl = p.ImageUrl,
+                BoughtDate = p.BoughtDate,
+                RecipeName = p.Recipe.Name
+            }).ToList();
+
+            return prod;
         }
 
         public Task<IEnumerable<ProductDto>> GetByType(int type)
         {
-            var prods = _productRepo.Query(p => p.FoodType==type).ToList();
+            var prods = _productRepo.Query(p => p.FoodType == type).ToList();
             return Task.FromResult(prods.Select(p => new ProductDto().InjectFrom(p) as ProductDto));
         }
 
@@ -132,14 +158,26 @@ namespace SmartRestaurant.Services.ProductServices
             .Include(ipp => ipp.IngredientPerPiece)
             .Where(x => x.RecipeId == product.RecipeId)
             .Select(x => new IngredientDto
-             {
-                 Name = x.IngredientPerPiece.Name,
-                 Price = x.IngredientPerPiece.Price,
-                 NumberOfPieces = x.IngredientPerPiece.NumberOfPieces,
-                 NumberOfPiecesReserved = x.IngredientPerPiece.NumberOfPiecesReserved
-             }).ToListAsync();
+            {
+                Name = x.IngredientPerPiece.Name,
+                Price = x.IngredientPerPiece.Price,
+                NumberOfPieces = x.IngredientPerPiece.NumberOfPieces,
+                NumberOfPiecesReserved = x.IngredientPerPiece.NumberOfPiecesReserved
+            }).ToListAsync();
 
             return ingrdientsPerUnitList.Concat(ingredientsPerPieceList).ToList();
+        }
+
+        public async Task<bool> DeleteByName(string name)
+        {
+            var prod = _productRepo.Query().Where(x => x.Name.Equals(name)).FirstOrDefault();
+            if (prod == null)
+            {
+                return false;
+            }
+
+            var isDeleted = await DeleteById(prod.Id);
+            return isDeleted;
         }
     }
 }

@@ -9,7 +9,8 @@ import { ProductDetails } from '../_models/product-details';
   providedIn: 'root'
 })
 export class HttpProductService {
-  @Output() public productEmitter = new EventEmitter();
+  @Output() public productViewEmitter = new EventEmitter();
+  @Output() public productEditEmitter = new EventEmitter();
 
   baseUrl = environment.apiUrl ;
   curDate: Date;
@@ -34,6 +35,11 @@ export class HttpProductService {
     return this.getProducts(this.productUrl+this.soup);
   }
 
+  updateProduct(prod:Product, oldName: string): Observable<Object>{
+    return this.http.put(this.baseUrl+'product/UpdateProduct/'+oldName, prod);
+  }
+  //------------------------
+
   getProducts(foodUrl: string){
     return this.http.get<Product[]>(foodUrl);
   }
@@ -54,7 +60,16 @@ export class HttpProductService {
     return this.http.post(this.baseUrl + 'product/AddProduct', prod);
   }
 
-  onViewProductDetails(prod: Product){
-    this.productEmitter.emit({product: prod});
+  onRemoveProduct(prodName: string){
+    return this.http.delete(this.baseUrl +'product/DeteleProdByName/'+ prodName);
   }
+
+  onViewProductDetails(prod: Product){
+    this.productViewEmitter.emit({product: prod});
+  }
+
+  onEditProd(prod: Product){
+    this.productEditEmitter.emit({product:prod});
+  }
+ 
 }

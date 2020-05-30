@@ -1,6 +1,6 @@
 <div>
   <div class="col-sm-4" style="margin-left: 50px;">
-    <h5><b>Add Product</b></h5>
+    <h5><b>Edit Product</b></h5>
   </div>
 
   <div class="col-sm-10">
@@ -45,7 +45,7 @@
             class="form-control"
             #selectedProdType
           >
-            <option>Choose item</option>
+            <option>{{getFoodType(prod.foodType)}}</option>
             <option *ngFor="let prod of prodTypes">{{ prod }}</option>
           </select>
 

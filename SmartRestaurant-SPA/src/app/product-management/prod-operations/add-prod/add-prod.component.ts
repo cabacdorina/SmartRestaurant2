@@ -46,19 +46,17 @@ export class AddProdComponent implements OnInit {
     }
   }
 
-  saveProduct() {
-    console.log("AICI");
+  saveProduct(product: Product) {
     this.prodService.AddProduct(this.prod).subscribe(res=>{
       this.alertify.success("Product added!");
-      console.log(res);
+      this.prodService.prodList.push(product);
+      this.prodMangService.onViewProductList(true);
     });
   }
 
   onClose() {
     this.prodMangService.onAddProduct(false);
   }
-
-  onSelectRecipe() {}
 
   onSearchRecipe(){
     jQuery("#exampleModal").modal({ show: true });
