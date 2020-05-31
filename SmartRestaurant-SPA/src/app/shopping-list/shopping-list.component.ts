@@ -27,6 +27,7 @@ export class ShoppingListComponent implements OnInit {
 
   ngOnInit() {
     this.prods = this.productService.getProds();
+
     this.curDate = new Date();
 
     if (this.prods.length > 0) {
@@ -62,6 +63,7 @@ export class ShoppingListComponent implements OnInit {
       this.prodService.AddSales(this.prods).subscribe(() => {
         this.alertify.success('Transmitted successfully');
       }, error => {
+        console.log(error);
         this.alertify.error(error);
       });
 

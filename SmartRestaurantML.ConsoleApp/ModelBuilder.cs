@@ -14,7 +14,7 @@ namespace SmartRestaurantML.ModelBuilder
     public static class ModelBuilder
     {
         private static string TRAIN_DATA_FILEPATH = @"C:\temp\sales.csv";
-        private static string MODEL_FILEPATH = @"C:\Users\Dorina\AppData\Local\Temp\MLVSTools\SmartRestaurantML\SmartRestaurantML.Model\MLModel.zip";
+        private static string MODEL_FILEPATH = @"C:\temp\MLModel.zip";
         // Create MLContext to be shared across the model creation workflow objects 
         // Set a random seed for repeatable/deterministic results across multiple trainings.
         private static MLContext mlContext = new MLContext(seed: 1);

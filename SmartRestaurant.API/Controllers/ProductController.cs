@@ -125,7 +125,7 @@ namespace SmartRestaurant.API.Controllers
             SaledProductsArray saledProd = new SaledProductsArray(prods);
             await saledProd.WriteSaledProdToFile(prods);
 
-            return Ok("Sales added");
+            return Ok(new { Message = "Sales added" });
         }
 
         [HttpGet("GetAllProductIngredients/{id}")]

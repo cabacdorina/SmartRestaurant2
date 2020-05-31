@@ -20,7 +20,7 @@ namespace SmartRestaurantML.Model
             MLContext mlContext = new MLContext();
 
             // Load model & create prediction engine
-            string modelPath = @"C:\Users\Dorina\AppData\Local\Temp\MLVSTools\SmartRestaurantML\SmartRestaurantML.Model\MLModel.zip";
+            string modelPath = @"C:\temp\MLModel.zip";
             ITransformer mlModel = mlContext.Model.Load(modelPath, out var modelInputSchema);
             var predEngine = mlContext.Model.CreatePredictionEngine<ModelInput, ModelOutput>(mlModel);
 

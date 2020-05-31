@@ -1,35 +1,41 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../_services/utils/auth.service';
-import { AlertifyService } from '../_services/utils/alertify.service';
-import { Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { AuthService } from "../_services/utils/auth.service";
+import { AlertifyService } from "../_services/utils/alertify.service";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-nav',
-  templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css']
+  selector: "app-nav",
+  templateUrl: "./nav.component.html",
+  styleUrls: ["./nav.component.css"],
 })
 export class NavComponent implements OnInit {
-
   model: any = {};
-  collapsed=true;
+  collapsed = true;
   role: string;
 
-  constructor(public authService: AuthService, private alertify: AlertifyService,
-    private router: Router) { }
+  constructor(
+    public authService: AuthService,
+    private alertify: AlertifyService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
+    this.authService.roleEmitter.subscribe((res)=>{
+      this.role = res;
+    })
   }
 
   login() {
-    this.authService.login(this.model).subscribe(next => {
-      this.alertify.success('Logged in successfully');
-      this.role = this.authService.role;
-    }, error => {
-      this.alertify.error(error);
-    },
-    () => {
-      this.router.navigate(['/desserts']);
-    }
+    this.authService.login(this.model).subscribe(
+      (next) => {
+        this.alertify.success("Logged in successfully");       
+      },
+      (error) => {
+        this.alertify.error(error);
+      },
+      () => {
+        this.router.navigate(["/desserts"]);
+      }
     );
   }
 
@@ -38,24 +44,22 @@ export class NavComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('token');
-    this.alertify.message('logged out');
-    this.router.navigate(['/home']);
+    localStorage.removeItem("token");
+    this.alertify.message("logged out");
+    this.router.navigate(["/home"]);
   }
 
   goToDesserts() {
-    this.router.navigate(['/desserts']);
-    console.log('dessert pressed');
+    this.router.navigate(["/desserts"]);
+    console.log("dessert pressed");
   }
 
   goToMainFood() {
-    this.router.navigate(['/mainFood']);
-    console.log('main food pressed');
+    this.router.navigate(["/mainFood"]);
+    console.log("main food pressed");
   }
 
   goToSoups() {
-    this.router.navigate(['/soups']);
+    this.router.navigate(["/soups"]);
   }
 }
-
-
