@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.Services.BusinessModels;
@@ -21,6 +22,7 @@ namespace SmartRestaurant.API.Controllers
             _productService = productService;
         }
 
+        [Authorize(Roles = "Admin,Normal")]
         [HttpGet("GetAllProducts")]
         public async Task<IActionResult> GetAllProducts()
         {
@@ -29,6 +31,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,Normal")]
         public async Task<IActionResult> GetProductById(int id)
         {
             var prod = await _productService.GetById(id);
@@ -41,12 +44,14 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpGet("GetByName/{name}")]
+        [Authorize(Roles = "Admin,Normal")]
         public async Task<IActionResult> GetProductByName(string name)
         {
             return Ok( await _productService.GetByName(name));
         }
 
         [HttpPost("AddProduct")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddProduct([FromBody] ProductDto prod)
         {
             return Ok(await _productService.Create(prod));
@@ -65,6 +70,7 @@ namespace SmartRestaurant.API.Controllers
         //}
 
         [HttpPut("UpdateProduct/{oldName}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateProduct([FromBody]ProductDto product,string oldName)
         {
             var res = await _productService.UpdateByName(product, oldName);
@@ -77,6 +83,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpDelete("DeleteProduct/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             bool deleted = await _productService.DeleteById(id);
@@ -89,6 +96,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpDelete("DeteleProdByName/{name}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteByName(string name)
         {
             bool deleted = await _productService.DeleteByName(name);
@@ -102,6 +110,7 @@ namespace SmartRestaurant.API.Controllers
 
 
         [HttpGet("food-type/{type}")]
+        [Authorize(Roles = "Admin,Normal")]
         public async Task<IActionResult> GetProds([FromRoute]int type)
         {
             var prods = await _productService.GetByType(type);
@@ -110,6 +119,7 @@ namespace SmartRestaurant.API.Controllers
 
 
         [HttpPost("AddSales")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddSales([FromBody] IList<ProductDto> prods)
         {
             SaledProductsArray saledProd = new SaledProductsArray(prods);
@@ -119,6 +129,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpGet("GetAllProductIngredients/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllProductIngredients(int id)
         {
             var product = await _productService.GetById(id);

@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {}
 
   register() {
+    this.model.type = 0;
     this.registerService.register(this.model);
   }
 

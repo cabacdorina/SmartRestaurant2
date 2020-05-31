@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Omu.ValueInjecter;
@@ -21,12 +22,14 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpGet("GetAllRecipes")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllRecipes()
         {
             return Ok(await _recService.GetAllRecipes());
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetById(int id)
         {
             var recipe= await _recService.GetById(id);
@@ -38,12 +41,14 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpPost("AddRecipe")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddRecipe([FromBody] RecipeDto recipeDto)
         {
             return Ok(new { Recipe = await _recService.Create(recipeDto)});
         }
 
         [HttpPut("UpdateRecipeByName/{name}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateRecipeByName([FromBody]RecipeDto recipeDto, string name)
         {
            var IsUpdated=await _recService.UpdateByName(recipeDto,name);
@@ -55,6 +60,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpPut("UpdateRecipe/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateRecipe([FromBody]RecipeDto recipeDto, int id)
         {
             var IsUpdated = await _recService.Update(recipeDto, id);
@@ -65,6 +71,7 @@ namespace SmartRestaurant.API.Controllers
             return NotFound();
         }
         [HttpDelete("DeleteRecipe/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteRecipe(int id)
         {
             var IsDeleted=await _recService.DeleteById(id);
@@ -76,6 +83,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpGet("GetRecipeByName/{name}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetRecipeByName(string name)
         {
             var recipe = await _recService.GetByName(name);
@@ -88,6 +96,7 @@ namespace SmartRestaurant.API.Controllers
 
 
         [HttpDelete("DeleteRecipeByName/{name}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteRecipeByName(string name)
         {
             var IsDeleted = await _recService.DeleteRecipeByName(name);

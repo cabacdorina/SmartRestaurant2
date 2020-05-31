@@ -35,17 +35,17 @@
         
       </li>
      
-      <li class="nav-item"  routerLinkActive="active">
+      <li class="nav-item"  routerLinkActive="active" *ngIf="role==='Admin'">
         <a class="nav-link" [routerLink]="['/shoppingList']">ShoppingList</a>
       </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link " [routerLink]="['/shoppingAgent']">ShoppingAgent</a>
+      <li class="nav-item" routerLinkActive="active" *ngIf="role==='Admin'">
+        <a class="nav-link " [routerLink]="['/shoppingAgent']" *ngIf="role==='Admin'">ShoppingAgent</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link " [routerLink]="['/product/management']">ProductManagement</a>
+        <a class="nav-link " [routerLink]="['/product/management']" *ngIf="role==='Admin'">ProductManagement</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link " [routerLink]="['/product/prediction']">Prediction</a>
+        <a class="nav-link " [routerLink]="['/product/prediction']" *ngIf="role==='Admin'">Prediction</a>
       </li>
    
     </ul>  

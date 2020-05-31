@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.Services.UserServices;
@@ -20,6 +21,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles="Admin")]
         public async Task<IActionResult> GetById(int id)
         {
             var user = await _userService.GetById(id);
@@ -47,6 +49,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpPut("UpdateUser/{id}")]
+        [Authorize(Roles = "Admin,Normal")]
         public async Task<IActionResult> UpdateUser([FromBody]UserDto userDto, int id)
         {
             var isUpdated = await _userService.Update(userDto, id);
@@ -58,6 +61,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpDelete("DeleteUser/{id}")]
+        [Authorize(Roles = "Admin,Normal")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             var IsDeleted = await _userService.DeleteById(id);

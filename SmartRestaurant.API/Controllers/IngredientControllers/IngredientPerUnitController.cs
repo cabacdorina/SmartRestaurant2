@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.Data.Infrastructure;
@@ -22,12 +23,14 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpGet("GetAllIngred")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllIngred()
         {
             return Ok(await _ingredService.GetAllIngredients());
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetIngredById(int id)
         {
             var ingred = await _ingredService.GetById(id);
@@ -39,12 +42,14 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpPost("AddIngred")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddIngred([FromBody]IngredientPerUnitDto ingredDto)
         {
             return Ok(await _ingredService.Create(ingredDto));
         }
 
         [HttpPut("UpdateIngred/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateIngred([FromBody]IngredientPerUnitDto ingredDto, int id)
         {
             var IsUpdated = await _ingredService.Update(ingredDto, id);
@@ -56,6 +61,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpDelete("DeleteIngred/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteIngred(int id)
         {
 

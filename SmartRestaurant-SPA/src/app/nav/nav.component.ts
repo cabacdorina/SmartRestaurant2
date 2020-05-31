@@ -12,6 +12,8 @@ export class NavComponent implements OnInit {
 
   model: any = {};
   collapsed=true;
+  role: string;
+
   constructor(public authService: AuthService, private alertify: AlertifyService,
     private router: Router) { }
 
@@ -21,6 +23,7 @@ export class NavComponent implements OnInit {
   login() {
     this.authService.login(this.model).subscribe(next => {
       this.alertify.success('Logged in successfully');
+      this.role = this.authService.role;
     }, error => {
       this.alertify.error(error);
     },

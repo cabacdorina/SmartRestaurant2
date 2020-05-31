@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartRestaurant.Services.PredictServices;
@@ -20,6 +21,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpPost("GetPrediction")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetPrediction([FromBody] ProductDto productDto)
         {
             var amount = await _predictService.PredictAmount(productDto);
@@ -31,6 +33,7 @@ namespace SmartRestaurant.API.Controllers
         }
 
         [HttpPost("GetPredictionList")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetPredictionList([FromBody] List<ProductDto> productList)
         {
             var amountList = await _predictService.PredictAmountForProductList(productList);
