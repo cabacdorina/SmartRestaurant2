@@ -59,6 +59,7 @@ import { ProductResolver } from './_resolvers/product.resolver';
 import { ViewProdComponent } from './product-management/prod-operations/product-list/view-prod/view-prod.component';
 import { ProdImageComponent } from './product-management/prod-operations/product-list/view-prod/prod-image/prod-image.component';
 import { EditProdComponent } from './product-management/prod-operations/edit-prod/edit-prod.component';
+import { CommandService } from './_services/command.service';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -133,7 +134,8 @@ export function tokenGetter() {
       PredictService,
       RecipeService,
       RecipeResolver,
-      ProductResolver
+      ProductResolver,
+      CommandService
    ],
    bootstrap: [
       AppComponent

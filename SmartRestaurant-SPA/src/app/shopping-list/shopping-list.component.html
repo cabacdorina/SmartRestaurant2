@@ -6,6 +6,17 @@
     </label>
   </div>
 
+  <div class="row" style="float: left; margin-left: 2px;">
+    <label *ngIf="areChanges && !isCheckout && role === 'Admin'">Command's name:</label>
+    <input *ngIf="areChanges && !isCheckout && role === 'Admin'"
+      class="command-name"
+      type="text"
+      name="name"
+      [(ngModel)]="commandName"
+      ng-required="name"
+    />
+  </div>
+
     <div >
         <table class="table">
             <thead>
@@ -65,7 +76,7 @@
     </div>
 
     <button *ngIf="areChanges && isCheckout" class="saveButton btn-success btn-block" (click)="TransmitDataToAPI()">Check out</button>       
-    <button *ngIf="areChanges && !isCheckout && role === 'Admin'" class="saveButton btn-success btn-block" (click)="TransmitDataToAPI()">Reserve</button>       
+    <button *ngIf="areChanges && !isCheckout && role === 'Admin'" class="saveButton btn-success btn-block" (click)="ReserveCommand()">Reserve</button>       
    
     <div class="row">
       <b>Total: {{sum}}</b> &nbsp;&nbsp;&nbsp;&nbsp;

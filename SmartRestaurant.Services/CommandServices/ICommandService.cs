@@ -9,7 +9,7 @@ namespace SmartRestaurant.Services.CommandServices
 {
     public interface ICommandService
     {
-        Task<Command> Create(CommandDto command);
+        Task<int> Create(CommandDto command);
         Task<bool> DeleteById(int commandId);
         Task<bool> Update(CommandDto command, int commandId);
         Task<CommandDto> GetById(int commandId);

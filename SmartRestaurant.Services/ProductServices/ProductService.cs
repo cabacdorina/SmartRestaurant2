@@ -84,19 +84,20 @@ namespace SmartRestaurant.Services.ProductServices
             return prodDetails;
         }
 
-        //public async Task<bool> Update(ProductDto product, int productId)
-        //{
-        //    var prod = await _productRepo.GetById(productId);
-        //    if (prod == null)
-        //    {
-        //        return false;
-        //    }
+        public async Task<bool> Update(ProductDto product)
+        {
+            var prod = await _productRepo.GetById(product.Id);
+            if (prod == null)
+            {
+                return false;
+            }
 
-        //    prod.InjectFrom(product);
-        //     _productRepo.Update(prod);
-        //    await _unitOfWork.Commit();
-        //    return true;
-        //} ctr+k+c
+            prod.InjectFrom(product);
+            _productRepo.Update(prod);
+            await _unitOfWork.Commit();
+            return true;
+        }
+        //ctr+k+c
 
         public async Task<bool> UpdateByName(ProductDto product, string oldName)
         {

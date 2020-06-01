@@ -4,9 +4,11 @@ export interface Product {
     imageUrl: string;
     boughtDate: Date;
     amount: number;
+    amountReserved?: number;
     foodType: number;
     recipeName: string;
     tva?: number;
     predictedAmount?: number;
     requestAmount?: number;
+    id: number;
 }

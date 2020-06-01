@@ -41,7 +41,7 @@ namespace SmartRestaurant.API.Controllers
         [HttpPost("AddCommand")]
         public async Task<IActionResult> AddCommand([FromBody] CommandDto command)
         {
-           return Ok(await _commandService.Create(command));
+           return Ok(new { Message = "Command created with id: " + await _commandService.Create(command) });
         }
 
         [HttpPut("UpdateCommand/{id}")]

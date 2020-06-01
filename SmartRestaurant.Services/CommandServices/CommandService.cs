@@ -1,7 +1,9 @@
-﻿using Omu.ValueInjecter;
+﻿using Microsoft.EntityFrameworkCore;
+using Omu.ValueInjecter;
 using SmartRestaurant.Data.Infrastructure;
 using SmartRestaurant.Data.Models;
 using SmartRestaurant.Services.CommandService.CommandDTO;
+using SmartRestaurant.Services.ProductServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,20 +14,49 @@ namespace SmartRestaurant.Services.CommandServices
 {
     public class CommandService : ICommandService
     {
-        public readonly IRepository<Command> _commandRepo;
-        public readonly IUnitOfWork _unitOfWork;
+        private readonly IRepository<Command> _commandRepo;
+        private readonly IRepository<ProductCommand> _productCommandRepo;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CommandService(IRepository<Command> commandRepo, IUnitOfWork unitOfWork)
+        private readonly IProductService _prodService;
+        public CommandService(IRepository<Command> commandRepo,
+            IRepository<ProductCommand> productCommandRepo,
+            IUnitOfWork unitOfWork,
+            IProductService prodService
+            )
         {
             _commandRepo = commandRepo;
+            _productCommandRepo = productCommandRepo;
             _unitOfWork = unitOfWork;
+            _prodService = prodService;
         }
-        public async Task<Command> Create(CommandDto commandDto)
-        {
-            var command = new Command().InjectFrom(commandDto) as Command;
+
+        public async Task<int> Create(CommandDto commandDto)
+        {            
+            var command = new Command
+            {
+                Name = commandDto.Name,
+                CommandDate = DateTime.Now
+            };
             await _commandRepo.Add(command);
             await _unitOfWork.Commit();
-            return command;
+
+            foreach (var prodCommand in commandDto.ProdList)
+            {
+                await _productCommandRepo.Add(new ProductCommand
+                {
+                    ProductId = prodCommand.ProductId,
+                    CommandId = command.Id
+                });
+                await _unitOfWork.Commit();
+
+                var product = await _prodService.GetById(prodCommand.ProductId);
+                product.AmountReserved += prodCommand.AmountReserved;
+                await _prodService.Update(product);
+                await _unitOfWork.Commit();
+            }
+
+            return command.Id;
         }
 
         public async  Task<bool> DeleteById(int commandId)

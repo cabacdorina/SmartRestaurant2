@@ -6,6 +6,8 @@ import { HttpProductService } from "../_services/HttpProduct.service";
 import { AlertifyService } from "../_services/utils/alertify.service";
 import { NgForm } from "@angular/forms";
 import { AuthService } from "../_services/utils/auth.service";
+import { Command, ProductCommand } from "../_models/command";
+import { CommandService } from "../_services/command.service";
 
 @Component({
   selector: "app-shopping-list",
@@ -22,20 +24,19 @@ export class ShoppingListComponent implements OnInit {
   totalTva: number = 0;
   readonly tvaPercentage = 0.19;
   public isCheckout: boolean = true;
-  public role: string;
+  public role: string = "";
+  public commandName: string = "";
 
   constructor(
     private productService: ProductService,
     private router: Router,
     private prodService: HttpProductService,
     private alertify: AlertifyService,
-    private authService: AuthService
-  ) {
-    
-  }
+    private authService: AuthService,
+    private commandService: CommandService
+  ) {}
 
   ngOnInit() {
-
     this.authService.roleEmitter.subscribe((role: string) => {
       this.role = role;
     });
@@ -59,7 +60,7 @@ export class ShoppingListComponent implements OnInit {
     for (this.i = 0; this.i < this.prods.length; this.i++) {
       this.prods[this.i].boughtDate = this.curDate;
       this.sum =
-        this.sum + this.prods[this.i].price * this.prods[this.i].amount;
+        this.sum + this.prods[this.i].price * this.prods[this.i].requestAmount;
     }
 
     this.sum = this.numberRoundedToTwoDecimals(this.sum);
@@ -77,7 +78,7 @@ export class ShoppingListComponent implements OnInit {
     this.prods.forEach((prod, i) => {
       prod.amount = prod.requestAmount;
     });
-    
+
     this.prodService.AddSales(this.prods).subscribe(
       () => {
         this.alertify.success("Transmitted successfully");
@@ -95,6 +96,27 @@ export class ShoppingListComponent implements OnInit {
     };
     this.areChanges = false;
     this.router.navigate(["/desserts"]);
+  }
+
+  ReserveCommand() {
+   
+    if (this.commandName.length < 3) {
+      this.alertify.error("Name must be longer then 3 charcters");
+      return;
+    }
+
+    let command = { name: this.commandName, prodList: [] } as Command;
+    this.prods.forEach((prod, i) => {
+      prod.amountReserved = prod.requestAmount;
+      command.prodList.push({
+        amountReserved : prod.amountReserved,
+        productId: prod.id
+      } as ProductCommand);
+    });
+
+    this.commandService.registerCommand(command).subscribe((res) => {
+      console.log(res);
+    })
   }
 
   removeItem(item: Product) {
@@ -128,7 +150,7 @@ export class ShoppingListComponent implements OnInit {
 
   setTvaForEachProduct() {
     this.prods.forEach((prod) => {
-      prod.tva = this.getTva(prod.price, prod.amount);
+      prod.tva = this.getTva(prod.price, prod.requestAmount);
     });
   }
 }
