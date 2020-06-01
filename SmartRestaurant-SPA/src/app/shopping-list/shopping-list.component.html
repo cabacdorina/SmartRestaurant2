@@ -1,4 +1,11 @@
 <div class="container mt-5">
+  <div *ngIf="role==='Admin'&& areChanges">
+    <label class="switch">
+      <input type="checkbox" checked>
+      <span class="slider round" (click)="isCheckout=!isCheckout;$event.stopPropagation()"></span>
+    </label>
+  </div>
+
     <div >
         <table class="table">
             <thead>
@@ -17,7 +24,7 @@
                 <th scope="row">{{i+1}}</th>
                 <td>{{prod.name}}</td>
                 <td>{{prod.price}}</td>
-                <td> 
+                <td *ngIf="isCheckout"> 
                   <div class="myClass col-sm-2 form-group">                    
                     <input
                       type="number"
@@ -30,6 +37,20 @@
                       >
                   </div>
                 </td>
+
+                <td *ngIf="!isCheckout"> 
+                  <div class="myClass col-sm-2 form-group">                    
+                    <input
+                      type="number"
+                      id="id"
+                      class="form-control"
+                      min="1"
+                      value={{prod.requestAmount}}
+                      (input)="onUpdateAmount($event,i)"
+                      >
+                  </div>
+                </td>
+
                 <td>{{prod.tva}}</td>
                 <td>
                   <button class="btn btn-primary" (click)="removeItem(prod)">
@@ -43,8 +64,8 @@
           </table>  
     </div>
 
-    <button *ngIf=areChanges class="saveButton btn-success btn-block" (click)="TransmitDataToAPI()">Check out</button>       
-    
+    <button *ngIf="areChanges && isCheckout" class="saveButton btn-success btn-block" (click)="TransmitDataToAPI()">Check out</button>       
+    <button *ngIf="areChanges && !isCheckout && role === 'Admin'" class="saveButton btn-success btn-block" (click)="TransmitDataToAPI()">Reserve</button>       
    
     <div class="row">
       <b>Total: {{sum}}</b> &nbsp;&nbsp;&nbsp;&nbsp;

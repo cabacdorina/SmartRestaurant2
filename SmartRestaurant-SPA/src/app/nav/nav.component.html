@@ -34,7 +34,7 @@
         </a>        
       </li>
      
-      <li class="nav-item"  routerLinkActive="active" *ngIf="role==='Admin'">
+      <li class="nav-item"  routerLinkActive="active" *ngIf="role==='Admin' || role==='Normal'">
         <a class="nav-link" [routerLink]="['/shoppingList']">ShoppingList</a>
       </li>
       <li class="nav-item" routerLinkActive="active" *ngIf="role==='Admin'">

@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { HttpProductService } from "../_services/HttpProduct.service";
 import { AlertifyService } from "../_services/utils/alertify.service";
 import { NgForm } from "@angular/forms";
+import { AuthService } from "../_services/utils/auth.service";
 
 @Component({
   selector: "app-shopping-list",
@@ -20,17 +21,25 @@ export class ShoppingListComponent implements OnInit {
   tvaPerProduct: number = 0;
   totalTva: number = 0;
   readonly tvaPercentage = 0.19;
+  public isCheckout: boolean = true;
+  public role: string;
 
   constructor(
     private productService: ProductService,
     private router: Router,
     private prodService: HttpProductService,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private authService: AuthService
   ) {
     
   }
 
   ngOnInit() {
+
+    this.authService.roleEmitter.subscribe((role: string) => {
+      this.role = role;
+    });
+
     this.prods = this.productService.getProds();
 
     this.curDate = new Date();
