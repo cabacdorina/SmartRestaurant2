@@ -120,12 +120,13 @@ namespace SmartRestaurant.API.Controllers
 
         [HttpPost("AddSales")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> AddSales([FromBody] IList<ProductDto> prods)
+        public async Task<IActionResult> AddSales([FromBody] IList<ProductDto> prodList)
         {
-            SaledProductsArray saledProd = new SaledProductsArray(prods);
-            await saledProd.WriteSaledProdToFile(prods);
+            var updatedProds= await _productService.UpdateStocks(prodList);
+            SaledProductsArray saledProd = new SaledProductsArray(prodList);
+            await saledProd.WriteSaledProdToFile(prodList);            
 
-            return Ok(new { Message = "Sales added" });
+            return Ok(new { Message = "Sales added", ProdList = updatedProds });
         }
 
         [HttpGet("GetAllProductIngredients/{id}")]

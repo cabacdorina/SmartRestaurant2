@@ -37,8 +37,14 @@
 
 .btn {
     margin-left: 0px;
+    float: right;
 }
 
 .list-inline{
     text-align: center;
+}
+
+.disable-card {
+    opacity: 50%;
+    pointer-events: none;
 }

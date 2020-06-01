@@ -179,5 +179,18 @@ namespace SmartRestaurant.Services.ProductServices
             var isDeleted = await DeleteById(prod.Id);
             return isDeleted;
         }
+
+        public async Task<IEnumerable<ProductDto>> UpdateStocks(IEnumerable<ProductDto> prodList)
+        {
+            foreach (var prod in prodList)
+            {
+                var prodFromDb = await GetByName(prod.Name);
+                var remainStock = prodFromDb.Amount - prod.Amount;
+                prod.Amount = remainStock;
+                await UpdateByName(prod, prod.Name);
+            }
+
+            return prodList;
+        }
     }
 }

@@ -24,7 +24,8 @@
                       id="id"
                       class="form-control"
                       min="1"
-                      value={{prod.amount}}
+                      max="{{prod.amount}}"
+                      value={{prod.requestAmount}}
                       (input)="onUpdateAmount($event,i)"
                       >
                   </div>

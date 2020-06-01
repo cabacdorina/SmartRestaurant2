@@ -15,7 +15,7 @@ export class ProductService {
 
   addProducts(prod: Product) {
     console.log('service: ' + prod.name);
-    prod.amount = 1;
+    prod.requestAmount = 1;
     this.prods.push(prod);
   }
 
