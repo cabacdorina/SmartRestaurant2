@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { PredictService } from "../_services/predict.service";
 import { AlertifyService } from "../_services/utils/alertify.service";
 import { NgxSpinnerService } from "ngx-spinner";
+import { RouterExtenderService } from "../_services/router-extender.service";
 
 @Component({
   selector: "app-product-prediction",
@@ -26,7 +27,8 @@ export class ProductPredictionComponent implements OnInit {
     private predService: PredictService,
     private route: ActivatedRoute,
     private alertify: AlertifyService,
-    private spinnerService:NgxSpinnerService
+    private spinnerService: NgxSpinnerService,
+    private routerExtService : RouterExtenderService
   ) {}
 
   ngOnInit() {
@@ -100,5 +102,14 @@ export class ProductPredictionComponent implements OnInit {
       }, 2000);
     });
 
+  }
+
+  GoShoppingAgent() {
+    const productList = this.predService.concatenateLists(
+      this.dessertList,
+      this.mainFoodList,
+      this.soupList
+    );
+    this.routerExtService.navigate('shoppingAgent', productList);
   }
 }

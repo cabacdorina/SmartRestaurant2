@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterExtenderService } from '../_services/router-extender.service';
 
 @Component({
   selector: 'app-shopping-agent',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShoppingAgentComponent implements OnInit {
 
-  constructor() { }
+  constructor(private routerExtService: RouterExtenderService) { }
 
   ngOnInit() {
+    const prodList = this.routerExtService.getData();
+    debugger;
   }
-
 }

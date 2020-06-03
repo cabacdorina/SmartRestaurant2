@@ -60,6 +60,7 @@ import { ViewProdComponent } from './product-management/prod-operations/product-
 import { ProdImageComponent } from './product-management/prod-operations/product-list/view-prod/prod-image/prod-image.component';
 import { EditProdComponent } from './product-management/prod-operations/edit-prod/edit-prod.component';
 import { CommandService } from './_services/command.service';
+import { RouterExtenderService } from './_services/router-extender.service';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -135,7 +136,8 @@ export function tokenGetter() {
       RecipeService,
       RecipeResolver,
       ProductResolver,
-      CommandService
+      CommandService,
+      RouterExtenderService
    ],
    bootstrap: [
       AppComponent

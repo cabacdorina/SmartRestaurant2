@@ -7,7 +7,7 @@
         <div class="row">
           <li class="list-group-item">
             Desserts
-            <button class="btn btn-primary" (click)="showDessertTable()">
+            <button [disabled]=!predictAllFlag  class="btn btn-primary" (click)="showDessertTable()">
               <i class="fa fa-eye"></i>
             </button>
           </li>
@@ -16,7 +16,7 @@
         <div class="row">
           <li class="list-group-item">
             Main Food
-            <button class="btn btn-primary" (click)="showMainFoodTable()">
+            <button [disabled]=!predictAllFlag class="btn btn-primary" (click)="showMainFoodTable()">
               <i class="fa fa-eye"></i>
             </button>
           </li>
@@ -25,7 +25,7 @@
         <div class="row">
           <li class="list-group-item">
             Soups
-            <button class="btn btn-primary" (click)="showSoupTable()">
+            <button [disabled]=!predictAllFlag class="btn btn-primary" (click)="showSoupTable()">
               <i class="fa fa-eye"></i>
             </button>
           </li>
@@ -34,12 +34,12 @@
       </ul>
 
       <div class="buttons">
-      <button class="btn btn-primary" (click)="PredictAll()">
+      <button class="btn btn-primary custom-button" (click)="PredictAll()">
         Predict All
       </button>
 
-      <button class="btn btn-primary">
-        Predict One
+      <button [disabled]=!predictAllFlag class="btn btn-primary custom-button" (click)="GoShoppingAgent()">
+        Go Shopping
       </button>
     </div>
     </div>
