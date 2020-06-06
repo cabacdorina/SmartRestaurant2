@@ -101,12 +101,22 @@ namespace SmartRestaurant.Services.ProductServices
 
         public async Task<bool> UpdateByName(ProductDto product, string oldName)
         {
-            var prod = await _productRepo.Query().Where(x => x.Name.Equals(oldName)).FirstOrDefaultAsync();
+            var prod = await _productRepo.Query()
+                .Include(x=>x.Recipe)
+                .Where(x => x.Name.Equals(oldName)).FirstOrDefaultAsync();
+
             if (prod == null)
             {
                 return false;
             }
+
             prod.InjectFrom(product);
+            if (!prod.Recipe.Name.Equals(product.RecipeName))
+            {
+                var newProductRecipe = await _recipeRepo.Query().Where(x => x.Name.Equals(product.RecipeName)).FirstOrDefaultAsync();
+                prod.RecipeId = newProductRecipe.Id;
+            }
+           
             _productRepo.Update(prod);
             await _unitOfWork.Commit();
 
@@ -119,6 +129,7 @@ namespace SmartRestaurant.Services.ProductServices
             var prod = prodList.Select(p => new ProductDto
             {
                 Name = p.Name,
+                Id =  p.Id,
                 Price = p.Price,
                 Amount = p.Amount,
                 FoodType = p.FoodType,
@@ -151,6 +162,7 @@ namespace SmartRestaurant.Services.ProductServices
                 {
                     Name = x.IngredientPerUnit.Name,
                     Price = x.IngredientPerUnit.Price,
+                    Quantity = x.Quantity,
                     UnitType = x.IngredientPerUnit.UnitType
                 }).ToListAsync();
 
@@ -162,8 +174,7 @@ namespace SmartRestaurant.Services.ProductServices
             {
                 Name = x.IngredientPerPiece.Name,
                 Price = x.IngredientPerPiece.Price,
-                NumberOfPieces = x.IngredientPerPiece.NumberOfPieces,
-                NumberOfPiecesReserved = x.IngredientPerPiece.NumberOfPiecesReserved
+                NumberOfPieces = x.NumberOfPieces,
             }).ToListAsync();
 
             return ingrdientsPerUnitList.Concat(ingredientsPerPieceList).ToList();

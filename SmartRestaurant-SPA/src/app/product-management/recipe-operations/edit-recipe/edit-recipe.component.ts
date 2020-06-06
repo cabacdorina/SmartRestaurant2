@@ -55,7 +55,7 @@ export class EditRecipeComponent implements OnInit {
       name: "",
       price: -1,
     };
-
+    //from here
     if (this.recipe.ingredients !== null)
       this.ingredQuantityList = [...this.recipe.ingredients];
     this.detectChange.detectChanges();

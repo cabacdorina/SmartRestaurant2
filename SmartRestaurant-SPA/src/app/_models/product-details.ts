@@ -12,4 +12,5 @@ export interface ProductDetails{
     tva?: number;
     predictedAmount?: number;
     ingredientList: RecipeIngredient[];
+    id?: number;
 }

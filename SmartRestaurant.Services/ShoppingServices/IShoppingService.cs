@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SmartRestaurant.Services.ShoppingServices
 {
     public interface IShoppingService
     {
-        List<IngredShopDto> MakeShopping(List<ProductShopDto> prodList);
+        Task<List<IngredShopDto>> GetIngredListToBuy(List<ProductShopDto> prodList);
     }
 }

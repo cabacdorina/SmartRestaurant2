@@ -39,6 +39,17 @@
             ng-required="url"
           />
 
+          <label for="amount">Product's amount</label>
+          <input
+            class="form-control"
+            type="number"
+            name="amount"
+            required
+            [(ngModel)]="prod.amount"
+            min="1"
+            ng-required="amount"
+          />
+
           <label for="type">Product's type</label>
           <select
             (change)="onItemChange($event.target.value)"

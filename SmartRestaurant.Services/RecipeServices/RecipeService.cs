@@ -148,7 +148,7 @@ namespace SmartRestaurant.Services.RecipeServices
                                         .Select(x => new RecipeIngredientViewDto
                                         {
                                             Name = x.IngredientPerUnit.Name,
-                                            Quantity = x.IngredientPerUnit.Quantity,
+                                            Quantity = x.Quantity,
                                             Type = x.IngredientPerUnit.UnitType
                                         });
 
@@ -156,7 +156,7 @@ namespace SmartRestaurant.Services.RecipeServices
                                         .Select(x => new RecipeIngredientViewDto
                                         {
                                             Name = x.IngredientPerPiece.Name,
-                                            Pieces = x.IngredientPerPiece.NumberOfPieces
+                                            Pieces = x.NumberOfPieces
                                         });
             //var recipeIngredPerPiece = recipe.RecipeIngredientPerPiece
             //                            .Select(x => x.IngredientPerPiece);

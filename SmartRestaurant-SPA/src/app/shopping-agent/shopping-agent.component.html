@@ -1,3 +1,26 @@
-<p>
-  shopping-agent works!
-</p>
+<h5 style="margin-left: 15px;"><b>Ingredients to buy</b></h5>
+
+  <div class="container">
+    <table
+      id="shop-table"
+      class="table table-striped table-bordered"
+      width="100%"
+    >
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Name</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ingred of ingredList; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{ ingred.ingredName }}</td>
+          <td *ngIf="ingred.quantityToBuy !== null">{{ ingred.quantityToBuy }}</td>
+          <td *ngIf="ingred.numberOfPiecesToBuy !== null">{{ ingred.numberOfPiecesToBuy }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+

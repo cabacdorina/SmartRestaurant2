@@ -1,9 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { Product } from 'src/app/_models/product';
 import { PredictService } from 'src/app/_services/predict.service';
-import * as $ from "jquery";
-import "datatables.net";
-import "datatables.net-bs4";
 
 @Component({
   selector: 'app-predict-soup',

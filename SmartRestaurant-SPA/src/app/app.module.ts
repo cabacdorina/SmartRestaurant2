@@ -61,6 +61,7 @@ import { ProdImageComponent } from './product-management/prod-operations/product
 import { EditProdComponent } from './product-management/prod-operations/edit-prod/edit-prod.component';
 import { CommandService } from './_services/command.service';
 import { RouterExtenderService } from './_services/router-extender.service';
+import { ShopAgentService } from './_services/shop-agent.service';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -137,7 +138,8 @@ export function tokenGetter() {
       RecipeResolver,
       ProductResolver,
       CommandService,
-      RouterExtenderService
+      RouterExtenderService,
+      ShopAgentService
    ],
    bootstrap: [
       AppComponent

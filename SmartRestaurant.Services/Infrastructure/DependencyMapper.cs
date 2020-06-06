@@ -6,6 +6,7 @@ using SmartRestaurant.Services.IngredientServices.IngredientInterfaces;
 using SmartRestaurant.Services.PredictServices;
 using SmartRestaurant.Services.ProductServices;
 using SmartRestaurant.Services.RecipeServices;
+using SmartRestaurant.Services.ShoppingServices;
 using SmartRestaurant.Services.UserServices;
 using SmartRestaurantML.ModelBuilder;
 using System;
@@ -26,6 +27,7 @@ namespace SmartRestaurant.Services.Infrastructure
             services.AddScoped<ICommandService, CommandServices.CommandService>();
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton<IPredictService, PredictService>();
+            services.AddScoped<IShoppingService, ShoppingService>();
 
             return services;
         }
