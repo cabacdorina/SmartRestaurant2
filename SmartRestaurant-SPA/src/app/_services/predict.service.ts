@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -14,6 +14,7 @@ predictionUrl: string = this.baseUrl + "prediction/GetPredictionList";
 public dessertList: Product[];
 public mainFoodList: Product[];
 public soupList: Product[];
+@Output() public predictFlagEmitter: EventEmitter<boolean> = new EventEmitter();
 
 constructor(private http: HttpClient) { }
 

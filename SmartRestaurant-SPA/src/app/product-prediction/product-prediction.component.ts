@@ -96,7 +96,7 @@ export class ProductPredictionComponent implements OnInit {
       
       this.predictAllFlag = true;
       this.predService.setProductLists(this.dessertList,this.mainFoodList, this.soupList);
-      
+
       setTimeout(()=>{
         this.spinnerService.hide();
       }, 2000);
@@ -105,11 +105,14 @@ export class ProductPredictionComponent implements OnInit {
   }
 
   GoShoppingAgent() {
+
     const productList = this.predService.concatenateLists(
       this.dessertList,
       this.mainFoodList,
       this.soupList
     );
-    this.routerExtService.navigate('shoppingAgent', productList);
+    this.routerExtService.navigate('shoppingAgent', productList).then(()=>{
+      this.predService.predictFlagEmitter.emit(this.predictAllFlag);
+    });
   }
 }

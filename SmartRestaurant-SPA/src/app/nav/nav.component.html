@@ -37,8 +37,8 @@
       <li class="nav-item"  routerLinkActive="active" *ngIf="role==='Admin' || role==='Normal'">
         <a class="nav-link" [routerLink]="['/shoppingList']">ShoppingList</a>
       </li>
-      <li class="nav-item" routerLinkActive="active" *ngIf="role==='Admin'">
-        <a class="nav-link " [routerLink]="['/shoppingAgent']" *ngIf="role==='Admin'">ShoppingAgent</a>
+      <li class="nav-item"  routerLinkActive="active" *ngIf="role==='Admin' && predictAllFlag">
+        <a class="nav-link" [routerLink]="['/shoppingAgent']" *ngIf="role==='Admin'">ShoppingAgent</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link " [routerLink]="['/product/management']" *ngIf="role==='Admin'">ProductManagement</a>

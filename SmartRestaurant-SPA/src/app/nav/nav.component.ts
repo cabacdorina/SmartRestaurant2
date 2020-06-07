@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../_services/utils/auth.service";
 import { AlertifyService } from "../_services/utils/alertify.service";
 import { Router } from "@angular/router";
+import { PredictService } from "../_services/predict.service";
 
 @Component({
   selector: "app-nav",
@@ -12,17 +13,23 @@ export class NavComponent implements OnInit {
   model: any = {};
   collapsed = true;
   role: string;
+  predictAllFlag: boolean = false;
 
   constructor(
     public authService: AuthService,
     private alertify: AlertifyService,
-    private router: Router
+    private router: Router,
+    private predService: PredictService
   ) {}
 
   ngOnInit() {
     this.authService.roleEmitter.subscribe((res)=>{
       this.role = res;
     })
+
+    this.predService.predictFlagEmitter.subscribe((value:boolean)=>{
+      this.predictAllFlag = value;
+    });
   }
 
   login() {
