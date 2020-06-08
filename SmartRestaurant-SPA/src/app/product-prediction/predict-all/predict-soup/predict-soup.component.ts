@@ -23,8 +23,8 @@ export class PredictSoupComponent implements OnInit {
     const soupDataTable: any = $("#soup-table").on("order.dt", function () {});
     this.soupDataTable = soupDataTable.DataTable({
       lengthMenu: [
-        [3, 10, 20, -1],
-        [3, 10, 20, "All"],
+        [3, 5, 7, -1],
+        [3, 5, 7, "All"],
       ],
     });
 

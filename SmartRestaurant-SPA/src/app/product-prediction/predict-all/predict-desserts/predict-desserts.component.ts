@@ -27,8 +27,8 @@ export class PredictDessertsComponent implements OnInit {
      const dessertTable: any = $("#dessert-table").on("order.dt", function () {});
      this.dessertDataTable = dessertTable.DataTable({
        lengthMenu: [
-         [3, 10, 20, -1],
-         [3, 10, 20, "All"],
+         [3, 5, 7, -1],
+         [3, 5, 7, "All"],
        ]
      });
   }

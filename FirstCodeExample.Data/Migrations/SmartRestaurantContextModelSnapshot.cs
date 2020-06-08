@@ -19,24 +19,6 @@ namespace SmartRestaurant.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("SmartRestaurant.Data.Models.Command", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CommandDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Commands");
-                });
-
             modelBuilder.Entity("SmartRestaurant.Data.Models.IngredientPerPiece", b =>
                 {
                     b.Property<int>("Id")
@@ -127,21 +109,6 @@ namespace SmartRestaurant.Data.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("SmartRestaurant.Data.Models.ProductCommand", b =>
-                {
-                    b.Property<int>("CommandId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CommandId", "ProductId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductCommands");
-                });
-
             modelBuilder.Entity("SmartRestaurant.Data.Models.Recipe", b =>
                 {
                     b.Property<int>("Id")
@@ -226,21 +193,6 @@ namespace SmartRestaurant.Data.Migrations
                     b.HasOne("SmartRestaurant.Data.Models.Recipe", "Recipe")
                         .WithMany()
                         .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("SmartRestaurant.Data.Models.ProductCommand", b =>
-                {
-                    b.HasOne("SmartRestaurant.Data.Models.Command", "Command")
-                        .WithMany("ProductCommand")
-                        .HasForeignKey("CommandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SmartRestaurant.Data.Models.Product", "Product")
-                        .WithMany("ProductCommand")
-                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -21,8 +21,8 @@ export class PredictMainFoodComponent implements OnInit {
     const mainFoodTable: any = $("#main-food-table").on("order.dt", function () {});
     this.mainFoodDataTable = mainFoodTable.DataTable({
       lengthMenu: [
-        [3, 10, 20, -1],
-        [3, 10, 20, "All"],
+        [3, 5, 7, -1],
+        [3, 5, 7, "All"],
       ],
     });
 

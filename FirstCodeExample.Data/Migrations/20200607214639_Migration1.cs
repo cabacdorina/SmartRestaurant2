@@ -8,20 +8,6 @@ namespace SmartRestaurant.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Commands",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    CommandDate = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Commands", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "IngredientPerPieces",
                 columns: table => new
                 {
@@ -43,9 +29,11 @@ namespace SmartRestaurant.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(maxLength: 20, nullable: false),
+                    Name = table.Column<string>(nullable: true),
                     Price = table.Column<float>(nullable: false),
-                    UnitType = table.Column<int>(nullable: false)
+                    UnitType = table.Column<int>(nullable: false),
+                    Quantity = table.Column<float>(nullable: false),
+                    QuantityReserved = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,6 +54,22 @@ namespace SmartRestaurant.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true),
+                    Type = table.Column<int>(nullable: false),
+                    PhoneNumber = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -74,7 +78,8 @@ namespace SmartRestaurant.Data.Migrations
                     Name = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false),
                     Amount = table.Column<int>(nullable: false),
-                    Type = table.Column<string>(nullable: true),
+                    AmountReserved = table.Column<int>(nullable: false),
+                    FoodType = table.Column<int>(nullable: false),
                     ImageUrl = table.Column<string>(nullable: true),
                     BoughtDate = table.Column<DateTime>(nullable: false),
                     RecipeId = table.Column<int>(nullable: false)
@@ -95,7 +100,8 @@ namespace SmartRestaurant.Data.Migrations
                 columns: table => new
                 {
                     RecipeId = table.Column<int>(nullable: false),
-                    IngredientPerPieceId = table.Column<int>(nullable: false)
+                    IngredientPerPieceId = table.Column<int>(nullable: false),
+                    NumberOfPieces = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -115,57 +121,29 @@ namespace SmartRestaurant.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RecipeIngredientPerUnit",
+                name: "RecipeIngredientPerUnits",
                 columns: table => new
                 {
                     RecipeId = table.Column<int>(nullable: false),
-                    IngredientPerUnitId = table.Column<int>(nullable: false)
+                    IngredientPerUnitId = table.Column<int>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RecipeIngredientPerUnit", x => new { x.IngredientPerUnitId, x.RecipeId });
+                    table.PrimaryKey("PK_RecipeIngredientPerUnits", x => new { x.IngredientPerUnitId, x.RecipeId });
                     table.ForeignKey(
-                        name: "FK_RecipeIngredientPerUnit_IngredientPerUnits_IngredientPerUnitId",
+                        name: "FK_RecipeIngredientPerUnits_IngredientPerUnits_IngredientPerUnitId",
                         column: x => x.IngredientPerUnitId,
                         principalTable: "IngredientPerUnits",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RecipeIngredientPerUnit_Recipes_RecipeId",
+                        name: "FK_RecipeIngredientPerUnits_Recipes_RecipeId",
                         column: x => x.RecipeId,
                         principalTable: "Recipes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "ProductCommands",
-                columns: table => new
-                {
-                    CommandId = table.Column<int>(nullable: false),
-                    ProductId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductCommands", x => new { x.CommandId, x.ProductId });
-                    table.ForeignKey(
-                        name: "FK_ProductCommands_Commands_CommandId",
-                        column: x => x.CommandId,
-                        principalTable: "Commands",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductCommands_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProductCommands_ProductId",
-                table: "ProductCommands",
-                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_RecipeId",
@@ -178,27 +156,31 @@ namespace SmartRestaurant.Data.Migrations
                 column: "RecipeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RecipeIngredientPerUnit_RecipeId",
-                table: "RecipeIngredientPerUnit",
+                name: "IX_RecipeIngredientPerUnits_RecipeId",
+                table: "RecipeIngredientPerUnits",
                 column: "RecipeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Recipes_Name",
+                table: "Recipes",
+                column: "Name",
+                unique: true,
+                filter: "[Name] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ProductCommands");
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "RecipeIngredientPerPieces");
 
             migrationBuilder.DropTable(
-                name: "RecipeIngredientPerUnit");
+                name: "RecipeIngredientPerUnits");
 
             migrationBuilder.DropTable(
-                name: "Commands");
-
-            migrationBuilder.DropTable(
-                name: "Products");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "IngredientPerPieces");

@@ -27,8 +27,8 @@ export class ProductTableComponent implements OnInit {
     
     this.productDataTable = productTable.DataTable({
       lengthMenu: [
-        [3, 10, 20, -1],
-        [3, 10, 20, "All"],
+        [3, 5, 7, -1],
+        [3, 5, 7, "All"],
       ]
     });
   }

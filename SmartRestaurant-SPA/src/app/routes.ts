@@ -33,8 +33,6 @@ export const appRoutes: Routes = [
                     resolve: {theMainFood: MainFoodResolver} },
             { path: 'soups', component: SoupsComponent,
                      resolve: {theSoup: SoupResolver}},
-            { path: 'product/add', component: ProductAddComponent},
-            {path: 'product/remove', component: ProductRemoveComponent},
             {path: 'product/management', component: ProductManagementComponent,
                      resolve:
                      {

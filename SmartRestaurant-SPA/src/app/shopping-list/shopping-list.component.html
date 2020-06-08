@@ -1,23 +1,5 @@
 <div class="container mt-5">
-  <div *ngIf="role==='Admin'&& areChanges">
-    <label class="switch">
-      <input type="checkbox" checked>
-      <span class="slider round" (click)="isCheckout=!isCheckout;$event.stopPropagation()"></span>
-    </label>
-  </div>
-
-  <div class="row" style="float: left; margin-left: 2px;">
-    <label *ngIf="areChanges && !isCheckout && role === 'Admin'">Command's name:</label>
-    <input *ngIf="areChanges && !isCheckout && role === 'Admin'"
-      class="command-name"
-      type="text"
-      name="name"
-      [(ngModel)]="commandName"
-      ng-required="name"
-    />
-  </div>
-
-    <div >
+    <div class="col-md-7">
         <table class="table">
             <thead>
               <tr>
@@ -35,7 +17,7 @@
                 <th scope="row">{{i+1}}</th>
                 <td>{{prod.name}}</td>
                 <td>{{prod.price}}</td>
-                <td *ngIf="isCheckout"> 
+                <td> 
                   <div class="myClass col-sm-2 form-group">                    
                     <input
                       type="number"
@@ -43,19 +25,6 @@
                       class="form-control"
                       min="1"
                       max="{{prod.amount}}"
-                      value={{prod.requestAmount}}
-                      (input)="onUpdateAmount($event,i)"
-                      >
-                  </div>
-                </td>
-
-                <td *ngIf="!isCheckout"> 
-                  <div class="myClass col-sm-2 form-group">                    
-                    <input
-                      type="number"
-                      id="id"
-                      class="form-control"
-                      min="1"
                       value={{prod.requestAmount}}
                       (input)="onUpdateAmount($event,i)"
                       >
@@ -73,15 +42,15 @@
             </tbody>
       
           </table>  
-    </div>
-
-    <button *ngIf="areChanges && isCheckout" class="saveButton btn-success btn-block" (click)="TransmitDataToAPI()">Check out</button>       
-    <button *ngIf="areChanges && !isCheckout && role === 'Admin'" class="saveButton btn-success btn-block" (click)="ReserveCommand()">Reserve</button>       
    
-    <div class="row">
-      <b>Total: {{sum}}</b> &nbsp;&nbsp;&nbsp;&nbsp;
-      <b>Total TVA: {{totalTva}}</b>
+    <div class="box">
+      <button *ngIf="areChanges" class="saveButton btn-success btn-block" (click)="TransmitDataToAPI()">Check out</button>       
+        <div class="tva">
+        <b>Total: {{sum}}</b> &nbsp;&nbsp;&nbsp;&nbsp;
+        <b>Total TVA: {{totalTva}}</b>
+        </div>
     </div>
+  </div>
    
    
     

@@ -23,7 +23,6 @@ export class ShoppingListComponent implements OnInit {
   tvaPerProduct: number = 0;
   totalTva: number = 0;
   readonly tvaPercentage = 0.19;
-  public isCheckout: boolean = true;
   public role: string = "";
   public commandName: string = "";
 
@@ -97,27 +96,7 @@ export class ShoppingListComponent implements OnInit {
     this.areChanges = false;
     this.router.navigate(["/desserts"]);
   }
-
-  ReserveCommand() {
-   
-    if (this.commandName.length < 3) {
-      this.alertify.error("Name must be longer then 3 charcters");
-      return;
-    }
-
-    let command = { name: this.commandName, prodList: [] } as Command;
-    this.prods.forEach((prod, i) => {
-      prod.amountReserved = prod.requestAmount;
-      command.prodList.push({
-        amountReserved : prod.amountReserved,
-        productId: prod.id
-      } as ProductCommand);
-    });
-
-    this.commandService.registerCommand(command).subscribe((res) => {
-      console.log(res);
-    })
-  }
+ 
 
   removeItem(item: Product) {
     this.prods = this.prods.filter((it) => it !== item);

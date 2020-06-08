@@ -141,10 +141,22 @@ namespace SmartRestaurant.Services.ProductServices
             return prod;
         }
 
-        public Task<IEnumerable<ProductDto>> GetByType(int type)
+        public async Task<IEnumerable<ProductDto>> GetByType(int type)
         {
-            var prods = _productRepo.Query(p => p.FoodType == type).ToList();
-            return Task.FromResult(prods.Select(p => new ProductDto().InjectFrom(p) as ProductDto));
+            var prodList = await _productRepo.Query(p => p.FoodType == type).Include(x => x.Recipe).ToListAsync();
+            var prods = prodList.Select(p => new ProductDto
+            {
+                Name = p.Name,
+                Id = p.Id,
+                Price = p.Price,
+                Amount = p.Amount,
+                FoodType = p.FoodType,
+                ImageUrl = p.ImageUrl,
+                BoughtDate = p.BoughtDate,
+                RecipeName = p.Recipe.Name
+            }).ToList();
+
+            return prods;
         }
 
         public async Task<IEnumerable<IngredientDto>> GetAllProductIngredients(int productId)

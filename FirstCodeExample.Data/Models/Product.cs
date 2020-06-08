@@ -16,6 +16,5 @@ namespace SmartRestaurant.Data.Models
         public DateTime BoughtDate { get; set; }
         public Recipe Recipe { get; set; }
         public int RecipeId { get; set; }
-        public virtual ICollection<ProductCommand> ProductCommand { get; set; }
     }
 }

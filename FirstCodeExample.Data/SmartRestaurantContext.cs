@@ -10,11 +10,9 @@ namespace SmartRestaurant.Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
-        public DbSet<Command> Commands { get; set; }
         public DbSet<IngredientPerPiece> IngredientPerPieces { get; set; }
         public DbSet<IngredientPerUnit> IngredientPerUnits { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductCommand> ProductCommands { get; set; }
         public DbSet<RecipeIngredientPerPiece> RecipeIngredientPerPieces { get; set; }
         public DbSet<RecipeIngredientPerUnit> RecipeIngredientPerUnits { get; set; }
 
@@ -36,19 +34,6 @@ namespace SmartRestaurant.Data
             //modelBuilder.Entity<Product>().HasAlternateKey()
 
             modelBuilder.Entity<Recipe>().HasIndex(r => r.Name).IsUnique();
-
-            modelBuilder.Entity<ProductCommand>().HasKey(sc => new { sc.CommandId, sc.ProductId });
-
-            modelBuilder.Entity<ProductCommand>()
-                .HasOne<Product>(pc => pc.Product)
-                .WithMany(s => s.ProductCommand)
-                .HasForeignKey(pc => pc.ProductId);
-
-
-            modelBuilder.Entity<ProductCommand>()
-                .HasOne<Command>(sc => sc.Command)
-                .WithMany(s => s.ProductCommand)
-                .HasForeignKey(sc => sc.CommandId);
 
             modelBuilder.Entity<RecipeIngredientPerPiece>().HasKey(x => new { x.IngredientPerPieceId, x.RecipeId });
 

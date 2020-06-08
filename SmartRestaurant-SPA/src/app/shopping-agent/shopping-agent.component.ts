@@ -13,6 +13,7 @@ import { Product } from "../_models/product";
 export class ShoppingAgentComponent implements OnInit {
   ingredList: IngredShop[] = [];
   public ingredDataTable: any;
+  public messageFlag = false;
 
   constructor(
     private routerExtService: RouterExtenderService,
@@ -43,10 +44,12 @@ export class ShoppingAgentComponent implements OnInit {
         );
         this.ingredDataTable = ingredTable.DataTable({
           lengthMenu: [
-            [3, 10, 20, -1],
-            [3, 10, 20, "All"],
+            [3, 5, 7, -1],
+            [3, 5, 7, "All"],
           ],
         });
+
+        this.messageFlag=true;
       });
   }
 }

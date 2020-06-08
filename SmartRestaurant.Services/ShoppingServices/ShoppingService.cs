@@ -30,7 +30,8 @@ namespace SmartRestaurant.Services.ShoppingServices
         {
             List<IngredShopDto> ingredList = new List<IngredShopDto>();
             List<IngredientDto> allIngredList = new List<IngredientDto>();
-           
+            List<IngredShopDto> resultList = new List<IngredShopDto>();
+
             foreach (var prod in prodList)
             {
                 var ingredientsList = (await _prodService.GetAllProductIngredients(prod.Id)).ToList();
@@ -43,7 +44,7 @@ namespace SmartRestaurant.Services.ShoppingServices
                 allIngredList = allIngredList.Concat(ingredientsList).ToList();
             }
 
-            var resultList = allIngredList.GroupBy(d => d.Name)
+            var sumIngredList = allIngredList.GroupBy(d => d.Name)
                                .Select(
                                     g => new IngredShopDto
                                     {
@@ -53,7 +54,7 @@ namespace SmartRestaurant.Services.ShoppingServices
                                     })
                                .ToList();
 
-            resultList.ForEach( x =>
+            sumIngredList.ForEach( x =>
             {
                 if (x.NumberOfPieces > 0)
                 {
@@ -64,10 +65,16 @@ namespace SmartRestaurant.Services.ShoppingServices
                 if (x.Quantity > 0)
                 {
                     var ingred =  _ingredPerUnitRepo.Query().Where(y => y.Name.Equals(x.IngredName)).FirstOrDefault();
-                    x.QuantityToBuy = ingred.Quantity < x.Quantity ? x.Quantity - ingred.Quantity : 0;
+                    x.QuantityToBuy = ingred.Quantity < x.Quantity ? x.Quantity - ingred.Quantity : 0f;
+                }
+
+                if ((x.QuantityToBuy != 0f && x.QuantityToBuy!=null) || (x.NumberOfPiecesToBuy!=0 && x.NumberOfPiecesToBuy!=null))
+                {
+                    resultList.Add(x);
                 }
 
             });
+
             return resultList;
         }
     }

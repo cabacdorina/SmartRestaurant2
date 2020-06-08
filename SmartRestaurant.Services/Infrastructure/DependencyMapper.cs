@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SmartRestaurant.Services.CommandServices;
 using SmartRestaurant.Services.IngredientServices;
 using SmartRestaurant.Services.IngredientServices.IngredientInterfaces;
 using SmartRestaurant.Services.PredictServices;
@@ -24,7 +23,6 @@ namespace SmartRestaurant.Services.Infrastructure
             services.AddScoped<IIngredientPerPieceService, IngredientPerPieceService>();
             services.AddScoped<IIngredientPerUnitService, IngredientPerUnitService>();
             services.AddScoped<IRecipeService, RecipeService>();
-            services.AddScoped<ICommandService, CommandServices.CommandService>();
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton<IPredictService, PredictService>();
             services.AddScoped<IShoppingService, ShoppingService>();
