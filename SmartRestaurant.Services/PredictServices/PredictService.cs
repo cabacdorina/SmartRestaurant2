@@ -37,7 +37,8 @@ namespace SmartRestaurant.Services.PredictServices
             List<int> predictedValues = new List<int>();
             foreach (var product in prodList)
             {
-                predictedValues.Add(await this.PredictAmount(product));
+                var predictedValue = await this.PredictAmount(product);
+                predictedValues.Add(predictedValue);
             }
 
             return await Task.FromResult(predictedValues);

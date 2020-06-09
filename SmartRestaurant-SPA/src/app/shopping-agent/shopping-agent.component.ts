@@ -52,4 +52,14 @@ export class ShoppingAgentComponent implements OnInit {
         this.messageFlag=true;
       });
   }
+
+  getIngredUnitType(type: number){
+    if(type === null) {
+      return "Pieces";
+    } else if(type === 0) {
+      return "Gram";
+    } else if(type === 1) {
+      return "Liter";
+    }
+  }
 }

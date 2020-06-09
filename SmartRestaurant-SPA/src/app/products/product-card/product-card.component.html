@@ -2,7 +2,7 @@
   <div class="card-img-wrapper">
     <div>
       <!-- <img class="card-img-top" src="{{prod?.Url}}"> -->
-      <img [className]="prod.amount === 0 ? 'card-img disable-card' : 'card-img'" src="assets/img/cake.jpg" alt="image"> 
+      <img [className]="prod.amount === 0 ? 'card-img disable-card' : 'card-img'" src="{{prod.imageUrl}}" alt="image"> 
   </div>
     <ul class="list-inline member-icons animate text-cnter">
         <li class="list-inline-item">
@@ -15,7 +15,7 @@
 
   <div class="card-body p-1">
     <h6 class="card-title text-center mb-1">
-     <p> {{prod?.name}}<br>{{prod?.price}}</p>
+     <p> {{prod?.name}}<br>{{prod?.price}} RON</p>
     </h6>
   </div>
 </div>

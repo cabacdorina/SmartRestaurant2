@@ -44,13 +44,14 @@ namespace SmartRestaurant.Services.ShoppingServices
                 allIngredList = allIngredList.Concat(ingredientsList).ToList();
             }
 
-            var sumIngredList = allIngredList.GroupBy(d => d.Name)
+            var sumIngredList = allIngredList.GroupBy(d => new { d.Name, d.UnitType })
                                .Select(
                                     g => new IngredShopDto
                                     {
-                                        IngredName = g.Key,
+                                        IngredName = g.Key.Name,
                                         Quantity = g.Sum(s => s.Quantity),
-                                        NumberOfPieces = g.Sum(s => s.NumberOfPieces)
+                                        NumberOfPieces = g.Sum(s => s.NumberOfPieces),
+                                        UnitType = g.Key.UnitType
                                     })
                                .ToList();
 
