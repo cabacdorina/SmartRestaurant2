@@ -66,7 +66,7 @@ export class ShoppingListComponent implements OnInit {
   }
 
   calculateToatalTvaToPay() {
-    this.totalTva = this.tvaPercentage * this.sum;
+    this.totalTva = this.numberRoundedToTwoDecimals(this.tvaPercentage * this.sum);
   }
 
   numberRoundedToTwoDecimals(numberToRound: number) {
@@ -129,7 +129,8 @@ export class ShoppingListComponent implements OnInit {
 
   setTvaForEachProduct() {
     this.prods.forEach((prod) => {
-      prod.tva = this.getTva(prod.price, prod.requestAmount);
+      let tva=this.getTva(prod.price, prod.requestAmount);
+      prod.tva = this.numberRoundedToTwoDecimals(tva);
     });
   }
 }

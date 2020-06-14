@@ -28,7 +28,7 @@ export class IngredientService {
   }
 
   addIngredient(ingredient: Ingredient, type: string): Observable<Object> {
-    console.log("service: " + ingredient.name);
+    //console.log("service: " + ingredient.name);
     if (type === "Liter" || type === "Gram") {
       ingredient.unitType = type == "Gram" ? 0 : 1;
       return this.http.post<Ingredient>(
@@ -45,7 +45,7 @@ export class IngredientService {
   }
 
   editIngredient(ingredient: Ingredient, type: string): Observable<Object> {
-    console.log("service: " + ingredient.name);
+    //console.log("service: " + ingredient.name);
     if (type === "Liter" || type === "Gram") {
       ingredient.unitType = type == "Gram" ? 0 : 1;
       return this.http.put<Ingredient>(

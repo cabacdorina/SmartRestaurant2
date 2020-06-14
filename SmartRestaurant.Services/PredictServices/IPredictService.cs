@@ -8,7 +8,6 @@ namespace SmartRestaurant.Services.PredictServices
 {
     public interface IPredictService
     {
-        Task<int> PredictAmount(ProductDto productDto);
         Task<List<int>> PredictAmountForProductList(List<ProductDto> prodList);
     }
 }

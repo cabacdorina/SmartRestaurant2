@@ -20,17 +20,6 @@ namespace SmartRestaurant.API.Controllers
             _predictService = predictService;
         }
 
-        [HttpPost("GetPrediction")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetPrediction([FromBody] ProductDto productDto)
-        {
-            var amount = await _predictService.PredictAmount(productDto);
-            return Ok(new  
-            {
-                ProductName = productDto.Name,
-                Score = amount
-            }) ;
-        }
 
         [HttpPost("GetPredictionList")]
         [Authorize(Roles = "Admin")]

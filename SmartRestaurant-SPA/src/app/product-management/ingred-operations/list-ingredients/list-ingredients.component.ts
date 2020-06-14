@@ -63,7 +63,7 @@ export class ListIngredientsComponent implements OnInit {
     this.ingredientService
       .removeIngredientPerUnit(ingredToDelete)
       .subscribe((res: any) => {
-        console.log(res.message);
+        //console.log(res.message);
         this.ingredientsPerUnit.splice(i, 1);
         this.alertify.success("Ingredient removed!");
       });

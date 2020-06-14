@@ -13,7 +13,6 @@ import { RouterExtenderService } from "../_services/router-extender.service";
 })
 export class ProductPredictionComponent implements OnInit {
   public predictAllFlag = false;
-  public predictOneFlag = false;
 
   public dessertFlag: boolean = false;
   public mainFoodFlag: boolean = false;

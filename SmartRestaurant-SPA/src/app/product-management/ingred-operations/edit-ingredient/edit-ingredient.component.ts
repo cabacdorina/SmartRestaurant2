@@ -28,9 +28,9 @@ export class EditIngredientComponent implements OnInit {
 
   saveEditedIngredient(){
     this.ingredService.editIngredient(this.ingred, this.type).subscribe(res=>{
-      console.log(res);
+      //console.log(res);
       this.alertify.success('Ingredient edited!');
-      this.managService.onEditIngred(false);
+      //this.managService.onEditIngred(false);
       this.managService.onViewIngredient(true);
     })
   }
